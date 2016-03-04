@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="id_item_image" type="id"/>
+    <item name="id_item_text" type="id"/>
+   <!-- office envriment -->
+      <item name="id_office_envriment_view" type="id"/>
+      <item name="id_office_envriment_top" type="id"/>
+      <item name="id_office_envirment_wifi" type="id"/>
+      <item name="id_office_envirment_list" type="id"/>
+      <item name="id_office_envirment_bottom" type="id"/>
+      <item name="id_oe_list_item_image" type="id"/>
+      <item name="id_oe_list_item_text" type="id"/>
+      <item name="id_oe_list_item_button_layout" type="id"/>
+      <item name="id_oe_list_item_button" type="id"/>
+    <!-- document managed -->
+	<item name="id_dm_item_flie_imageView" type="id"/>
+	<item name="id_dm_item_file_textView" type="id"/>
+	<item name="id_dm_list_item_File_type_select" type="id"/>
+	 <!-- file Select -->
+	 <item name="id_file_select_title" type="id"/>
+	 <item name="id_file_select_gridview" type="id"/>
+	 <item name="id_file_select_listview" type="id"/>
+	
+	 <!-- ddd -->
+	 <item name="id_search_print_map_parent" type="id"/>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/qin_body_white_smoke"
+     android:orientation="vertical" >
+ <!-- Title -->
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="@integer/qin_header_scale"
+    android:background="@color/qin_title_bar_blue"
+    android:layout_gravity="top"
+    android:gravity="top"
+    android:orientation="horizontal" >
+
+   <include	layout="@layout/document_mananager_title" />
+    
+    </LinearLayout>
+    <!-- Document ListO nLayout   -->
+    <LinearLayout
+    android:id="@+id/id_document_management_list"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="@integer/qin_body_scale"
+    android:layout_gravity="top"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:gravity="top"
+    android:orientation="horizontal" >
+
+        <GridView
+            android:id="@id/id_dm_list_item_File_type_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:verticalSpacing="10dp" >
+          
+        </GridView>
+        
+
+    </LinearLayout>
+ <!-- Bottom background -->
+ <include layout="@layout/pannel_bottom_background"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="@integer/qin_footer_scale"       
+      android:background="@color/qin_title_bar_blue"/>   
+</LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qin_body_white_smoke"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/qin_header_scale"
+        android:background="@color/qin_title_bar_blue"
+         >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            style="@style/button_bar_header_back"  
+                   
+            android:text="返回" />
+
+			<TextView		 
+			    style="@style/text_view_bar_header_title"			  
+			    android:text="@string/my_order" />
+			
+			<Button
+			    android:id="@+id/btn_flash"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentEnd="true"
+			    android:layout_alignParentRight="true"
+			    style="@style/button_bar_header"
+			   
+			    android:text="刷新" />
+
+    </RelativeLayout>
+
+   <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="@integer/qin_body_scale">
+		  <!--  <LinearLayout		    
+		       android:id="@+id/id_print_order_list_view"  
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:orientation="vertical" /> -->
+		    
+		    <com.handmark.pulltorefresh.library.PullToRefreshListView  
+                       android:id="@+id/id_print_order_list_view"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:divider="#00000000"
+                       android:footerDividersEnabled="false"
+				       android:dividerHeight="2dp" >  
+		           
+           </com.handmark.pulltorefresh.library.PullToRefreshListView>
+      
+		  <!--   <ListView
+                android:id="@+id/id_print_order_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#00000000"
+                
+                android:dividerHeight="2dp"
+                android:footerDividersEnabled="false"
+                 >
+            </ListView> -->
+
+ 	</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/qin_footer_scale"
+        android:background="@color/qin_title_bar_blue"
+        android:orientation="horizontal" >
+
+        
+
+    </LinearLayout>
+
+</LinearLayout>

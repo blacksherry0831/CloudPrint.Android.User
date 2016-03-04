@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="UserNameLength">50</integer>
+    <integer name="PasswordLength">18</integer>
+    <integer name="TrueNameLength">16</integer>
+    <integer name="PhoneNumberLength">20</integer>
+    <integer name="int_10">10</integer>
+    <integer name="int_ten">10</integer>
+    <integer name="qin_header_scale">100</integer>
+    <integer name="qin_body_scale">1000</integer>
+    <integer name="qin_footer_scale">100</integer>
+</resources>

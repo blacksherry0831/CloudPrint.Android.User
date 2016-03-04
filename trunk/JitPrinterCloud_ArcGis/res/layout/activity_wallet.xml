@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qin_body_white_smoke"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.jit.cloud_print_cc.Activity_Login" >
+
+    <!--   android:background="@drawable/bg_right_minor" -->
+  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="@integer/qin_header_scale"
+        android:background="@color/qin_title_bar_blue"
+        android:gravity="center"
+        android:orientation="vertical" >
+        <!--  android:background="@drawable/panel_top_background"  -->
+  <TextView
+         android:id="@id/id_file_select_title"
+         style="@style/text_view_bar_header_title"
+         android:text="我的钱包" />
+</LinearLayout>
+
+  <!-- <Button
+            android:id="@+id/btn_login"
+            android:layout_width="70dip"
+            android:layout_height="40dip"
+            android:layout_alignLeft="@+id/cb_mima"
+            android:layout_alignRight="@+id/et_mima"
+            android:layout_below="@+id/cb_mima"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/button_blue_org"
+            android:gravity="center"
+            android:text="登    录"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+   -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="2dp"
+        android:layout_weight="@integer/qin_body_scale"
+        android:orientation="vertical" >
+
+<!--  android:background="@drawable/button_another" -->
+		  <RelativeLayout
+		                   android:layout_marginTop="8dp"
+		                   android:layout_marginBottom="8dp"
+		                   android:background="@color/color_transparent_8f"
+		                   android:layout_width="match_parent"
+		                   android:layout_height="wrap_content" >
+
+                    <TextView                      
+	                       android:layout_width="wrap_content"
+	                       android:layout_height="wrap_content"
+	                       android:textSize="22sp"
+	                       android:text="我的钱包" />
+
+                    <TextView
+                          android:id="@+id/textView_wallet"
+	                      android:layout_width="wrap_content"
+	                      android:layout_height="wrap_content"
+	                      android:layout_alignParentEnd="true"
+	                      android:layout_alignParentRight="true"
+	                      android:text="账户余额：￥ 0.00 >"
+	                      android:textColor="@color/gray"
+	                      android:textSize="16sp" />
+
+                </RelativeLayout>
+
+		  <LinearLayout
+		      android:layout_width="match_parent"
+		      android:layout_height="wrap_content"
+		        android:background="@color/color_transparent_8f"
+		      android:layout_marginTop="20dp"
+		      android:orientation="vertical" >
+
+		      <EditText
+		          android:id="@+id/editText1"
+		          android:layout_width="match_parent"
+		          android:layout_height="wrap_content"
+		          android:layout_marginBottom="4dp"
+		          android:layout_marginTop="4dp"
+		          android:ems="10"
+		          android:hint="金额(元)   请输入充值金额"
+		          android:numeric="signed" >
+
+		          <requestFocus />
+		      </EditText>
+
+		      <Button
+		          android:id="@+id/btn_login"
+		          android:layout_width="match_parent"
+		          android:layout_height="wrap_content"
+		          android:layout_marginTop="4dp"
+		           android:layout_marginBottom="4dp"
+		          android:background="@drawable/button_blue_org"
+		          android:gravity="center"
+		          android:text="充      值"
+		          android:textColor="#000000"
+		          android:textSize="18sp" />
+
+		  </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/qin_footer_scale"
+        android:background="@color/qin_title_bar_blue"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</LinearLayout>

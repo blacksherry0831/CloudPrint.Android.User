@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/efp__ic_file_forder_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+	<!--    android:background="@drawable/efp__ic_file_forder_bg" -->
+<!-- 	 android:background="#ffD2E9FF" -->
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_marginTop="5dp"
+        android:layout_width="100dp"
+        android:layout_height="71dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        
+        android:contentDescription="@string/efp__app_name"      
+        android:src="@android:drawable/stat_sys_download_done" />
+<!--   android:scaleType="centerInside" -->
+
+    <TextView
+        android:id="@+id/filename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_below="@+id/thumbnail"
+        android:lines="2"
+        android:ellipsize="end"       
+        android:text="@string/efp__app_name"
+        android:textColor="@color/color_file_name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/thumbnail"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="-6dp"
+        android:background="@drawable/efp__ic_file_forder_bg"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone" />
+
+</RelativeLayout>

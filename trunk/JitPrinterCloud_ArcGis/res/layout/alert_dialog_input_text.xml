@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_file_transfer_sharp"
+    android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView_alert_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="输入标题"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_alert_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:background="#E6E6FA"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/editText_alert_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="在此输入手机别名"
+                android:inputType="textPersonName" >
+
+                <requestFocus />
+            </EditText>
+
+                <TextView
+                    android:id="@+id/textView_alert_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:isScrollContainer="true"
+                    android:scrollbars="vertical"
+                    android:text="接受文件列表:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            <!-- 
+            
+            <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        android:text="取消发送：" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        android:text="发送失败：" />
+            
+            
+             -->
+
+    
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_alert_sure"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                style="@style/button_body_default_print"
+                android:text="确定"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button_alert_cancle"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                style="@style/button_body_default_print"
+                android:text="取消"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

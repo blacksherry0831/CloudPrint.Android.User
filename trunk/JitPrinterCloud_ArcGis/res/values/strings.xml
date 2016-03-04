@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">亲打印-用户版</string>
+    <string name="action_settings">博客地址</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- 登录界面资源 -->
+    <string name="forget_pwd"><u>忘记密码？</u></string>
+    <string name="no_id_2_register"><u>没有账号注册一个！</u></string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <!-- 圆盘主界面 -->
+    <string name="app_des">&#160;&#160;&#160;&#160;&#160;&#160;亲打印是南京韵奇盈信息技术有限公司研发的一款基于移动平台的办公服务软件。</string>
+    <string name="app_des_about">
+       &#160;&#160;&#160;&#160;&#160;&#160;亲打印是南京韵奇盈信息技术有限公司研发的一款基于移动平台的办公服务软件。该软件的核心技术来源于2012年7月～2015年12月，金陵科技学院聂影教授主持的江苏省科技厅科技支撑计划项目“南京青奥会云打印支撑技术集成应用研究项目”。\n
+       &#160;&#160;&#160;&#160;&#160;&#160;亲打印的基本功能如下：\n
+       &#160;&#160;&#160;&#160;&#160;&#160;1．具有基于手机优盘功能，能方便您的办公文档存储；\n
+       &#160;&#160;&#160;&#160;&#160;&#160;2．具有基于手机云盘功能，能方便您的大文件移动存储；\n
+       &#160;&#160;&#160;&#160;&#160;&#160;3．具有基于wifi+打印机+复印机+计算机+手机等网络资源的共享与互联互通功能，能更加快捷地构建起属于您自己的移动办公环境；\n
+       &#160;&#160;&#160;&#160;&#160;&#160;4．无需配置打印机驱动程序的情况下，可通过移动终端直接对打印机和复印机进行打印机控制和文档输出，提高您的办公效率；\n
+       &#160;&#160;&#160;&#160;&#160;&#160;5．具有基于GIS地理信息系统的文印点搜索与业务订单提交功能，提高您的移动办公效率；\n
+       &#160;&#160;&#160;&#160;&#160;&#160;6．具有文印费的移动支付及在线优惠服务功能，能让您获得最优质价比的文印服务。\n
+       &#160;&#160;&#160;&#160;&#160;&#160;亲打印软件的开发团队成员：郑李明、崔兵兵、张晓晨。</string>
+    <!-- 圆盘主界面 -->
+    <string-array name="CircleItemText">
+        <item>退出程序</item>
+        <item>手动添加</item>
+        <item>打印服务</item>
+        <item>设备状态</item>
+        <item>搜索打印机</item>
+    </string-array>
+
+    <string name="my_order">我的订单</string>
+    <string name="close">退出程序</string>
+    <string name="office_environment">办公环境</string>
+    <string name="printservices">打印服务</string>
+    <string name="print_out">打印输出</string>
+    <string name="printer_wizard">打印向导</string>
+    <string name="status">设备状态</string>
+    <string name="search">搜索打印</string>
+    <string name="doc_manage">文档管理</string>
+    <string name="my_wallet">我的钱包</string>
+    <string name="preferential">优惠活动</string>
+    <string name="ToastClickCcenterButton">点击了中间件</string>
+    <string name="login">登录</string>
+    <!-- 办公环境 -->
+    <string name="oe_wifi_name">Wifi名称</string>
+    <string name="oe_wifi_refresh">刷新Wifi</string>
+    <string name="oe_wifi_test_Printer_sharp"> 机器名 ：SHARP\r\n IP地址 192.168.0.20\r\n打印机类型：网络打印机\r\n搜索时间：2015、5、14 11:01\r\n 状态：状态未注册/可用</string>
+    <!-- 注册打印机 -->
+    <string name="register_printer">注册打印机</string>
+    <string name="register_printer_edit_tips">输入办公地点：</string>
+    <!-- 文档管理 -->
+    <string name="dm_file_excel">Execl</string>
+    <string name="dm_file_image">我的图片</string>
+    <string name="dm_file_jpg">JPG</string>
+    <string name="dm_file_my_net">我的云盘</string>
+    <string name="dm_file_my_pc">我的电脑</string>
+    <string name="dm_file_word">Word</string>
+    <string name="dm_file_pdf">PDF</string>
+    <string name="dm_file_my_phone">手机U盘</string>
+    <string name="dm_file_my_photo">我的相册</string>
+    <string name="dm_file_my_qq">QQ文件</string>
+
+    <string-array name="efp__size_units">
+        <item>B</item>
+        <item>kB</item>
+        <item>mB</item>
+        <item>gB</item>
+        <item>tB</item>
+        <item>pB</item>
+    </string-array>
+
+    <string name="efp__empty_directory">This directory is empty</string>
+    <string name="efp__action_select_all">Select all</string>
+    <string name="efp__action_deselect">Deselect</string>
+    <string name="efp__action_invert_selection">Invert selection</string>
+    <string name="efp__new_folder">New folder</string>
+    <string name="efp__folder_name_hint">Folder name</string>
+    <string name="efp__folder_created">Folder created successfully</string>
+    <string name="efp__folder_not_created">Error! Folder isn\'t created</string>
+    <string name="efp__folder_already_exists">Folder already exists</string>
+    <string name="efp__sort">Sort</string>
+
+    <string-array name="efp__sorting_types">
+        <item>By name, ascending</item>
+        <item>By name, descending</item>
+        <item>By size, ascending</item>
+        <item>By size, descending</item>
+        <item>By date, ascending</item>
+        <item>By date, descending</item>
+    </string-array>
+
+    <string name="efp__app_name">ExFilePicker</string>
+    <string name="efp__action_grid">Grid</string>
+    <string name="efp__action_list">List</string>
+    <!-- <string name="baidu_map_key">snQpG6ujilVDpMqnNZK9pD6W</string> -->
+    <string name="search_printer_title">云端打印搜索地图</string>
+    <string name="print_out__main_title">订单生成</string>
+    <string name="print_out__order_id_title">订单号：</string>
+    <string name="print_out_item_list_test">订单号 :12212122222222212212\r\n￥10.0\r\n15-05-19 23:41\r\n送货地址</string>
+    <string name="print_address_selecct__main_title">配送地点</string>
+    <string name="print_address_search_button">搜    索 </string>
+    <string name="print_address_search_textview">地址:</string>
+    <string name="ok_buttton">确    定</string>
+    <string name="title_activity_cloud_print_activity_template">CloudPrintActivityTemplate</string>
+
+    <!-- URL -->
+    <!-- <string name="Server_host_url">http://121.42.14.126</string> -->
+    <string name="Server_host_url">http://www.qindayin.com</string>
+    <string name="Server_host_url_privilege">http://m.yunqiying.net/index.jsp</string>
+    <!-- http://m.yunqiying.net/index.jsp -->
+    <!-- <string name="Server_host_url">http://www.qindayin.com</string> -->
+    <string name="Server_port">80</string>
+    <string name="Server_host_url_register_printer">/MobileUrl/MobileRegPrinterHandler.ashx</string>
+    <string name="Server_host_url_register_user">/MobileUrl/MobileUserRegHandler.ashx</string>
+    <string name="Server_host_url_send_file">/MobileUrl/MobileUpLoadFileHandler.ashx</string>
+    <string name="Server_host_url_download_file">/MobileUrl/MobileDownLoadFileHandler.ashx</string>
+    <!-- QinPrint URL -->
+    <string name="Server_qin_url_login">/MobileLoginHandler.ashx</string>
+    <string name="Server_qin_url_reg">/machine/MobileUserRegHandler.ashx</string>
+    <string name="Server_qin_url_GetOrderList">/machine/MobileGetOrdersHandler.ashx</string>
+    <string name="Server_qin_url_GetDiskList">/machine/MobileGetFileListHandler.ashx</string>
+    <string name="Server_qin_url_SendFile2Cloud">/machine/MobileUpLoadFileHandler.ashx</string>
+    <string name="Server_qin_url_DownFileFromCloud">/machine/MobileDownLoadFileHandler.ashx</string>
+    <string name="Server_qin_url_DeleteFileFromCloud">/machine/MobileDeleteFileHandler.ashx</string>
+    <string name="Server_qin_url_MobileMakeOrders">/machine/MobileMakeOrders.ashx</string>
+    <!--  -->
+    <!-- http://localhost:42246/MobileUrl/MobileUserRegHandler.ashx -->
+    <string name="title_activity_muti_order_gener">MutiOrderGenerActivity</string>
+    <string name="Server_host_url_suck">ai</string>
+    <string name="title_activity_activity__file_select__net_disk">Activity_FileSelect_NetDisk</string>
+    <string name="title_activity_activity__web_view">Activity_WebView</string>
+    <string name="title_activity_activity__wallet">Activity_Wallet</string>
+    <string name="title_activity_activity__my">Activity_My</string>
+    <string name="title_activity_activity_about">ActivityAbout</string>
+
+</resources>

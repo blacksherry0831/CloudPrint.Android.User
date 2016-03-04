@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_file_transfer_sharp"
+    android:orientation="vertical" >
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="打印设置"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:background="@drawable/print_order_form_main_select_bg" >
+        	
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="match_parent"
+    	        android:background="@drawable/print_order_form_main_select_bg"
+    	        android:orientation="vertical" >
+
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="8dp"
+    	        android:orientation="vertical" >
+    	    </LinearLayout>
+
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	        <TextView
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="match_parent"
+    	            android:layout_marginLeft="10dp"
+    	            android:layout_marginRight="10dp"
+    	            android:gravity="center"
+    	            android:text="打印份数"
+    	            android:textColor="@android:color/black"
+    	            android:textSize="16sp"
+    	            android:textStyle="bold" />
+
+    	        <EditText
+    	            android:id="@+id/editText_order_form_copies"
+    	            android:layout_width="150dp"
+    	            android:layout_height="wrap_content"
+    	            android:layout_gravity="center"
+    	            android:background="@color/color_transparent_8f"
+    	            android:ems="10"
+    	            android:gravity="center"
+    	            android:inputType="number|numberDecimal" />
+    	    </LinearLayout>
+
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	        <TextView
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="match_parent"
+    	            android:layout_marginLeft="10dp"
+    	            android:layout_marginRight="10dp"
+    	            android:gravity="center"
+    	            android:text="纸型："
+    	            android:textColor="@android:color/black"
+    	            android:textSize="16sp"
+    	            android:textStyle="bold" />
+
+    	        <Spinner
+    	            
+    	            android:id="@+id/spinner1"
+    	            android:layout_width="180dp"
+    	            android:layout_height="35dp"
+    	           
+    	            android:layout_marginLeft="20dp" />
+    	    </LinearLayout>
+            <!-- 面数 -->
+             <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	        <TextView
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="match_parent"
+    	            android:layout_marginLeft="10dp"
+    	            android:layout_marginRight="10dp"
+    	            android:gravity="center"
+    	            android:text="面数："
+    	            android:textColor="@android:color/black"
+    	            android:textSize="16sp"
+    	            android:textStyle="bold" />
+
+    	        <Spinner
+    	            
+    	            android:id="@+id/spinner_paper_page"
+    	            android:layout_width="180dp"
+    	            android:layout_height="35dp"
+    	           
+    	            android:layout_marginLeft="20dp" />
+    	    </LinearLayout>
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	        <TextView
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="match_parent"
+    	            android:layout_marginLeft="10dp"
+    	            android:layout_marginRight="10dp"
+    	            android:gravity="center"
+    	            android:text="纸张大小："
+    	            android:textColor="@android:color/black"
+    	            android:textSize="16sp"
+    	            android:textStyle="bold" />
+
+    	        <Spinner
+    	            
+    	            android:id="@+id/spinner_paper_size"
+    	            android:layout_width="180dp"
+    	            android:layout_height="35dp"
+    	           
+    	            android:layout_marginLeft="20dp" />
+    	    </LinearLayout>
+    	      <!-- 纸张大小-->
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	        <TextView
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="match_parent"
+    	            android:layout_marginLeft="10dp"
+    	            android:layout_marginRight="10dp"
+    	            android:gravity="center"
+    	            android:text="打印色彩："
+    	            android:textColor="@android:color/black"
+    	            android:textSize="16sp"
+    	            android:textStyle="bold" />
+
+    	        <RadioGroup
+    	            android:id="@+id/radioGroup_color_gray_selected"
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="wrap_content"
+    	            android:orientation="horizontal" >
+
+    	            <RadioButton
+    	                android:id="@+id/radioButton_gray"
+    	                android:layout_width="wrap_content"
+    	                android:layout_height="wrap_content"
+    	                android:layout_marginRight="10dp"
+    	                android:text="黑白"
+    	                 android:checked="true"
+    	                android:textColor="@android:color/black" />
+    	            <RadioButton
+    	                android:id="@+id/radioButton_color"
+    	                android:layout_width="wrap_content"
+    	                android:layout_height="wrap_content"
+    	               
+    	                android:text="彩色"
+    	                android:textColor="@android:color/black" />
+
+    	            
+    	        </RadioGroup>
+    	    </LinearLayout>
+
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	        <RadioGroup
+    	            android:id="@+id/radioGroup_print_page_range"
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="wrap_content"
+    	            android:orientation="horizontal" >
+
+    	        </RadioGroup>
+    	    </LinearLayout>
+
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	    </LinearLayout>
+
+    	    <LinearLayout
+    	        android:layout_width="match_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_marginBottom="4dp"
+    	        android:orientation="horizontal" >
+
+    	        <TextView
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="match_parent"
+    	            android:layout_marginLeft="10dp"
+    	            android:layout_marginRight="10dp"
+    	            android:gravity="center"
+    	            android:text="双面打印："
+    	            android:textColor="@android:color/black"
+    	            android:textSize="16sp"
+    	            android:textStyle="bold" />
+
+    	        <RadioGroup
+    	            android:id="@+id/radioGroup_page_type"
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="wrap_content"
+    	            android:orientation="horizontal" >
+
+    	            <RadioButton
+    	                android:id="@+id/radioButton_page_one"
+    	                android:layout_width="wrap_content"
+    	                android:layout_height="wrap_content"
+    	                android:checked="true"
+    	                android:text="否"
+    	                android:textColor="@android:color/black" />
+
+    	            <RadioButton
+    	                 android:id="@+id/radioButton_page_two"
+    	               
+    	                android:layout_width="wrap_content"
+    	                android:layout_height="wrap_content"
+    	                android:layout_marginRight="10dp"
+    	                android:text="是"
+    	                android:textColor="@android:color/black" />
+    	        </RadioGroup>
+    	    </LinearLayout>
+    	</LinearLayout>
+        </ScrollView>
+
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_alert_cancle"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                style="@style/button_body_alert_print"
+                android:text="取消"
+                 />
+
+            <Button
+                android:id="@+id/button_alert_sure"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                style="@style/button_body_alert_print"
+                android:text="确定"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

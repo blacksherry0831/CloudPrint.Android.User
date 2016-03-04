@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+    <!--    <ImageView
+        android:id="@+id/imageView_oet1"
+        android:layout_width="35dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/office_environment_title" /> -->
+<Button
+            android:id="@+id/button_esc"
+            style="@style/button_bar_header_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+          
+            android:text="返回" />
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:layout_centerVertical="true" >
+
+        <ImageView
+            android:id="@+id/imageView_oet1"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/office_environment_title"
+            android:scaleType="fitEnd" />
+    
+     <!--    android:layout_toLeftOf="@id/textview_oet2"-->
+
+     <TextView
+         android:id="@+id/textview_oet2"
+         android:layout_toRightOf="@id/imageView_oet1"
+         android:text="@string/office_environment"
+         style="@style/text_view_bar_header_title" />
+      
+  </LinearLayout>
+
+  
+
+</RelativeLayout>

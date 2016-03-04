@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayout_progress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearlayout_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/progressBar_total"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="1dp"
+            android:max="100"
+            android:progress="50"
+            android:progressDrawable="@drawable/progress_bar_file_transfer" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_part"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="1dp"
+            android:max="100"
+            android:progress="50"
+            android:progressDrawable="@drawable/progress_bar_file_transfer" />
+
+    </LinearLayout>
+
+                 <TextView
+                     android:id="@+id/textView_SendSpeed"
+                     android:layout_width="185dp"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="right"
+                     android:text="正在传输"
+                     android:textColor="#ff6600"
+                     android:textSize="20sp"
+                     android:textStyle="bold" />
+</LinearLayout>

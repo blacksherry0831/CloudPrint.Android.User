@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_mode_wizard"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/id_button_bottom_prev"
+            android:layout_width="104dp"
+             android:layout_height="43dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+             style="@style/button_body_default_print"
+            android:text="上一步"
+            />
+
+          <Button
+              android:id="@+id/id_button_bottom_esc"
+              android:layout_width="104dp"
+              android:layout_height="43dp"
+			  android:layout_marginBottom="8dp"
+              android:layout_marginLeft="4dp"
+              android:layout_marginRight="4dp"
+              android:layout_marginTop="8dp"
+              android:layout_weight="1"
+               android:layout_gravity="center"
+              style="@style/button_body_default_print"
+              android:text="取消"
+               />
+
+          <Button
+              android:id="@+id/id_button_bottom_next"
+              android:layout_width="104dp"
+              android:layout_height="43dp"
+			  android:layout_marginBottom="8dp"
+              android:layout_marginLeft="4dp"
+              android:layout_marginRight="4dp"
+              android:layout_marginTop="8dp"
+              android:layout_weight="1"
+               android:layout_gravity="center"
+               style="@style/button_body_default_print"
+              android:text="下一步"  />
+
+    </LinearLayout>

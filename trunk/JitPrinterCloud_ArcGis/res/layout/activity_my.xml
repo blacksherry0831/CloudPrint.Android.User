@@ -1,0 +1,167 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qin_body_white_smoke"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.jit.cloud_print_cc.Activity_Login" >
+
+    <!--   android:background="@drawable/bg_right_minor" -->
+  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="@integer/qin_header_scale"
+        android:background="@color/qin_title_bar_blue"
+        android:gravity="center"
+        android:orientation="vertical" >
+        <!--  android:background="@drawable/panel_top_background"  -->
+  <TextView
+         android:id="@id/id_file_select_title"
+         style="@style/text_view_bar_header_title"
+         android:text="个人信息" />
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/qin_body_scale"
+        android:orientation="vertical" >
+
+<!--  android:background="@drawable/button_another" -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:background="@color/color_transparent_8f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical" >
+                 <TextView
+                    android:id="@+id/text_view_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:text="用户名 ： XXXXXX" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:background="@color/color_transparent_8f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="false"
+                        android:layout_alignParentRight="false"
+                        android:textSize="22sp"
+                        android:text="我的订单" />
+
+                    <TextView
+                        android:id="@+id/textView_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentLeft="false"
+                        android:layout_alignParentRight="true"
+                        android:text="查看全部订单 >"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:background="@color/color_transparent_8f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:textSize="16sp"
+                        android:text="待付款" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:textSize="16sp"
+                        android:text="已付款" />
+                     <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:textSize="16sp"
+                        android:text="已完成" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                     <RelativeLayout
+		                   android:layout_marginTop="8dp"
+		                   android:layout_marginBottom="8dp"
+		                   android:background="@color/color_transparent_8f"
+		                   android:layout_width="match_parent"
+		                   android:layout_height="wrap_content" >
+
+                    <TextView                      
+	                       android:layout_width="wrap_content"
+	                       android:layout_height="wrap_content"
+	                       android:textSize="22sp"
+	                       android:text="我的钱包" />
+
+                    <TextView
+                          android:id="@+id/textView_wallet"
+	                      android:layout_width="wrap_content"
+	                      android:layout_height="wrap_content"
+	                      android:layout_alignParentEnd="true"
+	                      android:layout_alignParentRight="true"
+	                      android:text="账户余额：￥ 0.00 >"
+	                      android:textColor="@color/gray"
+	                      android:textSize="16sp" />
+
+                </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/qin_footer_scale"
+        android:background="@color/qin_title_bar_blue"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qin_body_white_smoke"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.jit.cloud_print_cc.Activity_Login" >
+
+    <!--   android:background="@drawable/bg_right_minor" -->
+  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="@integer/qin_header_scale"
+        android:background="@color/qin_title_bar_blue"
+        android:gravity="center"
+        android:orientation="vertical" >
+        <!--  android:background="@drawable/panel_top_background"  -->
+  <TextView
+         android:id="@id/id_file_select_title"
+         style="@style/text_view_bar_header_title"
+         android:text="亲打印软件介绍" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="2dp"
+        android:layout_weight="@integer/qin_body_scale" >
+<!--  android:background="@drawable/button_another" -->
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:scrollHorizontally="true"
+            android:text="@string/app_des_about"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@integer/qin_footer_scale"
+        android:background="@color/qin_title_bar_blue"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</LinearLayout>
