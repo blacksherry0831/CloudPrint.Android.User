@@ -62,7 +62,9 @@ public class UserInfoBase implements Serializable
 	  public final String _mPostFileQinUrl;/**<上传*/
 	  public final String _mDownloadFileQinUrl;/**<下载*/
 	  public final String _mDeleteFileQinUrl;/**<Delete file*/
-	  public final String _mMobileMakeOrderUrl;/**<Delete file*/
+	  public final String _mMobileMakeOrderUrl;/**<*/
+	  public final String _mMobileMakeOrderUrl_v2;/**<*/
+	  public final String _mMobilePostFileIDHandlerUrl_v2;/**<*/
 	  /*-----------------------------*/
 	  protected HashMap<String,String> mFilesIdOnServer=new HashMap<String,String>();//文件在服务器上的ID
 	  protected HashMap<String,String> mPCLPathOnPhone=new HashMap<String,String>();//PCL文件在本机的路径
@@ -89,6 +91,9 @@ public class UserInfoBase implements Serializable
 		  this._mDownloadFileQinUrl=header+context.getString(R.string.Server_qin_url_DownFileFromCloud);
 		  this._mDeleteFileQinUrl=header+context.getString(R.string.Server_qin_url_DeleteFileFromCloud);
 		  this._mMobileMakeOrderUrl=header+context.getString(R.string.Server_qin_url_MobileMakeOrders);
+		  this._mMobileMakeOrderUrl_v2=header+context.getString(R.string.Server_qin_url_MobileMakeOrders_v2);/**<*/
+		  this._mMobilePostFileIDHandlerUrl_v2=header+context.getString(R.string.Server_qin_url_MobilePostFileIDUrl_v2);/**<*/
+	  
 	  }
 	  /**
 	   * 

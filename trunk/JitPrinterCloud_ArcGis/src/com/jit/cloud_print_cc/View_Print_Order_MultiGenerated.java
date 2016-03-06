@@ -1206,7 +1206,7 @@ public void initChildView()
 						msg.what = SDK_PAY_FLAG;
 						msg.obj = result;
 						_vt.Handler().sendMessage(msg);
-					Looper.loop();
+					   Looper.loop();
 				}
 			};
 

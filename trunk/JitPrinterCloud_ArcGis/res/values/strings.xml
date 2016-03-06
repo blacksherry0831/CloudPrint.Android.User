@@ -124,6 +124,8 @@
     <string name="Server_qin_url_DownFileFromCloud">/machine/MobileDownLoadFileHandler.ashx</string>
     <string name="Server_qin_url_DeleteFileFromCloud">/machine/MobileDeleteFileHandler.ashx</string>
     <string name="Server_qin_url_MobileMakeOrders">/machine/MobileMakeOrders.ashx</string>
+    <string name="Server_qin_url_MobileMakeOrders_v2">/MobileMakeOrders.ashx</string>
+    <string name="Server_qin_url_MobilePostFileIDUrl_v2">/MobilePostFileIDHandler.ashx</string>
     <!--  -->
     <!-- http://localhost:42246/MobileUrl/MobileUserRegHandler.ashx -->
     <string name="title_activity_muti_order_gener">MutiOrderGenerActivity</string>
@@ -133,5 +135,5 @@
     <string name="title_activity_activity__wallet">Activity_Wallet</string>
     <string name="title_activity_activity__my">Activity_My</string>
     <string name="title_activity_activity_about">ActivityAbout</string>
-
+   <!--  -->
 </resources>
