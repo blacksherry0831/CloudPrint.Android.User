@@ -59,8 +59,10 @@ public class NetPhonePc {
 	 	public void WhenRecvFile();
 	 }
 	public   final static int UDP_NOTIFY_INTERVAL=5000;
-	public final static  int[] mUdpSetverPort=new int[]{10001,20002,30003};
-    public final static  int[] mTcpSetverPort=new int[]{10001,20002,30003};
+	//public final static  int[] mUdpSetverPort=new int[]{10001,20002,30003};
+    //public final static  int[] mTcpSetverPort=new int[]{10001,20002,30003};
+	public final static  int[] mUdpSetverPort=new int[]{30003};
+    public final static  int[] mTcpSetverPort=new int[]{30003};
 	private   IRcvFileNotify  mRcvFile=null;
 	private   Handler mHandler = new Handler();
 	private   boolean mThreadRun=true;
