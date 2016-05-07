@@ -64,6 +64,8 @@ public class FileSendOnNet
        private byte[] _Android_phone_num=new byte[256];
        private byte[] _Android_phone_type=new byte[256];
       /*---------------------------------*/
+       private byte[] _json_ext_buffer=new byte[256*20];
+       private String _json_ext_string;
        public FileSendOnNet(FilesWithParams fwp) 
        {
     	   String fileName;
@@ -209,8 +211,9 @@ public class FileSendOnNet
         		  /*--------------------------*/
         		  _Android_os_buffer,
                   _Android_phone_num,
-                  _Android_phone_type
+                  _Android_phone_type,
         		  /*--------------------------*/
+                  _json_ext_buffer
         		  );          
           return header;
       }
@@ -239,6 +242,7 @@ public class FileSendOnNet
 				input_stream.readFully(_Android_phone_num, 0,_Android_phone_num.length);
 				input_stream.readFully(_Android_phone_type, 0,_Android_phone_type.length);
 				/*--------------------------------------------------------------*/
+				input_stream.readFully(_json_ext_buffer, 0,_json_ext_buffer.length);
 				ConvertBuffer2RealData();
 				return true;
 			}else{
