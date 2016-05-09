@@ -52,7 +52,11 @@ import android.widget.Spinner;
 
 import android.widget.TextView;
 import android.widget.Toast;
-
+/**
+ *非对称加密，私钥，不应当在互联网上传输 
+ * 
+ * 
+ */
 public class View_Print_Order_MultiGenerated extends View_CloudPrintTemplate
 {
 public static boolean isDebug = true;
@@ -575,6 +579,7 @@ public void initChildView()
 				//
 				//执行打印
 				// TODO Auto-generated method stub
+				//发送到局域网，，打印文件
 				if(mPrintPointTemp!=null){					
 					new Thread(new PrintDocThread(NOTIFY_THIS_VIEW,mPrintPointTemp)).start();
 					
@@ -883,13 +888,13 @@ public void initChildView()
 						mEditTextPrintCopys.setText(String.valueOf(mFwp.mPrintCopies));
 					}
 				  /*---------------------------------------------------------*/
-				  if(mColorRadio!=null&&mFwp.mIsColor.equals(PrintColor.Color)){
+				  if(mColorRadio!=null&&mFwp.IsColor()){
 					  mColorRadio.check(R.id.radioButton_color);
 				  }else{
 					  mColorRadio.check(R.id.radioButton_gray);
 				  }
 				/*---------------------------------------------------------*/
-				  if(mColorPagetype!=null&&mFwp.mIsDuplex.equals(IsDouble.DoublePaper)){
+				  if(mColorPagetype!=null&&mFwp.IsDuplex()){
 					  mColorPagetype.check(R.id.radioButton_page_two);
 				  }else{
 					  mColorPagetype.check(R.id.radioButton_page_one);
@@ -1061,13 +1066,13 @@ public void initChildView()
 					mEditTextPrintCopys.setText(String.valueOf(mFwp.mPrintCopies));
 				}
 			  /*---------------------------------------------------------*/
-			  if(mColorRadio!=null&&mFwp.mIsColor.equals(PrintColor.Color)){
+			  if(mColorRadio!=null&&mFwp.IsColor()){
 				  mColorRadio.check(R.id.radioButton_color);
 			  }else{
 				  mColorRadio.check(R.id.radioButton_gray);
 			  }
 			/*---------------------------------------------------------*/
-			  if(mColorPagetype!=null&&mFwp.mIsDuplex.equals(IsDouble.DoublePaper)){
+			  if(mColorPagetype!=null&&mFwp.IsDuplex()){
 				  mColorPagetype.check(R.id.radioButton_page_two);
 			  }else{
 				  mColorPagetype.check(R.id.radioButton_page_one);

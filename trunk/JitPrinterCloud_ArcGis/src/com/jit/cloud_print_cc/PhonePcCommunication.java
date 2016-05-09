@@ -37,6 +37,10 @@ public class PhonePcCommunication
      {
          Send2Receive,
          Send2Print,
+         Send2PrintNoPay,
+         Send2PrintPayed,
+         pay4Order,
+         QueryPrintList,
          GetPrinterListXml,
          NULL
      }
@@ -74,6 +78,14 @@ public class PhonePcCommunication
 		// TODO Auto-generated method stub
 	//	this.mOrder=order;
 		return SendFile2Print(mSocketClient,mFilename,mPrinterName, mAddress,mPort);
+	}
+	/**
+	 *提交订单 
+	 */
+	public boolean SendFile2PrintNoPay(UserOrderInfoGenerated order) throws Exception {
+		// TODO Auto-generated method stub
+	//	this.mOrder=order;
+		return SendFile2PrintNoPay(mSocketClient,mFilename,mPrinterName, mAddress,mPort);
 	}
   /**
    * @return 
@@ -274,17 +286,19 @@ public class PhonePcCommunication
   {
       FileSendOnNet myFile=new FileSendOnNet(filename);
       myFile.SetPrinterParam(printer);
+      
       if (type == CommunicationType.Send2Receive){
-          myFile.SendFileRequestedCmd_SendFile(socketClient);
-          
+          myFile.SendFileRequestedCmd_SendFile(socketClient);          
       } else if (type == CommunicationType.Send2Print){
-          myFile.SendFileRequestedCmd_PrintFile(socketClient);
-          
+          myFile.SendFileRequestedCmd_PrintFile(socketClient);          
       }else if(type == CommunicationType. GetPrinterListXml){
-    	  myFile.SendFileRequestedCmd_GetPrinters(socketClient);
-    	  
+    	  myFile.SendFileRequestedCmd_GetPrinters(socketClient);    	  
+      }else if(type == CommunicationType.Send2PrintNoPay){
+    	  myFile.SendFileRequestedCmd_SubmitPrintFileNoPay(socketClient);
+      }else{
+    	  myFile.SendFileRequestedCmd_None(socketClient);
       }
-     
+      
       return true;
   }
   /**
@@ -366,7 +380,14 @@ public class PhonePcCommunication
     	
     }
     
-    public  boolean SendFile2_with_Cmd(Socket socketClient, FilesWithParams filename,CommunicationType type,String printerName, InetAddress mAddress,int mPort) throws Exception
+    public  boolean SendFile2PrintNoPay(Socket socketClient, FilesWithParams filename,String PrinterName, InetAddress mAddress,int mPort) throws Exception
+    {
+    	
+    	return SendFile2_with_Cmd(socketClient, filename, CommunicationType.Send2PrintNoPay, PrinterName, mAddress, mPort);
+    	
+    }
+    
+    public  boolean SendFile2_with_Cmd(Socket socketClient, FilesWithParams fileparams,CommunicationType type,String printerName, InetAddress mAddress,int mPort) throws Exception
     {
     	socketClient.connect(new InetSocketAddress(mAddress,mPort),ConnectTimeOut);
         
@@ -375,13 +396,13 @@ public class PhonePcCommunication
             return true;
         }
 	        /*发送发送文件头*/
-	        SendOperationHeader(socketClient, type,filename,printerName);
+	        SendOperationHeader(socketClient, type,fileparams,printerName);
 	        /*读取服务器反馈*/
         boolean sendAllow = ReadServerPermission(socketClient);
         if (sendAllow == true)
         {
             /*发送文件*/
-            SendFileRawData(socketClient, filename,printerName, mAddress, mPort);
+            SendFileRawData(socketClient, fileparams,printerName, mAddress, mPort);
             return true;
         }else{
             return false;

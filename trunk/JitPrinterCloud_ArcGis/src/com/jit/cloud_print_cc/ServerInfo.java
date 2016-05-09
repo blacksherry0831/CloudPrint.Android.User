@@ -494,7 +494,9 @@ public class ServerInfo  extends ServerInfoBase implements Serializable
 	  {
 			this.mNowSendPercent=NowSendPercent;
 	  }
-      
+      /**
+       *@deprecated 不在使用 
+       **/
 	  public boolean SendFile2Print(Socket s,FilesWithParams  fileName,String PrintName,UserOrderInfoGenerated order) throws Exception
 	  {
 		  PhonePcCommunication ppc=new PhonePcCommunication(
@@ -505,6 +507,21 @@ public class ServerInfo  extends ServerInfoBase implements Serializable
 				  this.mPort);
 		  ppc.SetNowSendPercent(this.mNowSendPercent);
 		  return ppc.SendFile2Print(order);
+	  }
+	  /**
+	   *提交订单，尚未付费 
+	   * 
+	   */
+	  public boolean SendFile2PrintNoPay(Socket s,FilesWithParams  fileName,String PrintName,UserOrderInfoGenerated order) throws Exception
+	  {
+		  PhonePcCommunication ppc=new PhonePcCommunication(
+				  s,
+				  fileName,
+				  PrintName, 
+				  this.mAddress,
+				  this.mPort);
+		  ppc.SetNowSendPercent(this.mNowSendPercent);
+		  return ppc.SendFile2PrintNoPay(order);
 	  }
 	  public boolean IsValidPrint() 
 	  {

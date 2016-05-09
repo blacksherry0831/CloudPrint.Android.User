@@ -466,7 +466,7 @@ public class CloudPrintAddress extends CloudPrintAddressBase  implements Seriali
 		        		   }*/
 						 si=si.Clone();
 						 si.SetNowSendPercent(order.mNowSendPerCent);
-						if(si.SendFile2Print(s, FWP,this.GetPrinterPointName(),order)){
+						if(si.SendFile2PrintNoPay(s, FWP,this.GetPrinterPointName(),order)){
 							order.mErrorStrArray.add("文件提交成功");
 						}else{
 							order.mErrorStrArray.add("文件提交失败，Permission Fail");

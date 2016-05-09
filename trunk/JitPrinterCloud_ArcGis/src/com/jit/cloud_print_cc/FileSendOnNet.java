@@ -44,7 +44,7 @@ public class FileSendOnNet
       private  byte[] mFileOpeaCmdBuffer = new byte[256];
       String mFileOpeaCmdBufferString;
       
-      private byte[] mFileTransferCmdBuffer = new byte[2];
+      private byte[] mFileTransferCmdBuffer = new byte[256*20];
       InetAddress  mLocalAddr;
       InetAddress  mRemoteAddr;
       private byte[] mPrinterNameBuffer=new byte[1024];
@@ -88,6 +88,7 @@ public class FileSendOnNet
 	     	  this.mFileFullPath=fileName;
 	     	  this.mFileSizeLong=FileSizeUtil.getFileOrFilesSizeLong(fileName);
 	     	  this.mFileNameString=f.getName();
+	     	  
 	     	  
 	 	  }    	
 	 	 
@@ -166,9 +167,10 @@ public class FileSendOnNet
     	  LibCui.ConvertString2buffer(this.mFileNameString,mFileNameBuffer);
     	  if(mFileWithParam!=null){    			
     			this.PParamcopies=mFileWithParam.mPrintCopies;//份数
-    			this.PParamcolor=(mFileWithParam.mIsColor==PrintColor.Color);//彩打
+    			this.PParamcolor=(mFileWithParam.IsColor());//彩打
     			this.PParamRange=mFileWithParam.mPrintRange;//打印范围
-    			this.PParam2Paper=(mFileWithParam.mIsDuplex==IsDouble.DoublePaper);
+    			this.PParam2Paper=(mFileWithParam.IsDuplex());
+    			this._json_ext_string=mFileWithParam.ToJsonStr();
     			LibCui.ConvertString2buffer(String.valueOf(this.PParamcopies),this.mPParamcopiesBuffer);
         		LibCui.ConvertString2buffer(Boolean.toString(this.PParamcolor),this.mPParamcolorBuffer);
         		LibCui.ConvertString2buffer(this.PParamRange,this.mPParamRangeBuffer);
@@ -178,6 +180,7 @@ public class FileSendOnNet
         		LibCui.ConvertString2buffer(mFileWithParam.mPhonrNumber,this._Android_phone_num);
         		LibCui.ConvertString2buffer(mFileWithParam.mSystemType,this._Android_os_buffer);
         		/**/
+        		LibCui.ConvertString2buffer(this._json_ext_string,this._json_ext_buffer);
     		}
     	  LibCui.ConvertString2buffer(mFileOpeaCmdBufferString, this.mFileOpeaCmdBuffer);
     	  
@@ -252,9 +255,12 @@ public class FileSendOnNet
 
     	  
       }
+      /**
+       *@deprecated 付费打印模式 
+       */
       public byte[] GetSendPrintHeader() throws UnsupportedEncodingException
       {
-
+    	  //尚未付费
           return GetOperationHeader("PrintFile");
       }
       public byte[] GetSendFileHeader() throws UnsupportedEncodingException
@@ -264,6 +270,14 @@ public class FileSendOnNet
       public byte[] GetXmlPrintsHeader() throws UnsupportedEncodingException
       {
           return GetOperationHeader("PrinterListXml");
+      }
+      public byte[] GetSubmitFileNoPay() throws UnsupportedEncodingException
+      {
+          return GetOperationHeader("SubmitNoPay");
+      }
+      public byte[] GetNoneHeader() throws UnsupportedEncodingException
+      {
+          return GetOperationHeader("None");
       }
       public static byte[] concatAll(byte[] first, byte[]... rest) {
     	  int totalLength = first.length;
@@ -423,7 +437,7 @@ public class FileSendOnNet
    * 发送 请求发送命令
  * @throws UnsupportedEncodingException 
   * @throws IOException 
-   * 
+   * @deprecated
    * 
    * */
   public void SendFileRequestedCmd_PrintFile(Socket socket) throws UnsupportedEncodingException, IOException
@@ -432,17 +446,39 @@ public class FileSendOnNet
 	  out.write(this.GetSendPrintHeader());
 	  out.flush();
   }
-  /**
-  * 
-  * 发送  请求打印命令
+ /**
+ * 
+ * 发送  请求打印命令
  * @throws IOException 
-  * 
-  * 
-  * */
+ * 
+ * 
+ * */
       public void SendFileRequestedCmd_GetPrinters(Socket socket) throws IOException
       {
     	  DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
     	  out.write(this.GetXmlPrintsHeader());
+    	  out.flush();
+      }
+ /**
+  * 未付款，提交文件
+  * 
+  * 
+  */
+      public void SendFileRequestedCmd_SubmitPrintFileNoPay(Socket socket) throws IOException
+      {
+    	  DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
+    	  out.write(this.GetSubmitFileNoPay());
+    	  out.flush();
+      }
+  /**
+   * 
+   * 
+   * 
+   */
+      public void SendFileRequestedCmd_None(Socket socket) throws IOException
+      {
+    	  DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
+    	  out.write(this.GetNoneHeader());
     	  out.flush();
       }
   /**
@@ -505,8 +541,6 @@ private void SetPrinterName(String printer)
 	LibCui.ConvertString2buffer(this.mPrinterName,this.mPrinterNameBuffer);
 
 }
-
-
 public String  ConvertByte2String(byte[] buffer)
 {
 	 String Str_t="";
@@ -519,5 +553,23 @@ public String  ConvertByte2String(byte[] buffer)
 	 Str_t=Str_t.replaceAll("\000", "");
 	 return Str_t;
 }
-
+/**
+ * 
+ *
+ */
+public void SetSubmitPrinter2Disk()
+{
+	String OrderId_t="none";
+	String UserName_t="blacksherry";
+	String Price_t="-1";
+	String cmd="";
+	
+	
+	this._json_ext_string="";
+	
+}
+/**
+ * 
+ *
+ */
 }

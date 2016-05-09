@@ -88,7 +88,7 @@ public class UserOrderInfoGenerated extends  UserInfoBase implements Serializabl
 			 sb_url.append("&FileName="+URLEncoder.encode(filename, "UTF-8")+"."+FileExt);
 			 /*-----打印级参数------------------------*/
 			 sb_url.append("&PrinterCopies="+String.valueOf(file.mPrintCopies));//份数
-			 if(file.mIsColor==PrintColor.Color){
+			 if(file.IsColor()){
 			     sb_url.append("&PrinterColor="+"1");//颜色
 			 }else{
 				 sb_url.append("&PrinterColor="+"0");//颜色
@@ -96,7 +96,7 @@ public class UserOrderInfoGenerated extends  UserInfoBase implements Serializabl
 			 
 			 sb_url.append("&PrintPaperSize="+file.mPaperSize.toString());//纸型
 			 sb_url.append("&PrintRange="+URLEncoder.encode(file.mPrintRange, "UTF-8"));//打印范围
-			 if(file.mIsDuplex==IsDouble.DoublePaper){
+			 if(file.IsDuplex()){
 				 sb_url.append("&PrinterIsDuplex="+"1");//双面打印
 			 }else{
 				 sb_url.append("&PrinterIsDuplex="+"0");//双面打印
