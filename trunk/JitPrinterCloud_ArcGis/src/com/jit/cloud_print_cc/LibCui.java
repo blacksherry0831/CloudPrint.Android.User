@@ -1001,6 +1001,22 @@ public static void SaveString2Fille(String fileName,String str)
 	    e.printStackTrace();  
 	}  
 }
+/**
+ * 
+ */
+public static void SaveString2Fille(File file,String str)
+{
+	
+	try {  
+	          FileOutputStream fos = new FileOutputStream(file);  
+	          String info =str;  
+	          fos.write(info.getBytes()); 
+	          fos.flush();
+	          fos.close();  
+	} catch (Exception e) {  
+	    e.printStackTrace();  
+	}  
+}
 /*-------------------------------------------------------*/
 public static byte[]  ConvertString2Byte(String filename)
 {
@@ -1139,5 +1155,26 @@ public static File GetCloudDiskForder()
       }
       return path;
 }
-
+/**
+ * 
+ * 
+ */
+public static void SaveLocalOrder2Disk(String username,String orderid,String json)
+{
+	File path=new File(GetCloudPrintCfgFile()+"/"+username);
+    if(!path.exists()){
+  	   path.mkdirs();
+    }
+    
+    File orderidfile=new File(path,orderid);
+    
+    SaveString2Fille(orderidfile, json);
+   
+    
+    
+}
+/**
+ * 
+ * 
+ */
 }

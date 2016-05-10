@@ -68,16 +68,7 @@ public interface PrintDocSuccess
 }
 	
 private final static int mButtonAddressSelect=R.id.buttton_order_form_title_addr_pick;
-//商户PID
-public static final String PARTNER = "2088121908846331";
-// 商户收款账号
-public static final String SELLER = "15651687339@163.com";
-// 商户私钥，pkcs8格式
-public static final String RSA_PRIVATE = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAOV+TvGvfKsHRDQKXZnUkbS4H2j/LAVIUw6iqmsF0e8lBajjsywDqgCPMUkdCDPWazumAzbI4sinXo2Iucx/Z62Rf+ch81iCM3Q7zKqaa2gVPma/R9QdFlz78F+n7EGtnPQXTaCfZRcpn5KoA5VY9R9TxD9+UVadU7cJwOky0Bo1AgMBAAECgYEAoWUlC9/Io1cm5hpsHWVbW2cp3+OlB8oHb4GCrGWZcL/urQoF1ex1wJLzrGGYhSxEmdx04jCBHXBnlM4VLPZk6F0IyC7nCV1xeyEU7DL3w2/2FjErnGszRAx1hjuCloBTCjL/oW7u46J4ZNO6S2uMEKIWYsMBlT4frx6m29Mg57kCQQD7Ji+L9oNBc54VdHPfX5hO1fIOaMYs3L/1r84Uac1NxO3uZzZHINs8FfAHItBZEgapoOcICeejj+R8iBObHJnbAkEA6e0LiT06ihWU1q8N84MJ/0xfRwdZFZAqWdBx2BFj4k6VlX/pvHnxBoVcwQgN/A61RjLTjMABhfOa7bOBTMIBLwJBANxkYx8Y4ZADTLuZKMHhmr+74aGhch8WTOHmOBsTyZUwdndaXXhHrfvpaGxqsZkoR25+A5+7SWnwMNrTcxkQHTcCQQCAB6IhueY5PziYC3VqStUE6qrW+DmUqLPVNlWouVPev7309e5anq8BL6qlZ6AnzXD/e7/3L/tlcf/gizeAaEo3AkAjfCqdTYjSpa2zpW+h96Td2OQib/0Y0pybXu61ntZpEcrtTI2fEx2mFVtSLrdZCJcYg2VUkFiZ44YG42vURlPM";
-// 支付宝公钥
-public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
-private static final int SDK_PAY_FLAG = 1;
-private static final int SDK_CHECK_FLAG = 2;
+
 
 public TextView mTextViewTitle;//订单号
 //public TextView mTextViewOrderId;
@@ -414,14 +405,19 @@ public void initChildView()
 				// TODO Auto-generated method stub
 				if( (cloudPrintAddress!=null)&& cloudPrintAddress.PrintDocs(mOrderTemp)){
 					/*暂时注销下面代码*/
-					//	notify.printDocSuccess();					
-					if(cloudPrintAddress.GetTotalMoney()!=null){
-						String Mone;
+					if(cloudPrintAddress.IsPCPrint()){
+						//局域网打印
+						notify.printDocSuccess();
+						
+					}else if(cloudPrintAddress.GetTotalMoney()!=null){
+						//String Mone;		//	notify.printDocSuccess();		
 						Pay pt=new Pay(View_Print_Order_MultiGenerated.this);
 						pt.payit("亲打印费用Android",
 								cloudPrintAddress.GetTotalBodyOrders(),
 								cloudPrintAddress.GetTotalMoney(),
 								cloudPrintAddress.GetTotalOrderId());
+					}else{
+						
 					}
 					
 				}	
@@ -559,7 +555,8 @@ public void initChildView()
 			if(mViewMode==OrderGeneratedMode.SetNetOrderList){
 				
 				if(mPrintPointTemp!=null){					
-					new Thread(new PrintDocThread(NOTIFY_THIS_VIEW,mPrintPointTemp)).start();					
+					new Thread(new PrintDocThread(NOTIFY_THIS_VIEW,mPrintPointTemp)).start();	
+					
 				}else{
 					Toast.makeText(v.getContext(),"没有打印机",Toast.LENGTH_LONG).show();
 				}			
@@ -1092,7 +1089,7 @@ public void initChildView()
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case SDK_PAY_FLAG: {
+			case AliPay.SDK_PAY_FLAG: {
 				PayResult payResult = new PayResult((String) msg.obj);
 				/**
 				 * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
@@ -1119,7 +1116,7 @@ public void initChildView()
 				}
 				break;
 			}
-			case SDK_CHECK_FLAG: {
+			case AliPay.SDK_CHECK_FLAG: {
 				Toast.makeText(getContext(), "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -1160,7 +1157,7 @@ public void initChildView()
 		 * 
 		 */
 		public void payit(String subject, String body, String price,String ProductId) {
-			if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE) || TextUtils.isEmpty(SELLER)) {
+			if (TextUtils.isEmpty(AliPay.PARTNER) || TextUtils.isEmpty(AliPay.RSA_PRIVATE) || TextUtils.isEmpty(AliPay.SELLER)) {
 				new AlertDialog.Builder(_vt.getContext()).setTitle("警告").setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
 						.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 							@Override
@@ -1208,7 +1205,7 @@ public void initChildView()
 						String result = alipay.pay(payInfo, true);
 	
 						Message msg = new Message();
-						msg.what = SDK_PAY_FLAG;
+						msg.what = AliPay.SDK_PAY_FLAG;
 						msg.obj = result;
 						_vt.Handler().sendMessage(msg);
 					   Looper.loop();

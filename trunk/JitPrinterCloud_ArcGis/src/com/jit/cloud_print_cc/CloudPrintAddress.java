@@ -351,6 +351,14 @@ public class CloudPrintAddress extends CloudPrintAddressBase  implements Seriali
     /**
      * 
      * 
+     */  
+    public boolean IsPCPrint()
+    {
+    	return (mPrintFrom==PrintFrom.Pc)&&(mPrintType==PrintType.PcPrint);
+    }
+    /**
+     * 
+     * 
      */    
 	public boolean PrintDocs(UserOrderInfoGenerated order)
 	{
@@ -380,6 +388,10 @@ public class CloudPrintAddress extends CloudPrintAddressBase  implements Seriali
 		/*--------------------------------------------------------------*/
 	 if("".equals(order.GetErrorDes())){
 		 this.Toast_MakeText_show(order.GetErrorDes(),Toast.LENGTH_LONG);
+	 }else if(order.GetErrorDes().contains("文件提交成功")){
+		 return true;
+	 }else{
+		 
 	 }		
 		return false;
 	}
@@ -468,6 +480,7 @@ public class CloudPrintAddress extends CloudPrintAddressBase  implements Seriali
 						 si.SetNowSendPercent(order.mNowSendPerCent);
 						if(si.SendFile2PrintNoPay(s, FWP,this.GetPrinterPointName(),order)){
 							order.mErrorStrArray.add("文件提交成功");
+							LibCui.SaveLocalOrder2Disk(FWP.getUserName(),FWP.GetOrderIdFile(),FWP.ToJsonStr());
 						}else{
 							order.mErrorStrArray.add("文件提交失败，Permission Fail");
 						}

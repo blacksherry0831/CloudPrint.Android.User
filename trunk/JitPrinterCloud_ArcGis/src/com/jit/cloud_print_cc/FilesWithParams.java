@@ -214,9 +214,9 @@ public String ToJsonStr(){
 	try {
 		/*----*/
 		if(!StringUtils.isEmpty(this.getUserName())){
-			jo.put("orderid",this.getUserName()+"$$"+this.GetFileShortName()+"$$"+this.orderId);
+			jo.put("orderid",this.GetOrderId());
 		}	
-		jo.put("orderid_suffix", this.orderId);
+		jo.put("orderid_suffix", this.GetOrderIdSuffix());
 		jo.put("username", this.getUserName());
 		jo.put("price2pay", this.price2pay);
 		jo.put("printername", this.getPrinter());
@@ -250,5 +250,17 @@ public String getPrinter() {
 }
 public void setPrinter(String printer) {
 	Printer = printer;
+}
+public String GetOrderId()
+{
+	return this.getUserName()+"$$"+this.GetFileShortName()+"$$"+this.orderId;
+}
+public String GetOrderIdSuffix()
+{
+	return this.orderId;
+}
+public String GetOrderIdFile()
+{
+	return this.orderId+".txt";
 }
 }
