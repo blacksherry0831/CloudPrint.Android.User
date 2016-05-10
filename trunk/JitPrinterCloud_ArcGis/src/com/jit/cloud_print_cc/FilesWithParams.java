@@ -1,9 +1,12 @@
 package com.jit.cloud_print_cc;
 
 import java.io.File;
+import java.util.UUID;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.ta.utdid2.android.utils.StringUtils;
 
 import android.content.Context;
 
@@ -36,7 +39,7 @@ public class FilesWithParams
 	/*----------------------------------------------------------------*/
 	private String userName="NoUser";/**<打印用户*/
 	private String price2pay="-1";/**<价格*/
-	private String orderId="订单号";/**<订单号*/
+	private String orderId=UUID.randomUUID().toString();/**<订单号*/
 	//private String printerName="reserve";/**<打印机名*/
 	/*----------------------------------------------------------------*/
 	private String mFileID="No File";/**<文件ID*/
@@ -210,7 +213,10 @@ public String ToJsonStr(){
 	JSONObject jo=new JSONObject();
 	try {
 		/*----*/
-		jo.put("printid", this.orderId);
+		if(!StringUtils.isEmpty(this.getUserName())){
+			jo.put("orderid",this.getUserName()+"$$"+this.GetFileShortName()+"$$"+this.orderId);
+		}	
+		jo.put("orderid_suffix", this.orderId);
 		jo.put("username", this.getUserName());
 		jo.put("price2pay", this.price2pay);
 		jo.put("printername", this.getPrinter());
@@ -224,6 +230,8 @@ public String ToJsonStr(){
 		jo.put("phonetype",this.mPhoneType );
 		jo.put("phonenumber",this.mPhonrNumber);
 		jo.put("systemtype", this.mSystemType);
+		/*----*/
+		
 		/*----*/
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block

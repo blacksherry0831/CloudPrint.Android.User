@@ -44,7 +44,7 @@ public class FileSendOnNet
       private  byte[] mFileOpeaCmdBuffer = new byte[256];
       String mFileOpeaCmdBufferString;
       
-      private byte[] mFileTransferCmdBuffer = new byte[256*20];
+      private byte[] mFileTransferCmdBuffer = new byte[256*2];
       InetAddress  mLocalAddr;
       InetAddress  mRemoteAddr;
       private byte[] mPrinterNameBuffer=new byte[1024];
@@ -407,6 +407,7 @@ public class FileSendOnNet
           if (IsHandShark())
           {
         	  in.readFully(mFileTransferCmdBuffer, 0, mFileTransferCmdBuffer.length);
+        	  in.readFully(_json_ext_buffer,0,_json_ext_buffer.length);
           }
           /*0x22 允许权限控制*/
           if (this.mFileTransferCmdBuffer[0] == 0x22)
@@ -518,6 +519,7 @@ public void SendServerPermission(Socket client) throws IOException
 	in.write(this.mHandshake);
     this.mFileTransferCmdBuffer[0] = 0x22;
     in.write(this.mFileTransferCmdBuffer);
+    in.write(this._json_ext_buffer);
    
 }
 public void SetPrinterParam(String printer)
@@ -530,6 +532,11 @@ private void SetPrinterName(String printer)
 {
 	if(printer!=null){
 		this.mPrinterName=printer;
+		if(this.mFileWithParam!=null){
+		 this.mFileWithParam.setPrinter(printer);
+		}
+		
+		
 	}else{
 		this.mPrinterName="NoPrinter";
 	}
@@ -559,13 +566,13 @@ public String  ConvertByte2String(byte[] buffer)
  */
 public void SetSubmitPrinter2Disk()
 {
-	String OrderId_t="none";
+	/*String OrderId_t="none";
 	String UserName_t="blacksherry";
 	String Price_t="-1";
 	String cmd="";
 	
 	
-	this._json_ext_string="";
+	this._json_ext_string="";*/
 	
 }
 /**
