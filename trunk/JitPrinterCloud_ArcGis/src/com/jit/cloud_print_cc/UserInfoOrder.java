@@ -93,6 +93,8 @@ public class UserInfoOrder
 			/*--------------*/
 			this._SvrAddr=GetData(jo,"SvrAddr");
 			this._SvrPort=Integer.parseInt(GetData(jo,"SvrPort"));
+			/*--------------*/
+			this._Username=this.GetV("username");
 		}
 		
 
@@ -124,6 +126,9 @@ public class UserInfoOrder
 			// TODO Auto-generated catch block
 	     	return null;
 		}
+	}
+	public  String GetV(String key){
+		return GetData(_Json_o,key);
 	}
 	public String GetKey()
 	{
@@ -187,13 +192,21 @@ public class UserInfoOrder
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			try {
-				_Json_o.put("Status",STATUS_CHARGED);
-				OrderLocal.SaveLocalOrder2Disk(_Username, ID, _Json_o.toString());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+				if(!StringUtils.isEmpty(orderType)&&ORDER_TYPE_LOCAL.equals(orderType)){
+					//本地订单
+					try {
+						_Json_o.put("Status",STATUS_CHARGED);
+						OrderLocal.SaveLocalOrder2Disk(_Username, ID, _Json_o.toString());
+					} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+					}
+					
+				}
+				
+				
+			
 			
 			
 		}

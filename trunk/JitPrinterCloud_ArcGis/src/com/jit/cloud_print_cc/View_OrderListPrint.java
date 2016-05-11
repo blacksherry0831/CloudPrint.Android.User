@@ -296,6 +296,15 @@ public OrderListStartMode mMode;
 					 
 					 if(UserInfoOrder.STATUS_CHARGING.equalsIgnoreCase(uio.getStatus())){
 						 //计算费用中
+						 bt.setVisibility(View.VISIBLE);
+						 bt.setText("刷新计费");
+						 bt.setOnClickListener(new View.OnClickListener() {							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub--拉取价格//RequestPrintList();
+								UpdateOrdersStatus(); //mOrders.Refash();
+							}
+						});
 						
 					 }else if(UserInfoOrder.STATUS_CHARGED.equalsIgnoreCase(uio.getStatus())){
 						 //计算费用完成
@@ -306,21 +315,12 @@ public OrderListStartMode mMode;
 							@Override
 							public void onClick(View v) {
 								// TODO Auto-generated method stub--付费逻辑
-								
+								Toast_make_show("执行支付");
 							}
 						});
 					 }else{
 						 //
-						 //bt.setVisibility(View.GONE);
-						 bt.setVisibility(View.VISIBLE);
-						 bt.setText("刷新计费");
-						 bt.setOnClickListener(new View.OnClickListener() {							
-							@Override
-							public void onClick(View v) {
-								// TODO Auto-generated method stub--拉取价格//RequestPrintList();
-								UpdateOrdersStatus(); //mOrders.Refash();
-							}
-						});
+						 bt.setVisibility(View.GONE);						
 					 }
 					
 					

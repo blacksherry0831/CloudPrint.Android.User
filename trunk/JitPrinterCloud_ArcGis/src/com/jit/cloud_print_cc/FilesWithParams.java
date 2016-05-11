@@ -291,6 +291,7 @@ public String GetOrderIdSuffix()
 }
 public String GetOrderIdFile()
 {
-	return this.orderId+".txt";
+	//return this.orderId+".txt";
+	return this.orderId;
 }
 }
