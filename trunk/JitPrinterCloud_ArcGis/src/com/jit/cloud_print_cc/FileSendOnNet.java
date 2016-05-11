@@ -528,6 +528,14 @@ public void SetPrinterParam(String printer)
 	
 	
 }
+
+public void SetServerIpPort(InetAddress address, int port)
+{
+	if(mFileWithParam!=null){
+		mFileWithParam.SetServerIpPort(address, port);
+	}
+}
+
 private void SetPrinterName(String printer)
 {
 	if(printer!=null){

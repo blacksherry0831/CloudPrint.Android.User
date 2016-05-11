@@ -1,6 +1,7 @@
 package com.jit.cloud_print_cc;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.util.UUID;
 
 import org.json.JSONException;
@@ -57,6 +58,9 @@ public class FilesWithParams
 	public String mPhonrNumber;
 	/*----------------------------------------------------------------*/
 	public String Post2S2SaveStatus;
+	/*----------------------------------------------------------------*/
+	private InetAddress _ServerAddress;
+	private int _ServerPort;
 	/*----------------------------------------------------------------*/
 	public FilesWithParams(String f,Context ctx)
 	{
@@ -210,6 +214,11 @@ public String getUserName() {
 /**
  *
  */
+public void SetServerIpPort(InetAddress address, int port)
+{
+	this._ServerAddress=address;
+	this._ServerPort=port;
+}
 /*public String getPrinterName() {
 	return printerName;
 }
@@ -235,6 +244,7 @@ public String ToJsonStr(){
 		jo.put("DocumentName", this.GetFileShortName());
 		jo.put("Filetype", this.GetFileExt());
 		jo.put("Status", "NoPay");
+		jo.put("PrintTime", LibCui.GetTimeStr());
 		/*----*/
 		jo.put("ppcopies", this.GetPrinterCopies());
 		jo.put("ppcolor", this.IsColor());
@@ -247,6 +257,11 @@ public String ToJsonStr(){
 		jo.put("systemtype", this.mSystemType);
 		/*----*/
 		jo.put("ordertype", "local");
+		/*----*/
+		if(this._ServerAddress!=null){
+			jo.put("SvrAddr", this._ServerAddress.toString());
+			jo.put("SvrPort", String.valueOf(this._ServerPort));
+		}		
 		/*----*/
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block

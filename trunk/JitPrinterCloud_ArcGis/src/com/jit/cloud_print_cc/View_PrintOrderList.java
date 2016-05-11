@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 /*----------------------------------------------------------------------------------------*/
+/**
+ * @deprecated 废弃
+ * 
+ */
 public class View_PrintOrderList extends View_CloudPrintTemplate {
 private final static int mLayoutId=R.layout.activity_print_order_list;
 private final static int mLstItemLayoutId=R.layout.print_order_list_item;

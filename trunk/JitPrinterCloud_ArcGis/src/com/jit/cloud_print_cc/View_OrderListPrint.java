@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.AbsListView;
@@ -184,7 +185,8 @@ public OrderListStartMode mMode;
 	  * 
 	  */
 	 public class ShowOrderAdapter extends  BaseAdapter
-		{		
+		{	
+		 	private static final int _ChildViewId=R.layout.print_order_list_item;
 		    public UserInfoOrdersManager mOrders=new UserInfoOrdersManager(null);
 			/*public void SetData(final UserInfoOrdersManager mOrders) {				
 				
@@ -249,17 +251,20 @@ public OrderListStartMode mMode;
 				 
 				
 				if(convertView==null){
-					convertView=LibCui.getViewFromeXml(R.layout.print_order_list_item_v2, getContext());
+					convertView=LibCui.getViewFromeXml(_ChildViewId, getContext());
 				}
 				
 				TextView tv=(TextView) convertView.findViewById(R.id.id_po_list_item_text);
-				
+				ImageView thumbnail = (ImageView) convertView.findViewById(R.id.id_po_list_item_image);
 				if(pi instanceof UserInfoOrder){
 					UserInfoOrder uio=(UserInfoOrder) pi;
 					tv.setText(uio.GetDes());
+					FileOperations.SetFileItemBackground(uio.GetFile(),thumbnail);
 				}
 				
 				
+				
+				//File file = mFilesList.get(position);
 				return convertView;
 			}
 			

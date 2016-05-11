@@ -52,8 +52,8 @@
                        android:id="@+id/id_print_order_list_view"
                        android:layout_width="match_parent"
                        android:layout_height="match_parent"
-                       android:divider="#00000000"
-                       android:footerDividersEnabled="false"
+                       android:divider="@color/aliceblue"
+                       android:footerDividersEnabled="true"
 				       android:dividerHeight="2dp" >  
 		           
            </com.handmark.pulltorefresh.library.PullToRefreshListView>

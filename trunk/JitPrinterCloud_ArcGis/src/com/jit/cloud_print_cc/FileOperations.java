@@ -652,6 +652,9 @@ public class FileOperations
 		if(file==null||thumbnail==null){
 			return;
 		}
+		if(!file.exists()){
+			return;
+		}
 		
 		if (file.isDirectory()) {
 				//directory

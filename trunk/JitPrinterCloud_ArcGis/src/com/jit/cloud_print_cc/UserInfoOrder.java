@@ -1,5 +1,7 @@
 package com.jit.cloud_print_cc;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,8 +23,12 @@ public class UserInfoOrder
 	public	String pages;//打印范围
 	public	String printTime;//下单时间
 	public	String status;//订单状态
-	
+	/*----------------------------------*/
 	private String orderType;
+	/*----------------------------------*/
+	private int _SvrPort=-1;
+	private String _SvrAddr="";
+	/*----------------------------------*/
 
 	public UserInfoOrder(){
 		
@@ -67,6 +73,9 @@ public class UserInfoOrder
 			pages=GetData(jo,"pprange");
 			printTime=GetData(jo,"PrintTime");
 			status=GetData(jo,"Status");
+			/*--------------*/
+			this._SvrAddr=GetData(jo,"SvrAddr");
+			this._SvrPort=Integer.parseInt(GetData(jo,"SvrPort"));
 		}
 		
 
@@ -124,5 +133,15 @@ public class UserInfoOrder
 		sb.append("打印范围:");sb.append(this.pages);
 		
 		return sb.toString();
+	}
+	public File GetFile()
+	{
+		File f=new File(doc);
+		if(f.exists()){
+			return f;
+		}else{
+			return null;
+		}
+		
 	}
 }

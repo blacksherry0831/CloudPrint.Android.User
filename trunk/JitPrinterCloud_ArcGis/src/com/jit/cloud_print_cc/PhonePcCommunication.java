@@ -334,6 +334,7 @@ public class PhonePcCommunication
       FileSendOnNet file = new FileSendOnNet(filepath);
       file.SetPrinterParam(PrinterName);
       file.SetCallBackFileSendPercent(mNowSendPercent);
+      file.SetServerIpPort(address, port);
       if(socketClient.isConnected()==false){
           socketClient.connect(new InetSocketAddress(address, port),ConnectTimeOut);
       }
