@@ -2,6 +2,8 @@ package com.jit.cloud_print_cc;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.ta.utdid2.android.utils.StringUtils;
 /**
  *用户订单信息 
  *
@@ -20,6 +22,7 @@ public class UserInfoOrder
 	public	String printTime;//下单时间
 	public	String status;//订单状态
 	
+	private String orderType;
 
 	public UserInfoOrder(){
 		
@@ -27,7 +30,8 @@ public class UserInfoOrder
 	
 	public boolean Parse(JSONObject jo) 
 	{
-		this._Json_o=jo;
+		this._Json_o=jo;		
+		
 		color=GetData(jo,"Color");
 		copies=GetData(jo,"Copies");
 		doc=GetData(jo,"DocumentName");
@@ -52,7 +56,18 @@ public class UserInfoOrder
 		uploadtime=GetData(jo,"Uploadtime");
 		UserID=GetData(jo,"UserID");
 		FileID=GetData(jo,"Fileid");*/
-		
+		orderType=GetData(jo,"ordertype");
+		if(!StringUtils.isEmpty(orderType)&&"local".equals(orderType)){
+			//本地订单
+			color=GetData(jo,"ppcolor");
+			copies=GetData(jo,"ppcopies");
+			doc=GetData(jo,"DocumentName");
+			filetype=GetData(jo,"Filetype");
+			ID=GetData(jo,"orderid_suffix");
+			pages=GetData(jo,"pprange");
+			printTime=GetData(jo,"PrintTime");
+			status=GetData(jo,"Status");
+		}
 		
 
 		return true;

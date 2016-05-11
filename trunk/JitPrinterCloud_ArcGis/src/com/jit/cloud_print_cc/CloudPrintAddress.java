@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import com.alipay.sdk.pay.demo.PayDemoActivity;
 import com.baidu.location.BDLocation;
 import com.jit.cloud_print_cc.FileSendOnNet.NowSendPercent;
+import com.jit.cloud_print_orders.OrderLocal;
+
 import android.widget.Toast;
 
 
@@ -480,7 +482,7 @@ public class CloudPrintAddress extends CloudPrintAddressBase  implements Seriali
 						 si.SetNowSendPercent(order.mNowSendPerCent);
 						if(si.SendFile2PrintNoPay(s, FWP,this.GetPrinterPointName(),order)){
 							order.mErrorStrArray.add("文件提交成功");
-							LibCui.SaveLocalOrder2Disk(FWP.getUserName(),FWP.GetOrderIdFile(),FWP.ToJsonStr());
+							OrderLocal.SaveLocalOrder2Disk(FWP.getUserName(),FWP.GetOrderIdFile(),FWP.ToJsonStr());
 						}else{
 							order.mErrorStrArray.add("文件提交失败，Permission Fail");
 						}

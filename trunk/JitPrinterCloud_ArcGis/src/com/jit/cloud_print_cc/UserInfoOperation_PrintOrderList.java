@@ -1,5 +1,9 @@
 package com.jit.cloud_print_cc;
 
+import org.json.JSONObject;
+
+import com.jit.cloud_print_orders.OrderLocal;
+
 import android.content.Context;
 
 public class UserInfoOperation_PrintOrderList extends UserInfoBase {
@@ -36,10 +40,8 @@ public class UserInfoOperation_PrintOrderList extends UserInfoBase {
 public class GetOrdersThread implements Runnable
 {
 
-	@Override
-	public void run()
+	private void GetNetOrder()
 	{
-		_Requesting=true;
 		// TODO Auto-generated method stub
 			UserInfoBase user=new UserInfoBase(mContext);
 			//String username=View_Login.GetQinUserName(mContext);
@@ -50,6 +52,25 @@ public class GetOrdersThread implements Runnable
 				IRcv.OnRecvData(Result);
 			}
 		//
+	}
+	private void GetLocalSharedOrder()
+	{
+		
+		String Result=OrderLocal.GetLocalOrder4Disk(SaveParam.GetQinUserName(getContext()));
+		
+		if(IRcv!=null){
+			IRcv.OnRecvData(Result);
+		}
+	}
+	@Override
+	public void run()
+	{
+		_Requesting=true;
+		
+		//this.GetNetOrder();
+		
+		this.GetLocalSharedOrder();
+		
 		_Requesting=false;
 	}
 	

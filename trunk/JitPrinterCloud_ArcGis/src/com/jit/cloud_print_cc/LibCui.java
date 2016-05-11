@@ -21,6 +21,8 @@ import java.util.Locale;
 import java.util.UUID;
 
 
+
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -1155,24 +1157,7 @@ public static File GetCloudDiskForder()
       }
       return path;
 }
-/**
- * 
- * 
- */
-public static void SaveLocalOrder2Disk(String username,String orderid,String json)
-{
-	File path=new File(GetCloudPrintCfgFile()+"/"+username);
-    if(!path.exists()){
-  	   path.mkdirs();
-    }
-    
-    File orderidfile=new File(path,orderid);
-    
-    SaveString2Fille(orderidfile, json);
-   
-    
-    
-}
+
 /**
  * 
  * 

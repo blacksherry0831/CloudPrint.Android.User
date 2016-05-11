@@ -141,6 +141,18 @@ public class FilesWithParams
 	    
 	}
 	/**
+	 * 
+	 * 
+	 */
+	public String GetFileExt()
+	{
+		if(this.isFile()){
+			 return LibCui.getExtensionName(new File(this.mFileID));	
+		}else{			
+		  return	"";
+		}
+	}
+	/**
 	 * 获取文件全路径
 	 * 
 	 */
@@ -220,6 +232,9 @@ public String ToJsonStr(){
 		jo.put("username", this.getUserName());
 		jo.put("price2pay", this.price2pay);
 		jo.put("printername", this.getPrinter());
+		jo.put("DocumentName", this.GetFileShortName());
+		jo.put("Filetype", this.GetFileExt());
+		jo.put("Status", "NoPay");
 		/*----*/
 		jo.put("ppcopies", this.GetPrinterCopies());
 		jo.put("ppcolor", this.IsColor());
@@ -231,7 +246,7 @@ public String ToJsonStr(){
 		jo.put("phonenumber",this.mPhonrNumber);
 		jo.put("systemtype", this.mSystemType);
 		/*----*/
-		
+		jo.put("ordertype", "local");
 		/*----*/
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
