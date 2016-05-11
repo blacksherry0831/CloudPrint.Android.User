@@ -243,7 +243,7 @@ public String ToJsonStr(){
 		jo.put("printername", this.getPrinter());
 		jo.put("DocumentName", this.GetFileShortName());
 		jo.put("Filetype", this.GetFileExt());
-		jo.put("Status", "NoPay");
+		jo.put("Status", UserInfoOrder.STATUS_CHARGING);
 		jo.put("PrintTime", LibCui.GetTimeStr());
 		/*----*/
 		jo.put("ppcopies", this.GetPrinterCopies());
@@ -256,7 +256,7 @@ public String ToJsonStr(){
 		jo.put("phonenumber",this.mPhonrNumber);
 		jo.put("systemtype", this.mSystemType);
 		/*----*/
-		jo.put("ordertype", "local");
+		jo.put("ordertype", UserInfoOrder.ORDER_TYPE_LOCAL);
 		/*----*/
 		if(this._ServerAddress!=null){
 			jo.put("SvrAddr", this._ServerAddress.toString());

@@ -5,6 +5,9 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.view.View;
+
+import com.jit.cloud_print_orders.OrderLocal;
 import com.ta.utdid2.android.utils.StringUtils;
 /**
  *用户订单信息 
@@ -13,8 +16,15 @@ import com.ta.utdid2.android.utils.StringUtils;
  *
  */
 public class UserInfoOrder 
-{
-	JSONObject _Json_o;
+{ 
+	/*-----------------------------------*/
+	public static final String STATUS_CHARGING="charging";
+	public static final String STATUS_CHARGED="charged";
+	public static final String ORDER_TYPE_LOCAL="local";
+	/*-----------------------------------*/
+  	JSONObject _Json_o;
+  	public  String _Username;
+  	
 	public	String  color;//是否黑白
 	public	String copies;//打印份数
 	public	String doc;//文件名
@@ -22,7 +32,14 @@ public class UserInfoOrder
 	public	String ID;//任务ID
 	public	String pages;//打印范围
 	public	String printTime;//下单时间
-	public	String status;//订单状态
+	private	String status;//订单状态
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	/*----------------------------------*/
 	private String orderType;
 	/*----------------------------------*/
@@ -144,4 +161,45 @@ public class UserInfoOrder
 		}
 		
 	}
+	/**
+	 * 没有计价，则获取计价情况
+	 */
+	public void UpdateStatusLocal(){
+		
+		if(UserInfoOrder.STATUS_CHARGING.equalsIgnoreCase(getStatus())){
+			 //计算费用中
+			new Thread(new UpdateStatusThread()).start();
+		}else if(UserInfoOrder.STATUS_CHARGED.equalsIgnoreCase(getStatus())){
+			 //计算费用完成
+			
+		}else{
+		 
+		
+		}
+		
+	}
+	/**
+	 * 
+	 */
+	public class UpdateStatusThread implements Runnable
+	{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				_Json_o.put("Status",STATUS_CHARGED);
+				OrderLocal.SaveLocalOrder2Disk(_Username, ID, _Json_o.toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+	}
+	/**
+	 * 
+	 */
 }

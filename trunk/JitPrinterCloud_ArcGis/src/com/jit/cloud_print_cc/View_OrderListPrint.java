@@ -20,7 +20,7 @@ import android.widget.AbsListView;
 public  class View_OrderListPrint extends View_CloudPrintTemplate {
 private final static int mLayoutId=R.layout.activity_print_order_list;
 private final static int mLstItemLayoutId=R.layout.print_order_list_item;
-private  View mListView; 
+private  View mListView; /**<订单列表*/
 private  final ShowOrderAdapter madapter=new ShowOrderAdapter();;
 /*this.mSharedPrintList.setAdapter(new  SharedPrinterAdapter());*/
 public OrderListStartMode mMode;
@@ -71,25 +71,7 @@ public OrderListStartMode mMode;
 		listview.getRefreshableView().setDivider(null);  
 		listview.getRefreshableView().setSelector(android.R.color.transparent);  
 		listview.setMode(Mode.BOTH);  
-		listview.setOnRefreshListener(new OnRefreshListener<ListView>() {
-	 
-		@Override
-		public void onRefresh(final PullToRefreshBase<ListView> refreshView) {
-			// TODO Auto-generated method stub
-			try{
-				mMsgService.mUIPrintList.RequestPrintList();
-			}catch(Exception e){
-				
-			}
-			postDelayed(new Runnable(){
-				@Override
-				public void run(){					
-					refreshView.onRefreshComplete();
-				}
-			},1500);
-			
-		}
-	});  
+		listview.setOnRefreshListener(new RefreshOrder());  
 	}
 	/**
 	 * 
@@ -103,7 +85,41 @@ public OrderListStartMode mMode;
 			this.madapter.SetData(result);
 		}
 	}
-	
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public class RefreshOrder implements  OnRefreshListener<ListView>
+	{
+
+		@Override
+		public void onRefresh(final PullToRefreshBase refreshView) {
+			// TODO Auto-generated method stub
+			RequestPrintList();
+			postDelayed(new Runnable(){
+							@Override
+							public void run(){					
+								refreshView.onRefreshComplete();
+							}
+						},1500);
+		}
+		
+		
+	}
+	public void RequestPrintList()
+	{
+		   try{
+				mMsgService.mUIPrintList.RequestPrintList();
+		   }catch(Exception e){
+			
+		   }
+	}
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	@Override
 	 public void onServiceConnected(ComponentName name, IBinder service)
 	 {
@@ -188,7 +204,23 @@ public OrderListStartMode mMode;
 		{	
 		 	private static final int _ChildViewId=R.layout.print_order_list_item;
 		    public UserInfoOrdersManager mOrders=new UserInfoOrdersManager(null);
-			/*public void SetData(final UserInfoOrdersManager mOrders) {				
+			
+		    
+		    public void UpdateOrdersStatus()
+		    {
+		    	mOrders.Refash();
+		    	postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						notifyDataSetChanged();
+					}
+				},1000);
+		    }
+		    
+		    
+		    /*public void SetData(final UserInfoOrdersManager mOrders) {				
 				
 				
 				postDelay(new Runnable(){
@@ -255,15 +287,45 @@ public OrderListStartMode mMode;
 				}
 				
 				TextView tv=(TextView) convertView.findViewById(R.id.id_po_list_item_text);
-				ImageView thumbnail = (ImageView) convertView.findViewById(R.id.id_po_list_item_image);
+				  ImageView thumbnail = (ImageView) convertView.findViewById(R.id.id_po_list_item_image);
+					Button bt= (Button)convertView.findViewById(R.id.id_po_list_item_button);
 				if(pi instanceof UserInfoOrder){
 					UserInfoOrder uio=(UserInfoOrder) pi;
 					tv.setText(uio.GetDes());
 					FileOperations.SetFileItemBackground(uio.GetFile(),thumbnail);
-				}
-				
-				
-				
+					 
+					 if(UserInfoOrder.STATUS_CHARGING.equalsIgnoreCase(uio.getStatus())){
+						 //计算费用中
+						
+					 }else if(UserInfoOrder.STATUS_CHARGED.equalsIgnoreCase(uio.getStatus())){
+						 //计算费用完成
+						 bt.setVisibility(View.VISIBLE);
+						 bt.setText("支付");
+						 bt.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub--付费逻辑
+								
+							}
+						});
+					 }else{
+						 //
+						 //bt.setVisibility(View.GONE);
+						 bt.setVisibility(View.VISIBLE);
+						 bt.setText("刷新计费");
+						 bt.setOnClickListener(new View.OnClickListener() {							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub--拉取价格//RequestPrintList();
+								UpdateOrdersStatus(); //mOrders.Refash();
+							}
+						});
+					 }
+					
+					
+					
+				}				
 				//File file = mFilesList.get(position);
 				return convertView;
 			}

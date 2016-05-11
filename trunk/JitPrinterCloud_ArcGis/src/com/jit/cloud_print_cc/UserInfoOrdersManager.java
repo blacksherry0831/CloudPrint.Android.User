@@ -135,5 +135,16 @@ public class UserInfoOrdersManager
 	     	return null;
 		}
 	}
-
+   public void Refash(){
+	   
+	   try{
+		   for(UserInfoOrder uio :this._orders){
+			   uio.UpdateStatusLocal();
+		   }
+	   }catch(Exception e){
+		   
+	   }
+	   
+	   
+   }
 }
