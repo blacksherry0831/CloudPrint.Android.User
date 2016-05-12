@@ -514,7 +514,7 @@ public class PhonePcCommunication
 * @throws IOException
 * 
 * */
-	public  String SendFileId2GetPrice(String id) throws Exception
+	public  String SendFileId2GetPrice(String json) throws Exception
 		{
 			Socket socketClient=this.mSocketClient;
 			InetAddress mAddress=this.mAddress;
@@ -527,7 +527,7 @@ public class PhonePcCommunication
 		         return null;
 		     }
 		     /*发送发送文件头*/
-		     SendOperationHeader_param(socketClient, CommunicationType.GetPriceById,null,null,null);
+		     SendOperationHeader_param(socketClient, CommunicationType.GetPriceById,null,null,json);
 		     /*读取服务器反馈*/
 		     boolean sendAllow = ReadServerPermission(socketClient);
 		     if (sendAllow == true)
@@ -552,7 +552,7 @@ public class PhonePcCommunication
 * 
 * 
 * 
-* */      
+**/      
     public static FileSendOnNet RcvFileFromClient(Socket client) throws IOException
     {
         /*接受文件头*/       

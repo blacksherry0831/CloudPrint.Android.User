@@ -165,6 +165,7 @@ public class FileSendOnNet
   	  
     	  LibCui.ConvertString2buffer(Long.toString(this.mFileSizeLong),this.mFileSizeBuffer);
     	  LibCui.ConvertString2buffer(this.mFileNameString,mFileNameBuffer);
+    	  LibCui.ConvertString2buffer(this._json_ext_string,this._json_ext_buffer);
     	  if(mFileWithParam!=null){    			
     			this.PParamcopies=mFileWithParam.mPrintCopies;//份数
     			this.PParamcolor=(mFileWithParam.IsColor());//彩打
@@ -482,9 +483,9 @@ public class FileSendOnNet
    * 
    * 
    */
-      public void SendFileRequestedCmd_GetPriceById(Socket socket,String id) throws IOException
+      public void SendFileRequestedCmd_GetPriceById(Socket socket,String json) throws IOException
       {
-    	  this._json_ext_string=id;
+    	  this._json_ext_string=json;
     	  /*----*/
     	  DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
     	  out.write(GetOperationHeader("GetPriceById"));//return GetOperationHeader("GetPriceById");

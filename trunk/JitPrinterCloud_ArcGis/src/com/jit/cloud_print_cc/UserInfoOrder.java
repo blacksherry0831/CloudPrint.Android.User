@@ -158,7 +158,7 @@ public class UserInfoOrder
 		sb.append("状态:"); sb.append(this.status);sb.append("\n");
 		sb.append("份数:"); sb.append(this.copies);sb.append("\n");
 		sb.append("时间:"); sb.append(this.printTime);sb.append("\n");
-		sb.append("打印范围:");sb.append(this.pages);
+		sb.append("打印范围:");sb.append(this.pages);sb.append("\n");
 		if(!StringUtils.isEmpty(this._Price2Pay)){		
 			double price_t=Double.valueOf(this._Price2Pay);
 			if(price_t>=0)	sb.append("价格:");sb.append(this._Price2Pay);
@@ -208,7 +208,7 @@ public class UserInfoOrder
 				  InetAddress.getByName(this._SvrAddr.replace("/", "")),
 				  this._SvrPort);
 		/*--------------------------------------------------*/
-			return ppc.SendFileId2GetPrice(orderid);
+			return ppc.SendFileId2GetPrice(jo_t.toString());
 	  }
 	/**
 	 * 
