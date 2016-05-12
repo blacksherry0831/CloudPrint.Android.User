@@ -275,6 +275,12 @@ public class FileSendOnNet
       {
           return GetOperationHeader("SubmitNoPay");
       }
+      /*
+      public byte[] GetPriceById(String Id) throws UnsupportedEncodingException
+      {
+    	  
+          return GetOperationHeader("GetPriceById");
+      }*/
       public byte[] GetNoneHeader() throws UnsupportedEncodingException
       {
           return GetOperationHeader("None");
@@ -469,6 +475,19 @@ public class FileSendOnNet
       {
     	  DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
     	  out.write(this.GetSubmitFileNoPay());
+    	  out.flush();
+      }
+  /**
+   * 
+   * 
+   * 
+   */
+      public void SendFileRequestedCmd_GetPriceById(Socket socket,String id) throws IOException
+      {
+    	  this._json_ext_string=id;
+    	  /*----*/
+    	  DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
+    	  out.write(GetOperationHeader("GetPriceById"));//return GetOperationHeader("GetPriceById");
     	  out.flush();
       }
   /**

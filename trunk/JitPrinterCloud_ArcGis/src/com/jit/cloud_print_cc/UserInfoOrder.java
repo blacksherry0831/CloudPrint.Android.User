@@ -1,10 +1,14 @@
 package com.jit.cloud_print_cc;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.provider.MediaStore.Files;
 import android.view.View;
 
 import com.jit.cloud_print_orders.OrderLocal;
@@ -24,7 +28,8 @@ public class UserInfoOrder
 	/*-----------------------------------*/
   	JSONObject _Json_o;
   	public  String _Username;
-  	
+  	public  String _Price2Pay;
+	/*-----------------------------------*/
 	public	String  color;//是否黑白
 	public	String copies;//打印份数
 	public	String doc;//文件名
@@ -91,6 +96,7 @@ public class UserInfoOrder
 			printTime=GetData(jo,"PrintTime");
 			status=GetData(jo,"Status");
 			/*--------------*/
+			this._Price2Pay=GetV("price2pay");
 			this._SvrAddr=GetData(jo,"SvrAddr");
 			this._SvrPort=Integer.parseInt(GetData(jo,"SvrPort"));
 			/*--------------*/
@@ -153,7 +159,10 @@ public class UserInfoOrder
 		sb.append("份数:"); sb.append(this.copies);sb.append("\n");
 		sb.append("时间:"); sb.append(this.printTime);sb.append("\n");
 		sb.append("打印范围:");sb.append(this.pages);
-		
+		if(!StringUtils.isEmpty(this._Price2Pay)){		
+			double price_t=Double.valueOf(this._Price2Pay);
+			if(price_t>=0)	sb.append("价格:");sb.append(this._Price2Pay);
+		}
 		return sb.toString();
 	}
 	public File GetFile()
@@ -186,9 +195,52 @@ public class UserInfoOrder
 	/**
 	 * 
 	 */
+	public String SendFileId2GetPrice(Socket s,FilesWithParams  fileName,String orderid) throws Exception
+	  {
+		/*--------------------------------------------------*/
+			JSONObject jo_t=new JSONObject();
+			jo_t.put("orderid_suffix", orderid);
+		/*--------------------------------------------------*/		
+			PhonePcCommunication ppc=new PhonePcCommunication(
+				  s,
+				  fileName,
+				  fileName.getPrinter(), 
+				  InetAddress.getByName(this._SvrAddr.replace("/", "")),
+				  this._SvrPort);
+		/*--------------------------------------------------*/
+			return ppc.SendFileId2GetPrice(orderid);
+	  }
+	/**
+	 * 
+	 */
 	public class UpdateStatusThread implements Runnable
 	{
-
+		public String GetPrice(String orderid)
+		{
+				String money="-1";
+				Socket s=new Socket();
+				try {				
+					 FilesWithParams fwp=new FilesWithParams(doc,null);
+					 money=SendFileId2GetPrice(s,fwp,orderid);
+					 s.shutdownInput();
+			         s.shutdownOutput();				    
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{
+					 try {
+						s.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+					}
+				}
+				return money;
+				
+			}
+		
+		
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
@@ -196,8 +248,19 @@ public class UserInfoOrder
 				if(!StringUtils.isEmpty(orderType)&&ORDER_TYPE_LOCAL.equals(orderType)){
 					//本地订单
 					try {
-						_Json_o.put("Status",STATUS_CHARGED);
-						OrderLocal.SaveLocalOrder2Disk(_Username, ID, _Json_o.toString());
+						 
+						String result=GetPrice(ID);
+						 if(!StringUtils.isEmpty(result)){
+							 
+							 		double money=Double.valueOf(result);
+							 		if(money>0){
+							 				_Json_o.put("Status",STATUS_CHARGED);
+							 				_Json_o.put("price2pay",money);
+							 				OrderLocal.SaveLocalOrder2Disk(_Username, ID, _Json_o.toString());	
+							 		}
+												 
+						 }
+						 
 					} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

@@ -12,12 +12,14 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,6 +29,7 @@ import android.content.Context;
 
 import com.jit.cloud_print_cc.FileSendOnNet;
 import com.jit.cloud_print_cc.FileSendOnNet.NowSendPercent;
+import com.ta.utdid2.android.utils.StringUtils;
 
 
 @SuppressWarnings("unused")
@@ -41,6 +44,7 @@ public class PhonePcCommunication
          Send2PrintPayed,
          pay4Order,
          QueryPrintList,
+         GetPriceById,
          GetPrinterListXml,
          NULL
      }
@@ -124,6 +128,45 @@ public class PhonePcCommunication
 	  String xml=is.toString().replaceAll("\000", "");
 	  /*解析XMl文件*/
 	  return ParsePrinterListXml(xml, client.getInetAddress());
+	  
+  }
+  /**
+   * @return 
+ * @throws IOException 
+   * 
+   * 
+   * 
+   * */
+  public static String GetExt(Socket client) throws IOException
+  {
+	  /*接受打印机列表XMl文件*/
+	  client.setSoTimeout(ConnectTimeOut);
+	  InputStream  in=client.getInputStream();
+	  
+	  ByteArrayOutputStream is = new ByteArrayOutputStream();  
+	  
+	  byte [] buffer =new byte[1024];
+	  
+	  int len=0;
+	  
+	  try{
+		  while(true){
+			  len=in.read(buffer);
+			  if(len==-1){
+				 break;
+			  }else{
+				  is.write(buffer, 0,len);
+			  }
+			
+		  }
+	  }catch(SocketTimeoutException e){
+		  
+	  }
+	
+	  
+	  String txt=is.toString().replaceAll("\000", "");
+	  /*解析XMl文件*/
+	  return txt;
 	  
   }
   public static ArrayList<CloudPrintAddress> ParsePrinterListXml(String xml,InetAddress addr)
@@ -264,9 +307,9 @@ public class PhonePcCommunication
           return fileRcv.ReadServerPermission(client);
          
       }
-  /**
- * @throws IOException 
-  * 
+ /**
+  * @throws IOException 
+  * @Deprecated
   * 
   * 
   * */
@@ -276,6 +319,18 @@ public class PhonePcCommunication
 	  return SendOperationHeader(socketClient,type,filename,null);
      
   }
+ /**
+  * @throws IOException 
+  * 
+  * 
+  * 
+  * */
+  private  boolean SendOperationHeader_Ext(Socket socketClient,CommunicationType type,FilesWithParams filename,String printer,String ext) throws IOException
+  {
+      
+	  return SendOperationHeader_param(socketClient,type,filename,printer,ext);
+     
+  }
   /**
  * @throws IOException 
   * 
@@ -283,24 +338,36 @@ public class PhonePcCommunication
   * 
   * */
   private  boolean SendOperationHeader(Socket socketClient,CommunicationType type,FilesWithParams filename,String printer) throws IOException
-  {
-      FileSendOnNet myFile=new FileSendOnNet(filename);
-      myFile.SetPrinterParam(printer);
-      
-      if (type == CommunicationType.Send2Receive){
-          myFile.SendFileRequestedCmd_SendFile(socketClient);          
-      } else if (type == CommunicationType.Send2Print){
-          myFile.SendFileRequestedCmd_PrintFile(socketClient);          
-      }else if(type == CommunicationType. GetPrinterListXml){
-    	  myFile.SendFileRequestedCmd_GetPrinters(socketClient);    	  
-      }else if(type == CommunicationType.Send2PrintNoPay){
-    	  myFile.SendFileRequestedCmd_SubmitPrintFileNoPay(socketClient);
-      }else{
-    	  myFile.SendFileRequestedCmd_None(socketClient);
-      }
-      
-      return true;
+  { 
+	  return  SendOperationHeader_param(socketClient,type,filename,printer,null);
   }
+  /**
+   * @throws IOException 
+    * 
+    * 
+    * 
+    * */
+    private  boolean SendOperationHeader_param(Socket socketClient,CommunicationType type,FilesWithParams filename,String printer,String param) throws IOException
+    {
+        FileSendOnNet myFile=new FileSendOnNet(filename);
+        myFile.SetPrinterParam(printer);
+        
+        if (type == CommunicationType.Send2Receive){
+            myFile.SendFileRequestedCmd_SendFile(socketClient);          
+        } else if (type == CommunicationType.Send2Print){
+            myFile.SendFileRequestedCmd_PrintFile(socketClient);          
+        }else if(type == CommunicationType. GetPrinterListXml){
+      	  myFile.SendFileRequestedCmd_GetPrinters(socketClient);    	  
+        }else if(type == CommunicationType.Send2PrintNoPay){
+      	  myFile.SendFileRequestedCmd_SubmitPrintFileNoPay(socketClient);
+        }else if(type ==CommunicationType.GetPriceById){
+      	  myFile.SendFileRequestedCmd_GetPriceById(socketClient, param);
+        }else{
+      	  myFile.SendFileRequestedCmd_None(socketClient);
+        }
+        
+        return true;
+    }
   /**
    * 
    * 
@@ -441,6 +508,45 @@ public class PhonePcCommunication
 	    
 	     return printer;
 	}
+/**
+*  
+* 
+* @throws IOException
+* 
+* */
+	public  String SendFileId2GetPrice(String id) throws Exception
+		{
+			Socket socketClient=this.mSocketClient;
+			InetAddress mAddress=this.mAddress;
+			int mPort=this.mPort;
+			String Price_t=null; 
+			 
+			 socketClient.connect(new InetSocketAddress(mAddress,mPort));
+		     if (socketClient.isConnected() == false)
+		     {
+		         return null;
+		     }
+		     /*发送发送文件头*/
+		     SendOperationHeader_param(socketClient, CommunicationType.GetPriceById,null,null,null);
+		     /*读取服务器反馈*/
+		     boolean sendAllow = ReadServerPermission(socketClient);
+		     if (sendAllow == true)
+		     {
+		         /*读取打印机列表*/
+		    	 String ext=GetExt(socketClient);
+		    	 if(!StringUtils.isEmpty(ext)){		    		 
+		    		 JSONObject jo=new JSONObject(ext);
+		    		 Price_t=jo.getString("price2pay");
+		    		 
+		    	 }
+		    	 
+		    	// Price_t=GetExt(socketClient);
+		         
+		     }
+		     /*关闭缓冲*/
+		    
+		     return Price_t;
+		}
 /**
  * @throws IOException 
 * 
