@@ -486,5 +486,19 @@ public class UserInfoOrder
 	/**
 	 * 
 	 */
+	public void Delete4Disk()
+	{		
+		if(!StringUtils.isEmpty(orderType)&&ORDER_TYPE_LOCAL.equals(orderType)){
+			//本地订单
+			
+			if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
+				//挂起不删除，已经付钱了
+			}else{
+				OrderLocal.DeleteLocalOrder4Disk(_Username, ID);	
+			}
+			
+						
+		}
+	}
 
 }

@@ -303,6 +303,8 @@ public OrderListStartMode mMode;
 					final UserInfoOrder uio=(UserInfoOrder) pi;
 					tv.setText(uio.GetDes());
 					FileOperations.SetFileItemBackground(uio.GetFile(),thumbnail);
+					
+					
 					 
 					 if(UserInfoOrder.STATUS_CHARGING.equalsIgnoreCase(uio.getStatus())){
 						 //计算费用中
@@ -343,7 +345,17 @@ public OrderListStartMode mMode;
 						 bt.setVisibility(View.GONE);						
 					 }
 					
-					
+					thumbnail.setOnLongClickListener(new View.OnLongClickListener() {
+						
+						@Override
+						public boolean onLongClick(View v) {
+							// TODO Auto-generated method stub
+							uio.Delete4Disk();
+							RequestPrintList();
+							return false;
+						}
+						
+					});
 					
 				}				
 				//File file = mFilesList.get(position);
