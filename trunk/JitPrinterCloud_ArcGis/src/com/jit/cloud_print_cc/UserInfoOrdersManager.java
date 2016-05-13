@@ -50,6 +50,7 @@ public class UserInfoOrdersManager
 	public void add(UserInfoOrder uio)
 	{
 		this._orders.add(uio);
+		uio.UpdateStatusLocal();
 	}
 	/**
 	 * 

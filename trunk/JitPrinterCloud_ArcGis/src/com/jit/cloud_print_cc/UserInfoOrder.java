@@ -223,9 +223,10 @@ public class UserInfoOrder
 		}else if(UserInfoOrder.STATUS_CHARGED.equalsIgnoreCase(getStatus())){
 			 //计算费用完成
 			
+		}else if(UserInfoOrder.STATUS_PRINTED_PENDING.equalsIgnoreCase(getStatus())){		 
+			new Thread(new UpdateStatusThread()).start();
 		}else{
-		 
-		
+			
 		}
 		
 	}
@@ -237,6 +238,7 @@ public class UserInfoOrder
 		/*--------------------------------------------------*/
 			JSONObject jo_t=new JSONObject();
 			jo_t.put("orderid_suffix", orderid);
+			jo_t.put("cmd", "getprice");
 		/*--------------------------------------------------*/		
 			PhonePcCommunication ppc=new PhonePcCommunication(
 				  s,
@@ -248,10 +250,59 @@ public class UserInfoOrder
 			return ppc.SendFileId2GetPrice(jo_t.toString());
 	  }
 	/**
+	 * @throws Exception 
 	 * 
 	 */
-	public class UpdateStatusThread implements Runnable
+	public String SendCmd2getResult(Socket s,FilesWithParams  fileName,String jsoncmd) throws Exception
 	{
+		/*--------------------------------------------------*/
+		//JSONObject jo_t=new JSONObject();
+		//jo_t.put("orderid_suffix", orderid);
+	/*--------------------------------------------------*/		
+		PhonePcCommunication ppc=new PhonePcCommunication(
+			  s,
+			  fileName,
+			  fileName.getPrinter(), 
+			  InetAddress.getByName(this._SvrAddr.replace("/", "")),
+			  this._SvrPort);
+	/*--------------------------------------------------*/
+		return ppc.SendFileId2GetResult(jsoncmd);
+		
+	}
+	/**
+	 * 
+	 */
+	public String SendCmd(String cmd,String orderid) throws JSONException
+	{
+		String result="";
+		JSONObject jo=new JSONObject();
+		jo.put("cmd", cmd);
+		jo.put("orderid_suffix", orderid);
+		
+		Socket s=new Socket();
+		try {				
+			 FilesWithParams fwp=new FilesWithParams(doc,null);
+			 result=SendCmd2getResult(s, fwp,jo.toString());
+			 s.shutdownInput();
+	         s.shutdownOutput();				    
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			 try {
+				s.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		}
+		return result;
+	} 
+	/**
+	 * 
+	 * 
+	 */
 		public String GetPrice(String orderid)
 		{
 				String money="-1";
@@ -275,40 +326,70 @@ public class UserInfoOrder
 				}
 				return money;
 				
-			}
+		}
+	/**
+	 *  
+	 * 
+	 */
+		public boolean Send2Print(String orderid )
+		{			
+			String result = null;
+			try {
+				result = SendCmd("PrintDoc",orderid);
+				if(!StringUtils.isEmpty(result)){
+						JSONObject jo= new JSONObject(result);
+						String r_t=jo.getString("result");
+						if("success".equalsIgnoreCase(r_t)){
+							return true;
+						}					
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+			return false;
+		} 
+	/**
+	 *  
+	 * 
+	 */
+	public class UpdateStatusThread implements Runnable
+	{		
 		
+	   public void UpdateMoneyStatus()
+	   {		  
+		   
+		   if(!STATUS_CHARGING.equalsIgnoreCase(status)){			  
+			   return ; //非计价状态
+		   }
+		   
+		   if(StringUtils.isEmpty(orderType)){
+			   return ;
+		   }
+		   
+		   if(ORDER_TYPE_LOCAL.equals(orderType)){
+					//本地订单							 
+		   		String result=GetPrice(ID);
+					 if(!StringUtils.isEmpty(result)){
+						 
+					 		double money=Double.valueOf(result);
+					 		if(money>0){
+					 				
+					 				SetPrice2pay(money);//_Json_o.put("price2pay",money);
+					 				setStatus(STATUS_CHARGED);
+					 		}
+											 
+					 }				
+	      }
+	  }
 		
-		@Override
+	   
+	   
+	   @Override
 		public void run() {
 			// TODO Auto-generated method stub
-			
-				if(!StringUtils.isEmpty(orderType)&&ORDER_TYPE_LOCAL.equals(orderType)){
-					//本地订单
-					try {
-						 
-						String result=GetPrice(ID);
-						 if(!StringUtils.isEmpty(result)){
-							 
-							 		double money=Double.valueOf(result);
-							 		if(money>0){
-							 				setStatus(STATUS_CHARGED);
-							 				SetPrice2pay(money);//_Json_o.put("price2pay",money);
-							 				//Save2Disk();	
-							 		}
-												 
-						 }
-						 
-					} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-					}
-					
-				}
-				
-				
-			
-			
-			
+			UpdateMoneyStatus();	
+			CheckStatus2Print();
 		}
 		
 	}
@@ -382,9 +463,11 @@ public class UserInfoOrder
 		//如果处于挂起态
 		if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
 			//发送打印消息
-			
+			if(this.Send2Print(this.ID)){
+				this.setStatus(UserInfoOrder.STATUS_SUCCESS);//设置打印成功
+			}
 			//打印消息，发送成功--改变状态
-			//this.setStatus(UserInfoOrder.STATUS_SUCCESS);//设置打印成功
+			//
 		}
 							
 		

@@ -306,8 +306,9 @@ public OrderListStartMode mMode;
 					 
 					 if(UserInfoOrder.STATUS_CHARGING.equalsIgnoreCase(uio.getStatus())){
 						 //计算费用中
-						 bt.setVisibility(View.VISIBLE);
-						 bt.setText("刷新计费");
+						 //bt.setVisibility(View.VISIBLE);
+						// bt.setText("刷新计费");
+						 bt.setVisibility(View.GONE);
 						 bt.setOnClickListener(new View.OnClickListener() {							
 							@Override
 							public void onClick(View v) {

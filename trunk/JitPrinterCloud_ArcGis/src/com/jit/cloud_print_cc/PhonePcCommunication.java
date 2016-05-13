@@ -515,38 +515,45 @@ public class PhonePcCommunication
 * 
 * */
 	public  String SendFileId2GetPrice(String json) throws Exception
-		{
-			Socket socketClient=this.mSocketClient;
-			InetAddress mAddress=this.mAddress;
-			int mPort=this.mPort;
-			String Price_t=null; 
-			 
-			 socketClient.connect(new InetSocketAddress(mAddress,mPort));
-		     if (socketClient.isConnected() == false)
-		     {
-		         return null;
-		     }
-		     /*发送发送文件头*/
-		     SendOperationHeader_param(socketClient, CommunicationType.GetPriceById,null,null,json);
-		     /*读取服务器反馈*/
-		     boolean sendAllow = ReadServerPermission(socketClient);
-		     if (sendAllow == true)
-		     {
-		         /*读取打印机列表*/
-		    	 String ext=GetExt(socketClient);
-		    	 if(!StringUtils.isEmpty(ext)){		    		 
-		    		 JSONObject jo=new JSONObject(ext);
-		    		 Price_t=jo.getString("price2pay");
-		    		 
-		    	 }
-		    	 
-		    	// Price_t=GetExt(socketClient);
-		         
-		     }
-		     /*关闭缓冲*/
-		    
-		     return Price_t;
+		{		
+			String	  result=SendFileId2GetResult(json);
+			String    price_t=null;
+			if(!StringUtils.isEmpty( result)){		    		 
+	    		 JSONObject jo=new JSONObject( result);
+	    		 price_t=jo.getString("price2pay");
+	    		 
+	    	 }			
+			return price_t;		  
 		}
+  /**
+	*  
+	* 
+	* @throws IOException
+	* 
+	* */
+	public  String SendFileId2GetResult(String json) throws Exception
+	{
+		Socket socketClient=this.mSocketClient;
+		InetAddress mAddress=this.mAddress;
+		int mPort=this.mPort;
+		String result_t=null; 
+		 
+		 socketClient.connect(new InetSocketAddress(mAddress,mPort));
+	     if (socketClient.isConnected() == false)
+	     {
+	         return null;
+	     }
+	     /*发送发送文件头*/
+	     SendOperationHeader_param(socketClient, CommunicationType.GetPriceById,null,null,json);
+	     /*读取服务器反馈*/
+	     boolean sendAllow = ReadServerPermission(socketClient);
+	     if (sendAllow == true)
+	     {	        
+	    	 result_t=GetExt(socketClient); // Price_t=GetExt(socketClient);	
+	     }
+	     /*关闭缓冲*/	    
+	     return result_t;
+	}
 /**
  * @throws IOException 
 * 
