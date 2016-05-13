@@ -1,5 +1,6 @@
 package com.jit.cloud_print_cc;
 
+import com.alipay.sdk.pay.demo.PayResult;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -7,7 +8,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.jit.cloud_print_cc.KEY.OrderListStartMode;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,7 +20,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.AbsListView;
+import android.widget.Toast;
 /*----------------------------------------------------------------------------------------*/
+/**
+ * 
+ * 
+ * 
+ */
 public  class View_OrderListPrint extends View_CloudPrintTemplate {
 private final static int mLayoutId=R.layout.activity_print_order_list;
 private final static int mLstItemLayoutId=R.layout.print_order_list_item;
@@ -290,7 +300,7 @@ public OrderListStartMode mMode;
 				  ImageView thumbnail = (ImageView) convertView.findViewById(R.id.id_po_list_item_image);
 					Button bt= (Button)convertView.findViewById(R.id.id_po_list_item_button);
 				if(pi instanceof UserInfoOrder){
-					UserInfoOrder uio=(UserInfoOrder) pi;
+					final UserInfoOrder uio=(UserInfoOrder) pi;
 					tv.setText(uio.GetDes());
 					FileOperations.SetFileItemBackground(uio.GetFile(),thumbnail);
 					 
@@ -315,9 +325,18 @@ public OrderListStartMode mMode;
 							@Override
 							public void onClick(View v) {
 								// TODO Auto-generated method stub--付费逻辑
-								Toast_make_show("执行支付");
+								AliPay pt=new AliPay(View_OrderListPrint.this);
+								pt.Payit(uio);
+								/*pt.payit("亲打印费用Android",
+										cloudPrintAddress.GetTotalBodyOrders(),
+										cloudPrintAddress.GetTotalMoney(),
+										cloudPrintAddress.GetTotalOrderId());*/
 							}
 						});
+					 }else if(UserInfoOrder.STATUS_PRINTED_PENDING.equalsIgnoreCase(uio.getStatus())){
+						 bt.setVisibility(View.GONE);	
+					 }else if(UserInfoOrder.STATUS_SUCCESS.equalsIgnoreCase(uio.getStatus())){
+						 bt.setVisibility(View.GONE);
 					 }else{
 						 //
 						 bt.setVisibility(View.GONE);						
@@ -342,5 +361,66 @@ public OrderListStartMode mMode;
 		}
     	 
      }
-    
+     /**
+ 	 * 
+ 	 * 
+ 	 * 
+ 	 */	
+ 	Handler mHandler_MSG = new Handler() {
+ 		@Override
+ 		public void handleMessage(Message msg) {
+ 			switch (msg.what) {
+ 			case AliPay.SDK_PAY_FLAG: {
+ 				PayResult payResult = new PayResult((String) msg.obj);
+ 				/**
+ 				 * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
+ 				 * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
+ 				 * docType=1) 建议商户依赖异步通知
+ 				 */
+ 				String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+
+ 				String resultStatus = payResult.getResultStatus();
+ 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+ 				if (TextUtils.equals(resultStatus, "9000")) {
+ 					Toast.makeText(getContext(), "支付成功", Toast.LENGTH_SHORT).show();
+ 				} else {
+ 					// 判断resultStatus 为非"9000"则代表可能支付失败
+ 					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+ 					if (TextUtils.equals(resultStatus, "8000")) {
+ 						Toast.makeText(getContext(), "支付结果确认中", Toast.LENGTH_SHORT).show();
+
+ 					} else {
+ 						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+ 						Toast.makeText(getContext(), "支付失败", Toast.LENGTH_SHORT).show();
+
+ 					}
+ 				}
+ 				break;
+ 			}
+ 			case AliPay.SDK_CHECK_FLAG: {
+ 				Toast.makeText(getContext(), "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
+ 				break;
+ 			}
+ 			default:
+ 				break;
+ 			}
+ 		};
+ 	};
+
+ 	/**
+	 * 
+	 * 
+	 * 
+	 */
+	@Override
+	protected Handler Handler(){
+			
+		return mHandler_MSG;
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 */	
 }

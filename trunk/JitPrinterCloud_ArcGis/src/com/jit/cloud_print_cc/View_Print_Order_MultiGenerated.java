@@ -411,7 +411,7 @@ public void initChildView()
 						
 					}else if(cloudPrintAddress.GetTotalMoney()!=null){
 						//String Mone;		//	notify.printDocSuccess();		
-						Pay pt=new Pay(View_Print_Order_MultiGenerated.this);
+						AliPay pt=new AliPay(View_Print_Order_MultiGenerated.this);
 						pt.payit("亲打印费用Android",
 								cloudPrintAddress.GetTotalBodyOrders(),
 								cloudPrintAddress.GetTotalMoney(),
@@ -1142,80 +1142,5 @@ public void initChildView()
 	 * 
 	 */	
 	
-	public  static class Pay
-	{
-		
-		
-		View_CloudPrintTemplate _vt;
-		
-		
-		public Pay(View_CloudPrintTemplate vt){
-			this._vt=vt;
-		}
-		/**
-		 * call alipay sdk pay. 调用SDK支付
-		 * 
-		 */
-		public void payit(String subject, String body, String price,String ProductId) {
-			if (TextUtils.isEmpty(AliPay.PARTNER) || TextUtils.isEmpty(AliPay.RSA_PRIVATE) || TextUtils.isEmpty(AliPay.SELLER)) {
-				new AlertDialog.Builder(_vt.getContext()).setTitle("警告").setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
-						.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialoginterface, int i) {
-								//
-								_vt.finish();
-							}
-						}).show();
-				return;
-			}
-			//String orderInfo = PayDemoActivity.getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
-			//String orderInfo = PayDemoActivity.getOrderInfoQin("测试的商品", "该测试商品的详细描述","0.01",ProductId);
-			
-			if(isDebug){
-				price="0.01";
-			}
-			
-			String orderInfo = PayDemoActivity.getOrderInfoQin(subject, body, price,ProductId);
-			/**
-			 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
-			 */
-			String sign = PayDemoActivity.sign(orderInfo);
-			try {
-				/**
-				 * 仅需对sign 做URL编码
-				 */
-				sign = URLEncoder.encode(sign, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-
-			/**
-			 * 完整的符合支付宝参数规范的订单信息
-			 */
-			final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + PayDemoActivity.getSignType();
-
-			Runnable payRunnable = new Runnable() {
-
-				@Override
-				public void run() {
-					  Looper.prepare();
-						// 构造PayTask 对象
-						PayTask alipay = new PayTask((Activity) _vt.getContext());
-						// 调用支付接口，获取支付结果
-						String result = alipay.pay(payInfo, true);
 	
-						Message msg = new Message();
-						msg.what = AliPay.SDK_PAY_FLAG;
-						msg.obj = result;
-						_vt.Handler().sendMessage(msg);
-					   Looper.loop();
-				}
-			};
-
-			// 必须异步调用
-			Thread payThread = new Thread(payRunnable);
-			payThread.start();
-		}
-	}
-
 }

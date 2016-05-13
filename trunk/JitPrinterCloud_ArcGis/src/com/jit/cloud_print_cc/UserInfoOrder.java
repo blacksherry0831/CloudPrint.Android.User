@@ -24,11 +24,13 @@ public class UserInfoOrder
 	/*-----------------------------------*/
 	public static final String STATUS_CHARGING="charging";
 	public static final String STATUS_CHARGED="charged";
+	public static final String STATUS_SUCCESS="success";
+	public static final String STATUS_PRINTED_PENDING="pending";
 	public static final String ORDER_TYPE_LOCAL="local";
 	/*-----------------------------------*/
   	JSONObject _Json_o;
   	public  String _Username;
-  	public  String _Price2Pay;
+  	private  String _Price2Pay;
 	/*-----------------------------------*/
 	public	String  color;//是否黑白
 	public	String copies;//打印份数
@@ -42,8 +44,20 @@ public class UserInfoOrder
 		return status;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(String status_t) {		
+		try {
+			_Json_o.put("Status",status_t);
+			Save2Disk();
+			this.status = status;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
+			this.CheckStatus2Print();
+		}
+			
 	}
 	/*----------------------------------*/
 	private String orderType;
@@ -55,7 +69,19 @@ public class UserInfoOrder
 	public UserInfoOrder(){
 		
 	}
-	
+	public void SetPrice2pay(double price_t)
+	{
+		try {
+			_Json_o.put("price2pay",price_t);
+			Save2Disk();
+			this._Price2Pay=GetV("price2pay");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	public boolean Parse(JSONObject jo) 
 	{
 		this._Json_o=jo;		
@@ -148,6 +174,17 @@ public class UserInfoOrder
 	
 	public String FileName()
 	{
+		
+		if(!StringUtils.isEmpty(orderType)&&"local".equals(orderType)){
+			//本地文件
+			File f=new File(doc);
+			if(f.exists()){
+				return LibCui.getFileNameNoEx(f)+"."+LibCui.getExtensionName(f);
+			}
+			return this.doc;
+		}
+		
+		
 		return this.doc+"."+this.filetype;
 	}
 	public String GetDes()
@@ -254,9 +291,9 @@ public class UserInfoOrder
 							 
 							 		double money=Double.valueOf(result);
 							 		if(money>0){
-							 				_Json_o.put("Status",STATUS_CHARGED);
-							 				_Json_o.put("price2pay",money);
-							 				OrderLocal.SaveLocalOrder2Disk(_Username, ID, _Json_o.toString());	
+							 				setStatus(STATUS_CHARGED);
+							 				SetPrice2pay(money);//_Json_o.put("price2pay",money);
+							 				//Save2Disk();	
 							 		}
 												 
 						 }
@@ -276,6 +313,95 @@ public class UserInfoOrder
 		
 	}
 	/**
+	 * subject	String	必须String(128)
+	 */
+	public String GetAliPaySubject()
+	{
+		StringBuffer subject_sb=new StringBuffer();
+		subject_sb.append(AliPay._Subject);subject_sb.append("_");
+		subject_sb.append(this._Username);subject_sb.append("_");
+		subject_sb.append(this.FileName());subject_sb.append("_");
+		//subject_sb.append(this.);subject_sb.append("_");
+		//subject_sb.append(AliPay._Subject);
+		return GetSubString(subject_sb.toString(),128);
+	}
+	/**
+	 * body	String(512)
+	 */
+	public String GetAlipayBody(){
+		
+		try {
+			JSONObject jo=new JSONObject(this._Json_o.toString());
+			jo.remove("phonenumber");
+			jo.remove("DocumentName");
+			jo.remove("orderid");
+			jo.remove("orderid_suffix");
+			return GetSubString(jo.toString(),512);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return GetSubString(_Json_o.toString(),512);
+		
+	}
+	/**
+	 * total_amount	Price	必须	9	订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
+	 */
+	public String GetAlipayPrice(){
+		return GetSubString(this._Price2Pay,9);
+	}
+	/**
+	 * out_trade_no	String	必须	64
+	 */
+	public String GetAlipayProductId(){	
+		return GetSubString(this.ID,64);
+	}
+	/**
 	 * 
 	 */
+	public String GetSubString(String value,int size){
+		
+			if(value!=null &&size>=0){
+				return value.substring(0,Math.min(size,value.length()));	
+			}else{
+				return "";
+			}
+	   
+	
+		
+	}
+
+
+	/**
+	 * 
+	 */
+	public void CheckStatus2Print()
+	{
+		//如果处于挂起态
+		if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
+			//发送打印消息
+			
+			//打印消息，发送成功--改变状态
+			//this.setStatus(UserInfoOrder.STATUS_SUCCESS);//设置打印成功
+		}
+							
+		
+	}
+	/**
+	 * 
+	 */
+	public void Save2Disk()
+	{		
+		if(!StringUtils.isEmpty(orderType)&&ORDER_TYPE_LOCAL.equals(orderType)){
+			//本地订单
+			OrderLocal.SaveLocalOrder2Disk(_Username, ID, _Json_o.toString());	
+						
+		}
+	}
+	/**
+	 * 
+	 */
+
 }
