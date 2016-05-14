@@ -48,7 +48,7 @@ public class UserInfoOrder
 		try {
 			_Json_o.put("Status",status_t);
 			Save2Disk();
-			this.status = status;
+			this.status = status_t;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

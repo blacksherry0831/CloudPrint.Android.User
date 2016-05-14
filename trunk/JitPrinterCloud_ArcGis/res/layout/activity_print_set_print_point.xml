@@ -112,7 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="共享打印机"
+                        android:text="自助打印机"
                         android:textColor="@color/color_txt_on_search_view"
                         android:textSize="@dimen/dim_txt_on_search_view"
                         android:textStyle="bold" />
