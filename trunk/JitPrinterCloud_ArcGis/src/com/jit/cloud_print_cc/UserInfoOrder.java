@@ -53,8 +53,9 @@ public class UserInfoOrder
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		UpdateStatusLocal();
+		if(UserInfoOrder.STATUS_PRINTED_PENDING.equalsIgnoreCase(getStatus())){		 
+			UpdateStatusLocal();
+		}
 			
 	}
 	/*----------------------------------*/
@@ -351,7 +352,7 @@ public class UserInfoOrder
 	 *  
 	 * 
 	 */
-		 private static  boolean _sync=true;
+		 private   boolean _sync=true;//不可以是static
 	public class UpdateStatusThread implements Runnable
 	{		
 		/**
