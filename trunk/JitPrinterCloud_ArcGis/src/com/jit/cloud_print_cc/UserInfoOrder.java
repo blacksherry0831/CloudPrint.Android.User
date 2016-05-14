@@ -54,9 +54,7 @@ public class UserInfoOrder
 			e.printStackTrace();
 		}
 		
-		if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
-			this.CheckStatus2Print();
-		}
+		UpdateStatusLocal();
 			
 	}
 	/*----------------------------------*/
@@ -353,9 +351,34 @@ public class UserInfoOrder
 	 *  
 	 * 
 	 */
+		 private static  boolean _sync=true;
 	public class UpdateStatusThread implements Runnable
 	{		
-		
+		/**
+		 *  
+		 * 
+		 */
+			public boolean Send2Print(String orderid )
+			{			
+				String result = null;
+				try {
+					result = SendCmd("PrintDoc",orderid);
+					if(!StringUtils.isEmpty(result)){
+							JSONObject jo= new JSONObject(result);
+							String r_t=jo.getString("result");
+							if("success".equalsIgnoreCase(r_t)){
+								return true;
+							}					
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+				return false;
+			} 
+			/**
+			 * 
+			 */
 	   public void UpdateMoneyStatus()
 	   {		  
 		   
@@ -382,14 +405,40 @@ public class UserInfoOrder
 					 }				
 	      }
 	  }
+		/**
+		 * 
+		 */
+		public void CheckStatus2Print()
+		{
+			//如果处于挂起态
+			if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
+				//发送打印消息
+				if(Send2Print(ID)){
+					setStatus(UserInfoOrder.STATUS_SUCCESS);//设置打印成功
+				}
+				//打印消息，发送成功--改变状态
+				//
+			}
+								
+			
+		}
+	   
+	  
 		
-	   
-	   
 	   @Override
 		public void run() {
 			// TODO Auto-generated method stub
-			UpdateMoneyStatus();	
-			CheckStatus2Print();
+		   synchronized(UserInfoOrder.this){
+			   if(_sync==true){
+					   _sync=false;
+					   UpdateMoneyStatus();	
+					   CheckStatus2Print();
+					   _sync=true;
+			   }
+		   }
+		
+		   
+			
 		}
 		
 	}
@@ -455,23 +504,7 @@ public class UserInfoOrder
 	}
 
 
-	/**
-	 * 
-	 */
-	public void CheckStatus2Print()
-	{
-		//如果处于挂起态
-		if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
-			//发送打印消息
-			if(this.Send2Print(this.ID)){
-				this.setStatus(UserInfoOrder.STATUS_SUCCESS);//设置打印成功
-			}
-			//打印消息，发送成功--改变状态
-			//
-		}
-							
-		
-	}
+
 	/**
 	 * 
 	 */
