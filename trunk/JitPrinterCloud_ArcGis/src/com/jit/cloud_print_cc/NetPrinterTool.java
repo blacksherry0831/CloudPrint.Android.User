@@ -217,12 +217,12 @@ public class NetPrinterTool
    * 
    * 
    */
-		  private String intToIp(int hostip)  {
+		  private static String intToIp(int hostip)  {
 			  return (hostip & 0xFF)+"."+((hostip>>8)&0xFF)+ "." + ((hostip >> 16 ) & 0xFF) +"."+((hostip >> 24 ) & 0xFF);  
 		  }
 		   
 		  //获取IP前缀
-		  public String getLocAddrIndex(){
+		  public   String getLocAddrIndex(){
 		     
 		    String str = getLocAddress();
 		     

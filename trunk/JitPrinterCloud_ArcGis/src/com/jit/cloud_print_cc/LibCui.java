@@ -737,7 +737,7 @@ public static short getSubNetMaskAddress() throws UnknownHostException, SocketEx
 	return subnetMask;
 }
 /*--------------------------------------------------*/
-private static String intToIP(int ipAddress) {
+public static String intToIP(int ipAddress) {
     String ret = String.format("%d.%d.%d.%d", (ipAddress & 0xff),
             (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff),
             (ipAddress >> 24 & 0xff));
@@ -1162,4 +1162,39 @@ public static File GetCloudDiskForder()
  * 
  * 
  */
+/**
+ * 获取本地ip地址
+ * 
+ */		  
+		  public static String getLocAddress(Context mContext){
+		     
+			  
+			  InetAddress Ia=null;
+			   int ip=0;
+			   WifiManager wifiManager = (WifiManager) (mContext).getSystemService(Context.WIFI_SERVICE);
+			   WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+			   String ip_str="";
+			    if(isWifiEnabled(mContext)){
+				    	 ip=wifiInfo.getIpAddress();
+				    	 ip_str=long2ip(ip);  
+							    	
+			     }
+			   
+			   return ip_str;
+			
+		 
+		  }
+ /**
+  * 
+  * 
+  */
+		  private static String intToIp(int hostip)  {
+			  return (hostip & 0xFF)+"."+((hostip>>8)&0xFF)+ "." + ((hostip >> 16 ) & 0xFF) +"."+((hostip >> 24 ) & 0xFF);  
+		  }
+		  
+  /**
+   * 
+   * 
+   */
+		   
 }

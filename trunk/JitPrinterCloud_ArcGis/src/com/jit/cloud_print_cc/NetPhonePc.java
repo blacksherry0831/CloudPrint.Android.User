@@ -118,6 +118,7 @@ public class NetPhonePc {
 			
 			if(mPCPhonePrinterList!=null){				
 				mPCPhonePrinterList.RemoveUnUsePrintersFromPc();
+				mPCPhonePrinterList.addItem(new ServerInfo(mContext).GetDefaultLocalPC());
 			}
 			// TODO Auto-generated method stub
 			if(mNetFindTransfer!=null&&mThreadRun){

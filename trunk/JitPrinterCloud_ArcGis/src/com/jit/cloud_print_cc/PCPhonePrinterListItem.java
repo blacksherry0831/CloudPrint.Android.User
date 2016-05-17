@@ -55,6 +55,8 @@ class PCPhonePrinterListItem implements Serializable
 				PrintFrom.Self,
 				ServerInfo.GetSelf(),
 				PrintType.NetPrint));*/
+		
+		//this.addItem(new ServerInfo(Context).GetDefaultLocalPC());
 	}
 	/**
 	 * 
@@ -115,6 +117,10 @@ class PCPhonePrinterListItem implements Serializable
 */
        public void addItem( ServerInfo s)
        { 
+    	   if(s==null){
+    		   return;
+    	   }
+    	   
     	   if(s.mPort<=1024) 	  
     		   return;
     	  
@@ -122,7 +128,11 @@ class PCPhonePrinterListItem implements Serializable
         	    this.AddPrinters(s);
                if (this.mPCList.containsKey(s.GetKey()))
                {
-            	   this.mPCList.get(s.GetKey()).mTimeAlive=System.currentTimeMillis();
+            	   ServerInfo si_t=this.mPCList.get(s.GetKey());
+            	   si_t.mTimeAlive=System.currentTimeMillis();
+            	   si_t.SetBaseInfo(s);
+            	   
+            	   
                   
                }else {
             	   s.mTimeAlive=System.currentTimeMillis();

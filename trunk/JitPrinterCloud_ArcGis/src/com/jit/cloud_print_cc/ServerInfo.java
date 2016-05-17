@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.jit.cloud_print_cc.FileSendOnNet.NowSendPercent;
+import com.ta.utdid2.android.utils.StringUtils;
 
 import android.content.Context;
 import android.util.Log;
@@ -150,17 +152,7 @@ public class ServerInfo  extends ServerInfoBase implements Serializable
 		 }
 
      }
-	 public String GetHostName()
-     {
-		 if(this.mHostType==2){
-	         return  this.mHostPhoneType;
-		 }else if(this.mHostType==1){
-	         return  this.mHostPCName;
-		 }else{
-	         return "no devices";
-		 }
-
-     }
+	
 	 public String GetDes()
      {
 	
@@ -587,5 +579,39 @@ public class ServerInfo  extends ServerInfoBase implements Serializable
 	  {
 		  ServerInfo si=new ServerInfo(ctx);
 		  return si;
+	  }
+	  
+	//获取IP前缀
+	  public  String getLocAddrIndexPrefix(){
+	     
+	    String str =LibCui.getLocAddress(mContext);
+	     
+	    if(!str.equals("")){
+	      return str.substring(0,str.lastIndexOf(".")+1);
+	    }
+	     
+	    return null;
+	  }
+	  
+	  public  ServerInfo GetDefaultLocalPC()
+	  {
+		  this.mHostType=1;//this is a pc.
+		  this.mPort=NetPhonePc.mUdpSetverPort[0];
+		  String ip_prefix=getLocAddrIndexPrefix();
+		  
+		  if(StringUtils.isEmpty(ip_prefix)||mContext==null){
+			return null; 
+		  }
+		  String ip_str_t=ip_prefix+"88";
+		 
+		  try {
+			this.mAddress=InetAddress.getByName(ip_str_t);
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  
+		  return this;
 	  }
 }
