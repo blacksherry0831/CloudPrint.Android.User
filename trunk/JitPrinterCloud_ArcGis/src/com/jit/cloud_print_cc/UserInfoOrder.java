@@ -197,7 +197,7 @@ public class UserInfoOrder
 		sb.append("打印范围:");sb.append(this.pages);sb.append("\n");
 		if(!StringUtils.isEmpty(this._Price2Pay)){		
 			double price_t=Double.valueOf(this._Price2Pay);
-			if(price_t>=0)	sb.append("价格:");sb.append(this._Price2Pay);
+			if(price_t>=0){	sb.append("价格:");sb.append(this._Price2Pay);}
 		}
 		return sb.toString();
 	}
