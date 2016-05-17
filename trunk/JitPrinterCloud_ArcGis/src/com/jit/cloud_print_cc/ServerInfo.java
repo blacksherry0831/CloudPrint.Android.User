@@ -596,6 +596,7 @@ public class ServerInfo  extends ServerInfoBase implements Serializable
 	  public  ServerInfo GetDefaultLocalPC()
 	  {
 		  this.mHostType=1;//this is a pc.
+		  this.mHostPCName="默认服务器";
 		  this.mPort=NetPhonePc.mUdpSetverPort[0];
 		  String ip_prefix=getLocAddrIndexPrefix();
 		  
