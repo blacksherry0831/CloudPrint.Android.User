@@ -196,7 +196,11 @@ public class FileOperations_ForderSelect  extends FileOperations_Select
 					if (mOptFilterListed != null && !mOptFilterListed.contains(extension)) continue;
 					if (mOptFilterExclude != null && mOptFilterExclude.contains(extension)) continue;
 				}
-				mFilesList.add(files[i]);
+				//忽略隐藏文件
+				if(!files[i].getName().startsWith(".")){
+					mFilesList.add(files[i]);
+				}
+
 			}
 		}
 
