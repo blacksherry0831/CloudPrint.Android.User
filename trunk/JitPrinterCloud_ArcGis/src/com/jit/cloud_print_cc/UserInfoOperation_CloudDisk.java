@@ -16,6 +16,8 @@ import com.jit.cloud_print_cc.ServerInfoSendStatus.SendFilePackage;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferDone;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferStart;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferendEndOne;
+import com.ta.utdid2.android.utils.StringUtils;
+
 import android.content.Context;
 
 public class UserInfoOperation_CloudDisk extends UserOrderInfoGenerated {
@@ -276,6 +278,11 @@ public class UserInfoOperation_CloudDisk extends UserOrderInfoGenerated {
  */		
 		public static  boolean  IsValidJson(String  j_txt)
 		{
+			
+			if(StringUtils.isEmpty(j_txt)){
+				 return false;
+			}			
+			
 			boolean Valid=true;
 			JSONObject jo = null;
 			try {
