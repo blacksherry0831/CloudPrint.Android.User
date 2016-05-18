@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.content.Context;
 
@@ -45,10 +46,20 @@ public class EmbeddedSendFileThread implements Runnable
 		public  byte[] GetMsgBody(int type,int len,byte[] buffer)
 		{		
 			_Len=len;
-			return FileSendOnNet.concatAll(
+			byte[] buf_return=null;
+			if(len<=0){
+				buf_return=FileSendOnNet.concatAll(
 					toLH(type),
-					toLH(len),
-					buffer);
+					toLH(len));
+			}else{
+				byte [] buff_t=Arrays.copyOf(buffer, len);;
+				buf_return= FileSendOnNet.concatAll(
+						toLH(type),
+						toLH(len),
+						buff_t);
+			}
+			return buf_return;
+			
 		}
 	}
 	/**
@@ -65,7 +76,7 @@ public class EmbeddedSendFileThread implements Runnable
 	 int MSG_DONE= 4;
 	 int MSG_EXCEPTION= 5;
 	
-	 public static final String ServerIP="192.168.0.34";
+	 public static final String ServerIP="192.168.1.113";
 	 public static final int ServerPort=8888;
         private SendFilePackage sfPackage=new SendFilePackage();
 		private int mFileIdx=0;
@@ -275,10 +286,11 @@ public class EmbeddedSendFileThread implements Runnable
 		  			while ((read = reader.read(buf, 0, buf.length)) != -1) {
 		  				long TimeSendStart=System.nanoTime();
 		  				// MSG_CONTINUE
-			  				{
+			  				if(read>0){
 				  				 Msg msg_t=new Msg();
 				  				 out.write(msg_t.GetMsgBody(MSG_CONTINUE,read, buf), 0, 8+msg_t.Len());
 				  				 out.flush();
+				  				 Thread.sleep(500);
 			  				 }
 		  				//		  			
 		  			
