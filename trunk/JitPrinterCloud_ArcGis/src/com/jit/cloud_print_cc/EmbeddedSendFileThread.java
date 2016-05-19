@@ -37,8 +37,8 @@ public class EmbeddedSendFileThread implements Runnable
 	 * 
 	 */
 	public static class Msg{
-		final byte[] msg_type=new byte[4];
-		final byte[] msg_len=new byte[4];
+		//final byte[] msg_type=new byte[4];
+		//final byte[] msg_len=new byte[4];
 		int _Len=0;
 		public int Len(){
 			return _Len;
@@ -272,6 +272,7 @@ public class EmbeddedSendFileThread implements Runnable
 	        	  /*-------------------------------------*/
 	  			    reader = new FileInputStream(file);
 		  			out = new DataOutputStream(socket.getOutputStream()); 
+		  			socket.setSendBufferSize(1024*1024*2);
 		      	  /*--------Send-----------------------------*/
 		      	  int read = 0;
 		      	  int FileSizeTotal=reader.available();
@@ -283,12 +284,13 @@ public class EmbeddedSendFileThread implements Runnable
 				      	  out.write(msg_t.GetMsgBody(MSG_FILENAME,fileName_t.length(), fileName_t.getBytes("US-ASCII")), 0,8+msg_t.Len());	
 				     }		      	  
 		  			// 将文件输入流 循环 读入 Socket的输出流中
-		  			while ((read = reader.read(buf, 0, buf.length)) != -1) {
+		  			while (read != -1) {
 		  				long TimeSendStart=System.nanoTime();
+		  				read = reader.read(buf, 0, buf.length);
 		  				// MSG_CONTINUE
-			  				if(read>0){
+			  				if(read>=0){
 				  				 Msg msg_t=new Msg();
-				  				 out.write(msg_t.GetMsgBody(MSG_CONTINUE,read, buf), 0, 8+msg_t.Len());
+				  				 out.write(msg_t.GetMsgBody(MSG_CONTINUE,read, buf), 0, 8+read);
 				  				 out.flush();
 				  				 Thread.sleep(500);
 			  				 }
@@ -296,8 +298,9 @@ public class EmbeddedSendFileThread implements Runnable
 		  			
 		  				long TimeMs=(System.nanoTime()-TimeSendStart)/1000;
 		  				FileSizeNowRead+=read;
-		  				double SendSpeed=(1.0*read/1024)/(1.0*TimeMs/1000);//KBpS
-		  				if(mNowSendPercent!=null){
+		  				double Time_t=1.0*TimeMs/1000;
+		  				if(mNowSendPercent!=null&&Time_t>0){
+		  					double SendSpeed=(1.0*read/1024)/(Time_t);//KBpS		  					
 		  					mNowSendPercent.NowSendPerrSent(1.0*FileSizeNowRead/FileSizeTotal,SendSpeed);
 		  				}
 		  			}
