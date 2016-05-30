@@ -4,6 +4,7 @@ package com.jit.mail;
 import com.jit.*;
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Calendar;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -36,7 +37,8 @@ public class SendMail {
 		 for(File fci :f_crash){			 
 					 try{
 						  if(fci.getName().endsWith(CrashHandler.CRASH_REPORTER_EXTENSION)){
-							  SendTxt(OrderLocal.txt2String(fci));
+							  
+							  SendTxt(Convert2MailFormat(fci));
 							  fci.delete();
 						  }
 					 }catch(Exception e){
@@ -44,6 +46,21 @@ public class SendMail {
 					 }			 
 		 }	
 	}  
+	
+	public String Convert2MailFormat(File f)
+	{
+		StringBuilder sb=new StringBuilder();
+		
+		sb.append(OrderLocal.txt2String(f));
+		
+			Long time =f.lastModified();
+	        Calendar cd = Calendar.getInstance();
+	        cd.setTimeInMillis(time);
+	    sb.append(cd.getTime());
+	    sb.append(android.os.Build.MODEL);
+		
+		return sb.toString(); 
+	}
 	
 	public static void SendTxt(String txt) throws Exception
 	{
