@@ -29,7 +29,7 @@ import android.widget.Toast;
  */
 public  class View_OrderListPrint extends View_CloudPrintTemplate {
 private final static int mLayoutId=R.layout.activity_print_order_list;
-private final static int mLstItemLayoutId=R.layout.print_order_list_item;
+//private final static int mLstItemLayoutId=R.layout.print_order_list_item;
 private  View mListView; /**<订单列表*/
 private  final ShowOrderAdapter madapter=new ShowOrderAdapter();;
 /*this.mSharedPrintList.setAdapter(new  SharedPrinterAdapter());*/

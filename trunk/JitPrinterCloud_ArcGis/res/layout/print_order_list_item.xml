@@ -38,14 +38,12 @@
       <Button
           android:id="@+id/id_po_list_item_button"
           android:layout_width="100dp"
-          android:layout_height="36dp"
+          android:layout_height="40dp"
           android:layout_gravity="bottom|right"
           android:layout_marginBottom="10dp"
           android:layout_marginRight="10dp"
-          android:background="@drawable/button_blue_org"
           android:text="已完成"
-          android:textColor="@android:color/white"
-          android:textSize="20sp"
+          style="@style/button_body_default_print"
           android:textStyle="bold" />
 
     </LinearLayout>

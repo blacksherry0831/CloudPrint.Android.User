@@ -1,5 +1,6 @@
 package com.jit.cloud_print_cc;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -194,11 +195,20 @@ class  GridItemClickListener implements OnItemClickListener
 						FExtFilter.FORDER_PHOTO);
 			}
 			else if(file_select.equals(Res().getString(R.string.dm_file_my_qq))){
-				View_DocumentManagement.this.StartActivityView(
+				
+				File qqf=LibCui.GetMyQQDirectory();
+				if(qqf!=null){
+					View_DocumentManagement.this.StartActivityView(
 						Activity_FileSelect.class,
 						file_select,
 						null,
 						 FExtFilter.FORDER_QQ);
+				}else{
+					arg1.setVisibility(View.INVISIBLE);
+				}
+				
+			
+			
 			}else if(file_select.equals(Res().getString(R.string.dm_file_my_net))){
 				View_DocumentManagement.this.StartActivityView(
 						Activity_FileSelect_NetDisk.class,
