@@ -47,11 +47,13 @@ public class View_CloudMain extends View_CloudPrintTemplate implements LeftRight
 
 	int mBgmWidth;
 	int mBgmHeight;
-	private double                  m_TopScale;
-	private double                  m_BottomScale;
-	private double                  m_CenterScale;
+	private double                  m_TopScaleBg;
+	private double                  m_BottomScaleBg;
+	private double                  m_CenterScaleBg;
 	private  final   double         m_CenterTextScaleL=1.0*165/720;
 	private  final   double         m_CenterCircleScaleL=1-1.0*165/720;
+	//private  final   double			m_Center_txt_Margin=1.0*267/710;
+	//private  final   double         m_Center_txt_Height=1.0*(449-268)/710;
 	private double                  m_CircleTopMarginsScale;
 
 	//private Bitmap bmpBackgroundLeft;
@@ -87,15 +89,17 @@ public class View_CloudMain extends View_CloudPrintTemplate implements LeftRight
 	}
 public	void InitLayoutParam(double TopScaleOnView,double BottomScaleOnView){
 	if(mRootWidth+mRootHeight!=0){
-		m_TopScale=TopScaleOnView*mBgmHeight/mRootHeight;
-		m_BottomScale=(BottomScaleOnView*mRootHeight+mBgmHeight-mRootHeight)/mBgmHeight;	
+		//m_TopScaleBg=TopScaleOnView;
+		//m_BottomScaleBg=BottomScaleOnView;	
+		m_TopScaleBg=TopScaleOnView*mRootHeight/mBgmHeight;
+		m_BottomScaleBg=(BottomScaleOnView*mRootHeight+mBgmHeight-mRootHeight)/mBgmHeight;	
 	}else{
-		m_TopScale=0.8/10;
-		m_BottomScale=0.8/10;
+		m_TopScaleBg=0.8/10;
+		m_BottomScaleBg=0.8/10;
 	}
-	m_CenterScale=1-m_TopScale-m_BottomScale;
+	m_CenterScaleBg=1-m_TopScaleBg-m_BottomScaleBg;
 	
-	m_CircleTopMarginsScale=1.0*313/1278-m_TopScale;
+	m_CircleTopMarginsScale=1.0*313/1278-m_TopScaleBg;
 	
 }
 public void InitCircleString(Context context)
@@ -212,9 +216,9 @@ public void InitChildLayoutParams()
 	
 	/////////////////////////////////
 	 int delta=mBgmHeight-this.mRootHeight;
-	 LinearLayout.LayoutParams mTopLayoutParam=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(mBgmHeight*m_TopScale));
-	 LinearLayout.LayoutParams mCenterLayoutParam=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(mBgmHeight*m_CenterScale));
-	 LinearLayout.LayoutParams mBottomLayoutParam=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(mBgmHeight*m_BottomScale)-delta);
+	 LinearLayout.LayoutParams mTopLayoutParam=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(mBgmHeight*m_TopScaleBg));
+	 LinearLayout.LayoutParams mCenterLayoutParam=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(mBgmHeight*m_CenterScaleBg));
+	 LinearLayout.LayoutParams mBottomLayoutParam=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(mBgmHeight*m_BottomScaleBg)-delta);
    // mTop.setLayoutParams(null);
 	 mTop.setLayoutParams(mTopLayoutParam);
      mCenter.setLayoutParams(mCenterLayoutParam);
@@ -394,15 +398,22 @@ public static View GetImageText(int ImgIdx, int StrIdx,Context context)
 public void InitTextAreaParam()
 {
 	  mCenterHTxt.setOrientation(LinearLayout.VERTICAL);
-	  mCenterHTxt.setGravity(Gravity.CENTER);  
+	  //mCenterHTxt.setGravity(Gravity.CENTER);  
      
 	  LinearLayout.LayoutParams tv1Layoutparam=new  LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
 	  tv1Layoutparam.gravity=Gravity.CENTER;
-	     
-	  LinearLayout.LayoutParams tv2Layoutparam=new  LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-	  tv2Layoutparam.gravity=Gravity.CENTER;
+	  
+	  final   double		 m_Center_txt_Margin=1.0*267/710;
+	  final   double         m_Center_txt_Height=1.0*(455-273)/720;
+	  
+	  LinearLayout.LayoutParams tv2Layoutparam=new  LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(mBgmHeight*m_Center_txt_Height));
+	  //tv2Layoutparam.gravity=Gravity.CENTER;
+	  double Margin_top=mBgmHeight*m_Center_txt_Margin-mBgmHeight*m_TopScaleBg;
+	  tv2Layoutparam.setMargins(0,(int)(Margin_top) ,0,0);
 	  
 	  mCenterHTxtTV1.setLayoutParams(tv1Layoutparam);
+	  
+	  mCenterHTxtTV2.setGravity(Gravity.CENTER_VERTICAL);
 	  mCenterHTxtTV2.setLayoutParams(tv2Layoutparam);
 	  
 }
@@ -415,13 +426,14 @@ public  LinearLayout InitTextArea(Context context)
 	// mCenterHTxtTV1.setText(getContext().getString(R.string.app_des));
 
      mCenterHTxtTV2=new TextView(context);
-	 mCenterHTxtTV2.setGravity(Gravity.CENTER_VERTICAL);
+	
      mCenterHTxtTV2.setText(getContext().getString(R.string.app_des));
      mCenterHTxtTV2.setTextColor(Color.WHITE);
      mCenterHTxtTV2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+    
    //  mCenterHTxtTV2.setText("功能介绍......");
      
-     mCenter01.addView(mCenterHTxtTV1);
+    // mCenter01.addView(mCenterHTxtTV1);
      mCenter01.addView(mCenterHTxtTV2);
      return  mCenter01;
 }
