@@ -80,7 +80,7 @@ public class UpdateAndroid
           intent.setAction("android.intent.action.VIEW");         
           intent.setData(uri);         
           //不指定让用户选择
-          //intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");   
+          intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");   
           ctx.startActivity(intent);
 	}
    
