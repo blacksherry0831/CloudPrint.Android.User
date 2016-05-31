@@ -25,7 +25,7 @@ public class UpdateAndroid
 	    try {
 	        PackageManager manager = ctx.getPackageManager();
 	        PackageInfo info = manager.getPackageInfo(ctx.getPackageName(), 0);
-	        String version = info.versionName;
+	        String version = info.versionName+info.versionCode;
 	        return  version;
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -80,7 +80,7 @@ public class UpdateAndroid
           intent.setAction("android.intent.action.VIEW");         
           intent.setData(uri);         
           //不指定让用户选择
-          intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");   
+          //intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");   
           ctx.startActivity(intent);
 	}
    
