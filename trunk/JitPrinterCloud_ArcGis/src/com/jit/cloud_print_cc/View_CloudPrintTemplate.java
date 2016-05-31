@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -233,11 +236,15 @@ public class View_CloudPrintTemplate  implements Interfase_CloudPrintView,OnGlob
 		 File path=LibCui.GetCloudPrintCfgFile();
 		 
 		 File file=new File(path,KEY.K_D_CONFFORDER);
-		 if(!file.exists()){
-			 StringBuilder sb=new StringBuilder();
-			 sb.append(memClass); sb.append('\n');
-			 sb.append(UpdateAndroid.getVersion(mContext));sb.append('\n');
-			 LibCui.SaveString2Fille(file,sb.toString());
+		 if(!file.exists()){			
+			 JSONObject jo=new JSONObject();			 
+			 try {
+				 jo.put("mem", memClass);
+				 jo.put("version", UpdateAndroid.getVersion(getContext()));
+				  LibCui.SaveString2Fille(file,jo.toString());
+			} catch (Exception e) {
+			}			 
+			
 		 }
 		
 		

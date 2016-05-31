@@ -3,7 +3,7 @@
     package="com.jit.cloud_print_cc"
     android:installLocation="preferExternal"
     android:versionCode="1"
-    android:versionName="1.0。0" >
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="16"

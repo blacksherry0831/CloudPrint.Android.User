@@ -144,7 +144,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/login_download_lastet"
-            android:textColor="@color/qin_title_bar_blue"
+            android:textColor="@color/green"
             android:textSize="22sp" />
 
     </RelativeLayout>
