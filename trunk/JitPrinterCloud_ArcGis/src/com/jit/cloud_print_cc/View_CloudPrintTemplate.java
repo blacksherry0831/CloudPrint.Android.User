@@ -25,6 +25,7 @@ import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintFrom;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintType;
 import com.jit.cloud_print_cc.View_FileTransfer.DevicesMode;
 import com.jit.cloud_print_cc.View_PrintSetPrintPoint.SharedPrinterAdapter;
+import com.jit.update.UpdateAndroid;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -228,12 +229,23 @@ public class View_CloudPrintTemplate  implements Interfase_CloudPrintView,OnGlob
 		
 		ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
 		int memClass=activityManager.getMemoryClass();
-		LibCui.SaveString2Fille("Mem.txt",String.valueOf(memClass));
+		
+		 File path=LibCui.GetCloudPrintCfgFile();
+		 
+		 File file=new File(path,KEY.K_D_CONFFORDER);
+		 if(!file.exists()){
+			 StringBuilder sb=new StringBuilder();
+			 sb.append(memClass); sb.append('\n');
+			 sb.append(UpdateAndroid.getVersion(mContext));sb.append('\n');
+			 LibCui.SaveString2Fille(file,sb.toString());
+		 }
+		
+		
+		
 		if(memClass>200){
 			//手机非常豪华
 			SmallMemUsage=false;
-		}
-		
+		}		
 		this.initBackgroundbyHand(this.mPhoneHand);
 		
 	}

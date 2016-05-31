@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.jit.cloud_print_cc.R;
+import com.jit.update.UpdateAndroid;
+import com.ta.utdid2.android.utils.StringUtils;
 
 public class View_Login extends View_CloudPrintTemplate
 {
@@ -20,6 +22,7 @@ public class View_Login extends View_CloudPrintTemplate
 	private CheckBox rem_pw, auto_login;
 	private Button btn_login;
 	private TextView mRegisterTextView;
+	private TextView mUpdateTextView;
 	private ImageButton btnQuit;
     private String userNameValue,passwordValue;
 	private SharedPreferences sp;
@@ -152,6 +155,23 @@ public class View_Login extends View_CloudPrintTemplate
   				finish();
   			}
   		});*/
+  		
+  		this.mUpdateTextView=(TextView) this.findViewById(R.id.TextView_Update);
+  		this.mUpdateTextView.setVisibility(View.GONE);
+  		String lastest_version=SaveParam.GetValue(getContext(),KEY.K_Version_Latest);
+  		if(!StringUtils.isEmpty(lastest_version)&&!lastest_version.equalsIgnoreCase(UpdateAndroid.getVersion(getContext()))){
+  			//有新版本
+  			this.mUpdateTextView.setVisibility(View.VISIBLE);
+  			this.mUpdateTextView.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					new UpdateAndroid().DownloadApk(getContext());
+				}
+			});
+  		}
+  		
 
 	}
 	public void SetUserNamePasswordLocal2View()

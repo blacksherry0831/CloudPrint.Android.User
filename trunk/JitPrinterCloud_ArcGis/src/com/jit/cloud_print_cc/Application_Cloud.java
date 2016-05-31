@@ -3,6 +3,8 @@ package com.jit.cloud_print_cc;
 import android.app.Application;
 import com.baidu.mapapi.SDKInitializer;
 import com.jit.mail.SendMail;
+import com.jit.update.UpdateAndroid;
+import com.ta.utdid2.android.utils.StringUtils;
 
 public class Application_Cloud extends Application {
 
@@ -17,15 +19,24 @@ public class Application_Cloud extends Application {
         WifiManager.MulticastLock lock= manager.createMulticastLock("test wifi");
         lock.acquire();
         */
-		  CrashHandler crashHandler = CrashHandler.getInstance();  
+		 	this.InitCrashHandler();
+	       
+		 	 if(LibCui.isWifiEnabled(this)){
+		 		  this.SendDebug2Mail();
+		 		  this.GetLatestVersion();
+		 	 }
+		 	
+	      
+	      
+	       
+	}
+	public  void InitCrashHandler(){
+		
+		   CrashHandler crashHandler = CrashHandler.getInstance();  
 	       // 注册crashHandler  
 	       crashHandler.init(getApplicationContext());  
 	       // 发送以前没发送的报告(可选)  
 	       crashHandler.sendPreviousReportsToServer();  
-	       
-	       this.SendDebug2Mail();
-	      
-	       
 	}
 	
 	public void SendDebug2Mail(){
@@ -39,6 +50,19 @@ public class Application_Cloud extends Application {
 					}
 	    	   }).start();
 	      }
+	}
+	
+	public void GetLatestVersion()
+	{
+		 new Thread(new Runnable() {				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					String LastestVersion=new UpdateAndroid().GetLatestVersion();
+					if(!StringUtils.isEmpty(LastestVersion))
+							SaveParam.SetKeyValue(Application_Cloud.this,KEY.K_Version_Latest,LastestVersion);
+				}
+ 	   }).start();
 	}
 	
 }

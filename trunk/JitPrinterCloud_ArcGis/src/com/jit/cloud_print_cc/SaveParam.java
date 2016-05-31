@@ -52,6 +52,31 @@ public class SaveParam {
 		editor.putString(KEY.K_USERNAME, username);
 		editor.commit();
 	}
+	/**
+	 * 
+	 */
+	public static void SetKeyValue(Context ctx,String key,String value)
+	{
+		//ctx.getSharedPreferences(name, mode)
+		SharedPreferences sp;
+		sp=ctx.getSharedPreferences(GetSharedFileUserData(), Context.MODE_PRIVATE);
+		Editor editor = sp.edit();
+		editor.putString(key, value);
+		editor.commit();
+	}
+	/**
+	 * 
+	 */
+	public static String GetValue(Context ctx,String key)
+	{
+		//ctx.getSharedPreferences(name, mode)
+		SharedPreferences sp;
+		sp=ctx.getSharedPreferences(GetSharedFileUserData(), Context.MODE_PRIVATE);
+		return sp.getString(key,"");
+	}
+	/**
+	 * 
+	 */
 	public static void SetQinUserNamePassword(Context ctx,String username,String password)
 	{
 		SetQinUserName(ctx,username);

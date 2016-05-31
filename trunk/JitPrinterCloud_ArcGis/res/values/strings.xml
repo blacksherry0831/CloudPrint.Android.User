@@ -7,6 +7,7 @@
     <!-- 登录界面资源 -->
     <string name="forget_pwd"><u>忘记密码？</u></string>
     <string name="no_id_2_register"><u>没有账号注册一个！</u></string>
+     <string name="login_download_lastet"><u>新版本可用，去下载！</u></string>
     <string name="title_activity_register">RegisterActivity</string>
     <!-- 圆盘主界面 -->
     <string name="app_des">&#160;&#160;&#160;&#160;&#160;&#160;亲打印是南京韵奇盈信息技术有限公司研发的一款基于移动平台的办公服务软件。</string>

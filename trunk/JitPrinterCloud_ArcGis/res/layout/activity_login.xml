@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dip"
             android:layout_marginLeft="12dip"
-            android:layout_marginTop="10dip"
+            android:layout_marginTop="8dip"
             android:gravity="bottom"
             android:text="帐号:"
             android:textColor="#000000"
@@ -60,7 +60,7 @@
             android:layout_height="35dip"
             android:layout_below="@id/et_zh"
             android:layout_marginLeft="12dip"
-            android:layout_marginTop="10dip"
+            android:layout_marginTop="8dip"
             android:gravity="bottom"
             android:text="密码:"
             android:textColor="#000000"
@@ -99,11 +99,11 @@
         <Button
             android:id="@+id/btn_login"
             android:layout_width="70dip"
-            android:layout_height="40dip"
+            android:layout_height="38dip"
             android:layout_alignLeft="@+id/cb_mima"
             android:layout_alignRight="@+id/et_mima"
             android:layout_below="@+id/cb_mima"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/button_blue_org"
             android:gravity="center"
             android:text="登    录"
@@ -116,12 +116,12 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/btn_login"
             android:layout_below="@+id/btn_login"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
            
             android:text="@string/forget_pwd"
             android:textColor="@color/red"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/TextView_resister"
@@ -129,11 +129,23 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/sound_help"
             android:layout_below="@+id/sound_help"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="@string/no_id_2_register"
             android:textColor="@color/qin_title_bar_blue"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
+        
+        <TextView
+            android:id="@+id/TextView_Update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/sound_help"
+            android:layout_below="@+id/TextView_resister"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/login_download_lastet"
+            android:textColor="@color/qin_title_bar_blue"
+            android:textSize="22sp" />
 
     </RelativeLayout>
 

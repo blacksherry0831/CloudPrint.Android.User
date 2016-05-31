@@ -9,6 +9,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Arrays;
 
+import com.cui.http.httpCui;
+
 
 
 public class Connect2QinServer 
@@ -156,62 +158,15 @@ public class Connect2QinServer
 		
 		return sb.toString() ;
 	}*/
+	/**
+	 * 
+	 *@deprecated 
+	 * 
+	 */
 	public static  String GetParam2Server(String str_url)
 	 {
-		     String RequestData="";
-			 String str=str_url;
-			 String HttpStatus="Default";
-	        try {
-	            URL url=new URL(str);
-	            
-	            HttpURLConnection connection=(HttpURLConnection)url.openConnection();
-	            connection.setConnectTimeout(3*1000);
-	            connection.setDoInput(true);
-	            connection.setDoOutput(true);
-	            connection.setRequestMethod("GET");
-	            connection.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-	            /*----------------------读取文件上传到服务器--------------------*/
-				            BufferedOutputStream  out=new BufferedOutputStream(connection.getOutputStream());
-				            byte [] bytes_t=RequestData.getBytes("UTF8");
-			                out.write(bytes_t, 0, bytes_t.length);
-			                out.flush();          
-	            /*---------------------读取文件上传到服务器----------------------------*/
-	            //读取URLConnection的响应
-	            int http_response_code=connection.getResponseCode();
-	                   String FileID="";
-							if(http_response_code == 200){
-								 byte [] bytes=new byte[1024];
-						            DataInputStream in=new DataInputStream(connection.getInputStream());
-						            Arrays.fill(bytes, (byte) 0x00);
-						            
-						            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-						            int len_read=0;
-						            while(true){
-						            	len_read=in.read(bytes,0,bytes.length);
-						            	if(len_read==-1) break;
-						            	outStream.write(bytes, 0, len_read);	
-						            }						            
-						            FileID=outStream.toString("UTF-8");
-						            if(FileID==null) FileID="";
-						            FileID.replace("\000", "");						            	 
-						           			          
-						           if(FileID==null||FileID.equals("")){
-						        	   HttpStatus="";
-						           }else{
-						        	   HttpStatus=FileID;
-						           }
-						          
-						  }else{
-							  HttpStatus="Http Response Status:"+http_response_code;
-						  }
-	        } catch (Exception e) {
-	        	if(e!=null)
-	            HttpStatus=e.getMessage();
-	        }finally{
-	        	
-	        }
-	        return HttpStatus;
-		}
+		  return httpCui.GetParam2Server(str_url);
+	 }
 	/**
 	 *
 	 * 下载参数
