@@ -108,7 +108,7 @@ public class httpCui {
             //conn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
             //conn.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
             //conn.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.8");
-            //conn.setRequestProperty("Cache-Control", "max-age=0");
+            conn.setRequestProperty("Cache-Control", "max-age=0");
             //conn.setRequestProperty("Connection", "keep-alive");
             //conn.setRequestProperty("Upgrade-Insecure-Requests", "1");
             conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36");
@@ -118,7 +118,7 @@ public class httpCui {
             
             
             
-            //conn.setUseCaches(true);
+            conn.setUseCaches(false);
             conn.setDoInput(true); //允许输入流，即允许下载  
             //conn.setDoOutput(true); //允许输出流，即允许上传  
           
