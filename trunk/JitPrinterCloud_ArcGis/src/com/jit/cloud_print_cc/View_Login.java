@@ -3,6 +3,7 @@ package com.jit.cloud_print_cc;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Toast;
+
 import com.jit.cloud_print_cc.R;
 import com.jit.update.UpdateAndroid;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -178,6 +181,15 @@ public class View_Login extends View_CloudPrintTemplate
 	{
 		    userName.setText(SaveParam.GetQinUserName(getContext()));
 	   	    password.setText(SaveParam.GetQinUserPassword(getContext()));
+	   	    
+	   	    
+	   	    if(userName.getText().toString().equals("blacksherry")){
+	   	    	StringBuilder sb=new StringBuilder();
+	   	    	sb.append("当前版本号："+UpdateAndroid.getVersion(getContext()));sb.append("\n");
+	   	    	sb.append("服务器版本号"+SaveParam.GetValue(getContext(), KEY.K_Version_Latest));
+	   	    	Toast_make_show(sb.toString(),Toast.LENGTH_LONG,Gravity.CENTER);	   	    	
+	   	    }
+	   	    
 	}
 
 }

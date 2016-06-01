@@ -32,7 +32,17 @@ public class UpdateAndroid
 	        return null;
 	    }
 	}
-	
+	public static String getVersionCode(Context ctx) {
+	    try {
+	        PackageManager manager = ctx.getPackageManager();
+	        PackageInfo info = manager.getPackageInfo(ctx.getPackageName(), 0);
+	        String version = String.valueOf(info.versionCode);
+	        return  version;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
 	/**
 	 * 
 	 * http://blacksherry-software-distribution.oss-cn-shenzhen.aliyuncs.com/android/qindayin/ver.txt
