@@ -185,7 +185,7 @@ public class View_Login extends View_CloudPrintTemplate
 	   	    
 	   	    if(userName.getText().toString().equals("blacksherry")){
 	   	    	StringBuilder sb=new StringBuilder();
-	   	    	sb.append("本地版本："+UpdateAndroid.getVersionCode(getContext()));sb.append("\n");
+	   	    	sb.append("本地版本"+UpdateAndroid.getVersionCode(getContext()));sb.append("\n");
 	   	    	sb.append("网络版本"+SaveParam.GetValue(getContext(), KEY.K_Version_Latest));
 	   	    	Toast_make_show(sb.toString(),Toast.LENGTH_LONG,Gravity.CENTER);	   	    	
 	   	    }
