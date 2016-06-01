@@ -88,7 +88,7 @@ public class UpdateAndroid
 		    long reference = downloadManager.enqueue(request);  */
 		  Intent intent= new Intent();        
           intent.setAction("android.intent.action.VIEW");         
-          intent.setData(uri);         
+          intent.setDataAndType(uri,"application/vnd.android.package-archive");         
           //不指定让用户选择
           //intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");   
           ctx.startActivity(intent);
