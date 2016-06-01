@@ -1,5 +1,8 @@
 package com.jit.cloud_print_cc;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Application;
 import com.baidu.mapapi.SDKInitializer;
 import com.jit.mail.SendMail;
@@ -24,10 +27,10 @@ public class Application_Cloud extends Application {
 		 	 if(LibCui.isWifiEnabled(this)){
 		 		  this.SendDebug2Mail();
 		 		  this.GetLatestVersion();
+		 		  
 		 	 }
-		 	
 	      
-	      
+		 	new UpdateAndroid().SaveConfig(Application_Cloud.this); 
 	       
 	}
 	public  void InitCrashHandler(){
@@ -57,10 +60,20 @@ public class Application_Cloud extends Application {
 		 new Thread(new Runnable() {				
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
-					String LastestVersion=new UpdateAndroid().GetLatestVersion();
-					if(!StringUtils.isEmpty(LastestVersion))
-							SaveParam.SetKeyValue(Application_Cloud.this,KEY.K_Version_Latest,LastestVersion);
+							// TODO Auto-generated method stub
+							JSONObject ver_jo=new UpdateAndroid().GetLatestVersion();
+							String LastestVersion,url_lastest;
+							try {
+								LastestVersion = ver_jo.getString("vercode");
+								url_lastest = ver_jo.getString("url");
+								if(!StringUtils.isEmpty(LastestVersion)){
+									SaveParam.SetKeyValue(Application_Cloud.this,KEY.K_Version_Latest,LastestVersion);
+									SaveParam.SetKeyValue(Application_Cloud.this,KEY.K_Version_Latest_URL,url_lastest);
+								}
+							} catch (Exception e) {
+							
+							}
+					
 				}
  	   }).start();
 	}

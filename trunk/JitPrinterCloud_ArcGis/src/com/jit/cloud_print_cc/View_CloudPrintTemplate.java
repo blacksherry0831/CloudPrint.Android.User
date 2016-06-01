@@ -231,23 +231,7 @@ public class View_CloudPrintTemplate  implements Interfase_CloudPrintView,OnGlob
 		
 		
 		ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-		int memClass=activityManager.getMemoryClass();
-		
-		 File path=LibCui.GetCloudPrintCfgFile();
-		 
-		 File file=new File(path,KEY.K_D_CONFFORDER);
-		 if(!file.exists()){			
-			 JSONObject jo=new JSONObject();			 
-			 try {
-				 jo.put("mem", memClass);
-				 jo.put("version", UpdateAndroid.getVersion(getContext()));
-				  LibCui.SaveString2Fille(file,jo.toString());
-			} catch (Exception e) {
-			}			 
-			
-		 }
-		
-		
+		int memClass=activityManager.getMemoryClass();		
 		
 		if(memClass>200){
 			//手机非常豪华

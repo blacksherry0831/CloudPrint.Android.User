@@ -21,6 +21,7 @@ public class KEY
 	public final static String  K_D_CONFFORDER="ver.json";
 	/*---------------------------------------------------------------*/
 	public final static String K_Version_Latest="Version_Latest";
+	public final static String K_Version_Latest_URL="Version_Latest_URL";
 	/*---------------------------------------------------------------*/
 /**
  * 向导

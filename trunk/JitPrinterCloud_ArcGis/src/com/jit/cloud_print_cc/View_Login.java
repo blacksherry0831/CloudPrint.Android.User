@@ -162,7 +162,7 @@ public class View_Login extends View_CloudPrintTemplate
   		this.mUpdateTextView=(TextView) this.findViewById(R.id.TextView_Update);
   		this.mUpdateTextView.setVisibility(View.GONE);
   		String lastest_version=SaveParam.GetValue(getContext(),KEY.K_Version_Latest);
-  		if(!StringUtils.isEmpty(lastest_version)&&!lastest_version.equalsIgnoreCase(UpdateAndroid.getVersion(getContext()))){
+  		if(!StringUtils.isEmpty(lastest_version)&&!lastest_version.equalsIgnoreCase(UpdateAndroid.getVersionCode(getContext()))){
   			//有新版本
   			this.mUpdateTextView.setVisibility(View.VISIBLE);
   			this.mUpdateTextView.setOnClickListener(new View.OnClickListener() {
@@ -185,8 +185,8 @@ public class View_Login extends View_CloudPrintTemplate
 	   	    
 	   	    if(userName.getText().toString().equals("blacksherry")){
 	   	    	StringBuilder sb=new StringBuilder();
-	   	    	sb.append("当前版本号："+UpdateAndroid.getVersion(getContext()));sb.append("\n");
-	   	    	sb.append("服务器版本号"+SaveParam.GetValue(getContext(), KEY.K_Version_Latest));
+	   	    	sb.append("本地版本："+UpdateAndroid.getVersionCode(getContext()));sb.append("\n");
+	   	    	sb.append("网络版本"+SaveParam.GetValue(getContext(), KEY.K_Version_Latest));
 	   	    	Toast_make_show(sb.toString(),Toast.LENGTH_LONG,Gravity.CENTER);	   	    	
 	   	    }
 	   	    
