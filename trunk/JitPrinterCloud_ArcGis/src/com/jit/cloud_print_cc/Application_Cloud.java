@@ -29,8 +29,12 @@ public class Application_Cloud extends Application {
 		 		  this.GetLatestVersion();
 		 		  
 		 	 }
-	      
-		 	new UpdateAndroid().SaveConfig(Application_Cloud.this); 
+		 	 
+	      if(UpdateAndroid.ENABLE){
+	    	  // 360发布成功，这个逻辑去掉
+	    	   	new UpdateAndroid().SaveConfig(Application_Cloud.this); 
+	      }
+		
 	       
 	}
 	public  void InitCrashHandler(){

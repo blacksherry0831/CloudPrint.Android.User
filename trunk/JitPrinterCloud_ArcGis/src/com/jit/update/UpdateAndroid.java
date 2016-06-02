@@ -23,6 +23,7 @@ import android.net.Uri;
 
 public class UpdateAndroid 
 {
+	public static boolean ENABLE=false;
 	public static final String URL_VER="http://blacksherry-software-distribution.oss-cn-shenzhen.aliyuncs.com/android/qindayin/ver.json"; 
 	public static final String URL_APK_BASE="http://blacksherry-software-distribution.oss-cn-shenzhen.aliyuncs.com/android/qindayin/"; 
 	/**

@@ -153,11 +153,13 @@ public class FileUtilsCui {
     	    	
     	    	if(IsThreadRun==false) return;
     	    	
+    	    	if(!IsValidDirectory(root)) return;
+    	    	
     	        File files[] = root.listFiles(); 
     	        
     	        if(files != null){  
     	            for (File f : files){  
-    	                if(f.isDirectory()&&IsValidDirectory(f)){  
+    	                if(f.isDirectory()){  
     	                    getAllFiles(f);  
     	                }else{  
     	                   /**
@@ -170,7 +172,7 @@ public class FileUtilsCui {
     	        
     	    }  
     	    private void addFile2List(File file){
-    	    	
+    	    	if(IsThreadRun==false) return;
     	    	if(file.isFile())
     	    	{
     	    		File Parent=file.getParentFile();
@@ -199,12 +201,21 @@ public class FileUtilsCui {
     	    }
     	    
     	    public boolean IsValidDirectory(File f){
-    	    	
-    	    	if(f.getName().startsWith(".")){
+    	    	String fn=f.getName();
+    	    	if(fn.startsWith(".")||fn.startsWith("/.")){
     	    		return false;
     	    	}
     	    	
+    	    	if(fn.contains("pub.idqqimg.com")||
+    	    	   fn.contains("com.tencent.mobileqq")){
+    	    		return false;
+    	    	}  	    	
     	    	
+    	    	if(f.getAbsolutePath().contains("tencent/MobileQQ/qbiz/html5")||
+    	    	   f.getAbsolutePath().contains("360/MobileSafe")||
+    	    	   f.getAbsolutePath().contains("tencent/MobileQQ/avatarPendant")){
+    	    		return false;
+    	    	}
     	    	
     	    	
     	    	
