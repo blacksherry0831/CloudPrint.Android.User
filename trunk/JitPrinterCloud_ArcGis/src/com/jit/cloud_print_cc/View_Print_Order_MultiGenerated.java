@@ -17,12 +17,13 @@ import com.jit.cloud_print_cc.FileSendOnNet.NowSendPercent;
 
 import com.jit.cloud_print_cc.FilesWithParams.IsDouble;
 import com.jit.cloud_print_cc.FilesWithParams.PrintColor;
-import com.jit.cloud_print_cc.KEY.OrderGeneratedMode;
-import com.jit.cloud_print_cc.KEY.OrderListStartMode;
-import com.jit.cloud_print_cc.KEY.WizardViewMode;
+
 import com.jit.cloud_print_cc.ServerInfoSendStatus.SendFilePackage;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferDone;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferStart;
+import com.jit.config.KEY.OrderGeneratedMode;
+import com.jit.config.KEY.OrderListStartMode;
+import com.jit.config.KEY.WizardViewMode;
 //import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;

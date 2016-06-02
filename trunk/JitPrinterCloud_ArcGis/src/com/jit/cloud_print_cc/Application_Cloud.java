@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.app.Application;
 import com.baidu.mapapi.SDKInitializer;
+import com.jit.config.KEY;
 import com.jit.mail.SendMail;
 import com.jit.update.UpdateAndroid;
 import com.ta.utdid2.android.utils.StringUtils;

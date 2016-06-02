@@ -7,10 +7,11 @@ import org.json.JSONObject;
 
 import com.cui.http.httpCui;
 import com.jit.cloud_print_cc.Connect2QinServer;
-import com.jit.cloud_print_cc.KEY;
+
 import com.jit.cloud_print_cc.LibCui;
 import com.jit.cloud_print_cc.R;
 import com.jit.cloud_print_cc.SaveParam;
+import com.jit.config.KEY;
 
 import android.app.ActivityManager;
 import android.app.DownloadManager;

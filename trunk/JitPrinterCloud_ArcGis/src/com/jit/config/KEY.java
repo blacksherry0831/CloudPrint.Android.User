@@ -1,4 +1,4 @@
-package com.jit.cloud_print_cc;
+package com.jit.config;
 
 public class KEY 
 {

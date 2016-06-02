@@ -19,15 +19,16 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.LeftRightHand.LeftRightGestureDetector.PhoneInHand;
-import com.jit.cloud_print_cc.KEY.FileOperationWay;
-import com.jit.cloud_print_cc.KEY.OrderGeneratedMode;
-import com.jit.cloud_print_cc.KEY.OrderListStartMode;
-import com.jit.cloud_print_cc.KEY.WizardViewMode;
+
 import com.jit.cloud_print_cc.R;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintFrom;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintType;
 import com.jit.cloud_print_cc.View_FileTransfer.DevicesMode;
 import com.jit.cloud_print_cc.View_PrintSetPrintPoint.SharedPrinterAdapter;
+import com.jit.config.KEY.FileOperationWay;
+import com.jit.config.KEY.OrderGeneratedMode;
+import com.jit.config.KEY.OrderListStartMode;
+import com.jit.config.KEY.WizardViewMode;
 import com.jit.update.UpdateAndroid;
 
 import android.annotation.SuppressLint;

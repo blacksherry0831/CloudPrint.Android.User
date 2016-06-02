@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 
 import com.jit.cloud_print_cc.R;
+import com.jit.config.KEY;
 
 
 import android.content.Context;

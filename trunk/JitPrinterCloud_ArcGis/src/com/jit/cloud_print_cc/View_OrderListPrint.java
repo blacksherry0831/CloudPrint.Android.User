@@ -5,7 +5,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.jit.cloud_print_cc.KEY.OrderListStartMode;
+import com.jit.config.KEY.OrderListStartMode;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Handler;

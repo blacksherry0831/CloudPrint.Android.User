@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.jit.cloud_print_cc.KEY.FileOperationWay;
-import com.jit.cloud_print_cc.KEY.OrderGeneratedMode;
-import com.jit.cloud_print_cc.KEY.OrderListStartMode;
-import com.jit.cloud_print_cc.KEY.WizardViewMode;
+
 import com.jit.cloud_print_cc.View_CloudPrintTemplate.FileOperaData;
+import com.jit.config.KEY;
+import com.jit.config.KEY.FileOperationWay;
+import com.jit.config.KEY.OrderGeneratedMode;
+import com.jit.config.KEY.OrderListStartMode;
+import com.jit.config.KEY.WizardViewMode;
 
 
 import android.content.Context;

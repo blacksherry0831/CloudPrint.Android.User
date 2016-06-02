@@ -16,6 +16,7 @@ import com.jit.cloud_print_cc.ServerInfoSendStatus.SendFilePackage;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferDone;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferStart;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferendEndOne;
+import com.jit.config.KEY;
 import com.ta.utdid2.android.utils.StringUtils;
 
 import android.content.Context;

@@ -3,7 +3,9 @@ package com.jit.cloud_print_cc;
 
 
 
-import com.jit.cloud_print_cc.KEY.WizardViewMode;
+
+
+import com.jit.config.KEY.WizardViewMode;
 
 import android.os.Bundle;
 /**

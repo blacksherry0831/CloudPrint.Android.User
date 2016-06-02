@@ -4,9 +4,11 @@ import com.example.LeftRightHand.LeftRightGestureDetector;
 
 
 
-import com.jit.cloud_print_cc.KEY.FileOperationWay;
-import com.jit.cloud_print_cc.KEY.OrderListStartMode;
-import com.jit.cloud_print_cc.KEY.WizardViewMode;
+import com.jit.config.KEY;
+import com.jit.config.KEY.FileOperationWay;
+import com.jit.config.KEY.OrderListStartMode;
+import com.jit.config.KEY.WizardViewMode;
+
 import com.jit.cloud_print_cc.R;
 
 

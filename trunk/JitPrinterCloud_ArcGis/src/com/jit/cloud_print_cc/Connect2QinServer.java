@@ -268,6 +268,8 @@ public class Connect2QinServer
  */
 	public static String UTF8_URL(String a)
 	{
+		if(a==null){ a="";}
+		
 		String es=null;
 		try {
 			es=URLEncoder.encode(a,"utf-8");

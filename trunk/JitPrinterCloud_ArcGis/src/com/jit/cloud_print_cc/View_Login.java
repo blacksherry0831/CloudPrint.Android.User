@@ -15,6 +15,8 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.jit.cloud_print_cc.R;
+import com.jit.config.GlobalConfig;
+import com.jit.config.KEY;
 import com.jit.update.UpdateAndroid;
 import com.ta.utdid2.android.utils.StringUtils;
 
@@ -184,8 +186,8 @@ public class View_Login extends View_CloudPrintTemplate
 		    userName.setText(SaveParam.GetQinUserName(getContext()));
 	   	    password.setText(SaveParam.GetQinUserPassword(getContext()));
 	   	    
-	   	    
-	   	    if(userName.getText().toString().equals("blacksherry")){
+	   	    //Debug 用户
+	   	    if(userName.getText().toString().equals(GlobalConfig.UserDebug)){
 	   	    	StringBuilder sb=new StringBuilder();
 	   	    	sb.append("本地版本"+UpdateAndroid.getVersionCode(getContext()));sb.append("\n");
 	   	    	if(UpdateAndroid.ENABLE){

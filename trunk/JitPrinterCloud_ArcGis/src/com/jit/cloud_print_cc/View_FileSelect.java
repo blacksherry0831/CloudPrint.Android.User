@@ -30,8 +30,10 @@ import android.widget.Toast;
 
 
 import com.example.LeftRightHand.LeftRightGestureDetector.PhoneInHand;
-import com.jit.cloud_print_cc.KEY.FileOperationWay;
+
 import com.jit.cloud_print_cc.R;
+import com.jit.config.KEY;
+import com.jit.config.KEY.FileOperationWay;
 
 
 @SuppressWarnings("unused")

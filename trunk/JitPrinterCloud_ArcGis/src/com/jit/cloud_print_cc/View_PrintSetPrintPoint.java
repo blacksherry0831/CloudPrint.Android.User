@@ -40,9 +40,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.jit.cloud_print_cc.KEY.FileOperationWay;
-import com.jit.cloud_print_cc.KEY.OrderGeneratedMode;
+
 import com.jit.cloud_print_cc.R;
+import com.jit.config.KEY.FileOperationWay;
+import com.jit.config.KEY.OrderGeneratedMode;
 
 public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 {
