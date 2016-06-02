@@ -153,10 +153,11 @@ public class FileUtilsCui {
     	    	
     	    	if(IsThreadRun==false) return;
     	    	
-    	        File files[] = root.listFiles();  
+    	        File files[] = root.listFiles(); 
+    	        
     	        if(files != null){  
     	            for (File f : files){  
-    	                if(f.isDirectory()&&(!f.getName().startsWith("."))){  
+    	                if(f.isDirectory()&&IsValidDirectory(f)){  
     	                    getAllFiles(f);  
     	                }else{  
     	                   /**
@@ -195,6 +196,19 @@ public class FileUtilsCui {
    	    		    mFiles.put(key, v);
    	    		    mRootFiles.add(parent);    	    		
     	    	}
+    	    }
+    	    
+    	    public boolean IsValidDirectory(File f){
+    	    	
+    	    	if(f.getName().startsWith(".")){
+    	    		return false;
+    	    	}
+    	    	
+    	    	
+    	    	
+    	    	
+    	    	
+    	    	return true;
     	    }
     	   
      }   
