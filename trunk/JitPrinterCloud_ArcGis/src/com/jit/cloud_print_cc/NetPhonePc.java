@@ -40,6 +40,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintFrom;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintType;
+import com.jit.config.GlobalConfig;
 
 
 
@@ -48,9 +49,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Xml;
-
-@SuppressWarnings("unused")
-
 
 
 public class NetPhonePc {
@@ -82,7 +80,13 @@ public class NetPhonePc {
 		this.mContext=ctx;
 		this.mPCPhonePrinterList=new PCPhonePrinterListItem(ctx);
 		this.mNetFindTransfer=new NetFindfTransfer();		
-		this.mNetPrinterTool=new  NetPrinterTool(ctx,new NetPrinterFinder());
+	
+		if(GlobalConfig.Enable_Net_Print_IP_ALL_PORT_161){
+				//网络打印机搜索路径
+				//2016年6月3日11:26:13
+				this.mNetPrinterTool=new  NetPrinterTool(ctx,new NetPrinterFinder());
+		}
+	
 		
 	}
 	public Queue<String> GetFileRcvQuere()
@@ -96,8 +100,12 @@ public class NetPhonePc {
 		this.mNetFindTransfer=null;
 		this.mPCPhonePrinterList.Destory();
 		this.mPCPhonePrinterList=null;
-		this.mNetPrinterTool.Destory();
-		this.mNetPrinterTool=null;
+		if(mNetPrinterTool!=null){
+			this.mNetPrinterTool.Destory();
+			this.mNetPrinterTool=null;
+		}
+		
+		
 		this.mThreadRun=false;
 	}
 	public void SetIRcvFileNotify(IRcvFileNotify notify)

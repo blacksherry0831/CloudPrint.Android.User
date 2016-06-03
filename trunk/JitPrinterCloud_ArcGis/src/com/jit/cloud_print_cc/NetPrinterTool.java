@@ -16,10 +16,11 @@ import android.widget.Toast;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintFrom;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintType;
 import com.jit.cloud_print_cc.ServerInfo;
+import com.jit.config.GlobalConfig;
 
 import java.util.Random;
 
-public class NetPrinterTool 
+ class NetPrinterTool 
 {
 	public interface WhenFindNetPrintInWifi
 	{
@@ -51,7 +52,10 @@ public class NetPrinterTool
 		  NetPrinterTool (Context ctx)
 		  {
 		    this.ctx = ctx;
-		   // new Thread(new ScanWifiNetPrint()).start();
+		  
+		    if(GlobalConfig.Enable_Net_Print_IP_ALL_PORT_161){
+		    	    new Thread(new ScanWifiNetPrint()).start();
+		    }		  
 		  }
 		  
 		  NetPrinterTool (Context ctx,WhenFindNetPrintInWifi wfnp)
@@ -73,7 +77,10 @@ public class NetPrinterTool
           }
           public void ScanThreadStart()
           {
-        	  new Thread(new ScanWifiNetPrint()).start();
+        	  if(GlobalConfig.Enable_Net_Print_IP_ALL_PORT_161){
+		    	    new Thread(new ScanWifiNetPrint()).start();
+		     }	
+        	
           }
 		 
 		  //向serversocket发送消息
