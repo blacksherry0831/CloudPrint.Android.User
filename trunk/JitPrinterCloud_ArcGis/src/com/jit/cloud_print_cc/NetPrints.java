@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintFrom;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintType;
+import com.jit.config.GlobalConfig;
 
 
 
@@ -20,12 +21,11 @@ import android.widget.Toast;
 
 
 
-public class NetPrints 
+ class NetPrints 
 {
 	public   PrintListItem    mPrintListItem;
 	public   NetTool          mNetTool;
 	private  boolean          mThreadRun=true;
-	@SuppressWarnings("unused")
 	private  Context          mContext;
   
 	
@@ -34,8 +34,13 @@ public class NetPrints
 		// TODO Auto-generated constructor stub
 		this.mContext=context;
 		this.mPrintListItem=new PrintListItem(context);
-		this.mNetTool=new NetTool(context);
+		
+		if(GlobalConfig.Enable_Net_Print_IP_ALL_PORT_161){
+				this.mNetTool=new NetTool(context);
+		}
 	
+	
+		
 	}
 	
 	public void Destory()

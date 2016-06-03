@@ -49,7 +49,7 @@ public class PhonePcCommunication
          NULL
      }
 	public final static int ConnectTimeOut=0;
-	public final static int ReadTimeOut=0;
+	//public final static int ReadTimeOut=0;
 	Socket mSocketClient;
 	FilesWithParams mFilename;
 	String mPrinterName;
@@ -302,7 +302,7 @@ public class PhonePcCommunication
    * */
 	  private static  boolean ReadServerPermission(Socket client) throws IOException
       {
-          client.setSoTimeout(ReadTimeOut);
+          //client.setSoTimeout(ReadTimeOut);
           FileSendOnNet fileRcv = new FileSendOnNet();
           return fileRcv.ReadServerPermission(client);
          
@@ -488,8 +488,8 @@ public class PhonePcCommunication
 		InetAddress mAddress=this.mAddress;
 		int mPort=this.mPort;
 		 ArrayList<CloudPrintAddress> printer=null;
-		 
-		 socketClient.connect(new InetSocketAddress(mAddress,mPort));
+		
+		 socketClient.connect(new InetSocketAddress(mAddress,mPort),ConnectTimeOut+3000);
 	     if (socketClient.isConnected() == false)
 	     {
 	         return null;
