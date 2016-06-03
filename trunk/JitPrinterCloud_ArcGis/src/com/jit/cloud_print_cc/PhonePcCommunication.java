@@ -48,8 +48,8 @@ public class PhonePcCommunication
          GetPrinterListXml,
          NULL
      }
-	public final static int ConnectTimeOut=0;
-	//public final static int ReadTimeOut=0;
+	public final static int ConnectTimeOut=3000;
+	public final static int ReadTimeOut=0;
 	Socket mSocketClient;
 	FilesWithParams mFilename;
 	String mPrinterName;
@@ -101,7 +101,7 @@ public class PhonePcCommunication
   public static ArrayList<CloudPrintAddress> GetPrinterListXml(Socket client) throws IOException
   {
 	  /*接受打印机列表XMl文件*/
-	  client.setSoTimeout(ConnectTimeOut);
+	  client.setSoTimeout(ReadTimeOut);
 	  InputStream  in=client.getInputStream();
 	  
 	  ByteArrayOutputStream is = new ByteArrayOutputStream();  
@@ -140,7 +140,7 @@ public class PhonePcCommunication
   public static String GetExt(Socket client) throws IOException
   {
 	  /*接受打印机列表XMl文件*/
-	  client.setSoTimeout(ConnectTimeOut);
+	  client.setSoTimeout(ReadTimeOut);
 	  InputStream  in=client.getInputStream();
 	  
 	  ByteArrayOutputStream is = new ByteArrayOutputStream();  
@@ -288,7 +288,7 @@ public class PhonePcCommunication
   }
   private static void SendServerPermission(Socket client) throws IOException
   {
-      client.setSoTimeout(ConnectTimeOut);
+      client.setSoTimeout(ReadTimeOut);
       FileSendOnNet fileRcv = new FileSendOnNet();
       fileRcv.SendServerPermission(client);
 
@@ -489,7 +489,7 @@ public class PhonePcCommunication
 		int mPort=this.mPort;
 		 ArrayList<CloudPrintAddress> printer=null;
 		
-		 socketClient.connect(new InetSocketAddress(mAddress,mPort),ConnectTimeOut+3000);
+		 socketClient.connect(new InetSocketAddress(mAddress,mPort),ConnectTimeOut);
 	     if (socketClient.isConnected() == false)
 	     {
 	         return null;
