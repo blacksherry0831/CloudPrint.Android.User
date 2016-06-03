@@ -31,6 +31,7 @@ public class View_Login extends View_CloudPrintTemplate
 	private ImageButton btnQuit;
     private String userNameValue,passwordValue;
 	private SharedPreferences sp;
+	private TextView mForgetPassword;
 	public View_Login(Context context) {
 		super(context, mLayoutId);
 		
@@ -160,7 +161,7 @@ public class View_Login extends View_CloudPrintTemplate
   				finish();
   			}
   		});*/
-  		
+  		/*---------------------------------------------------------------*/
   		this.mUpdateTextView=(TextView) this.findViewById(R.id.TextView_Update);
   		this.mUpdateTextView.setVisibility(View.GONE);
   		String lastest_version=SaveParam.GetValue(getContext(),KEY.K_Version_Latest);
@@ -178,7 +179,16 @@ public class View_Login extends View_CloudPrintTemplate
 				}
 			});
   		}
-  		
+  		/*---------------------------------------------------------------*/
+  		this.mForgetPassword=(TextView) this.findViewById(R.id.TextView_forget_password);
+  		this.mForgetPassword.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast_make_show("请到亲打印网站修改密码！",Toast.LENGTH_SHORT, Gravity.BOTTOM);
+			}
+		});
 
 	}
 	public void SetUserNamePasswordLocal2View()

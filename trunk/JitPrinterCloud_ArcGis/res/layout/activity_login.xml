@@ -99,7 +99,7 @@
         <Button
             android:id="@+id/btn_login"
             android:layout_width="70dip"
-            android:layout_height="38dip"
+            android:layout_height="40dip"
             android:layout_alignLeft="@+id/cb_mima"
             android:layout_alignRight="@+id/et_mima"
             android:layout_below="@+id/cb_mima"
@@ -111,14 +111,14 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/sound_help"
+            android:id="@+id/TextView_forget_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/btn_login"
             android:layout_below="@+id/btn_login"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-           
+            android:layout_marginTop="15dp"
             android:text="@string/forget_pwd"
             android:textColor="@color/red"
             android:textSize="22sp" />
@@ -127,8 +127,8 @@
             android:id="@+id/TextView_resister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/sound_help"
-            android:layout_below="@+id/sound_help"
+            android:layout_alignLeft="@+id/TextView_forget_password"
+            android:layout_below="@+id/TextView_forget_password"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@string/no_id_2_register"
@@ -139,7 +139,7 @@
             android:id="@+id/TextView_Update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/sound_help"
+            android:layout_alignLeft="@+id/TextView_forget_password"
             android:layout_below="@+id/TextView_resister"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"

@@ -1,5 +1,7 @@
 package com.jit.cloud_print_cc;
 
+import com.jit.config.GlobalConfig;
+
 import android.app.Activity;
 import android.content.Context;
 
@@ -49,6 +51,11 @@ public class UserLoginOperation extends  UserInfoBase
 			
 			this.DestoryThisActivityStartMain();
 		}
+		
+		if(GlobalConfig.UserDebug.equals(this.mUserName)){
+			GlobalConfig.TotalFunctions=true;
+		}
+		
 		
 		 new Thread(new LoginThread()).start();
 		 

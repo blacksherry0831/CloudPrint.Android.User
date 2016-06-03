@@ -6,6 +6,7 @@ import com.zxc.view.CircleMenuLayout.CircleMode;
 import com.example.LeftRightHand.LeftRightGestureDetector;
 import com.example.LeftRightHand.LeftRightGestureDetector.PhoneInHand;
 import com.jit.cloud_print_cc.R;
+import com.jit.config.GlobalConfig;
 
 
 
@@ -320,7 +321,13 @@ public void  InitBttomLayout(Context context)
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			StartActivityView(Activity_My.class);
+			if(GlobalConfig.TotalFunctions){
+				StartActivityView(Activity_My.class);				
+			}else{
+				Toast_make_show("功能暂未开放",Toast.LENGTH_SHORT, Gravity.BOTTOM);
+				v.setEnabled(false);
+			}
+			
 		}
 	});
     view_preferential.setOnClickListener(new View.OnClickListener() {
@@ -328,7 +335,13 @@ public void  InitBttomLayout(Context context)
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			StartActivityView(Activity_WebView.class);
+			if(GlobalConfig.TotalFunctions){
+					StartActivityView(Activity_WebView.class);
+			}else{
+				Toast_make_show("功能暂未开放",Toast.LENGTH_SHORT,Gravity.BOTTOM);
+				v.setEnabled(false);
+			}
+		
 		}
 	});
 	 /*-------------------------------------------------------------*/

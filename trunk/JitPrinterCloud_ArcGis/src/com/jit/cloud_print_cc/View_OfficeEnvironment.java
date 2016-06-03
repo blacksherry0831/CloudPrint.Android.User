@@ -10,6 +10,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.jit.cloud_print_cc.R;
 import com.jit.cloud_print_cc.View_FileTransfer.DevicesMode;
+import com.jit.config.GlobalConfig;
 
 import android.content.Context;
 import android.content.Intent;
@@ -455,19 +456,22 @@ protected void ActivityResult(int requestCode, int resultCode, Intent data)
         	        button.setVisibility(View.GONE);
         	       
            }
-            if(pi_t instanceof CloudPrintAddress&&button!=null){
-            	    CloudPrintAddress pi=(CloudPrintAddress) pi_t;
-            	    
-            	   
+            if((pi_t instanceof CloudPrintAddress)&&
+            		(button!=null)){
+            	    CloudPrintAddress pi=(CloudPrintAddress) pi_t;            	   
             	    SetPrinterImg(pi,iv);
             	    tv.setText(pi.GetPrinterDes());
-            	    if(pi.IsRegisterd()){
-            	    	button.setVisibility(View.GONE);
+            	    if(GlobalConfig.TotalFunctions){
+            	    	 if(pi.IsRegisterd()){
+            	    		 button.setVisibility(View.GONE);
+            	    	 }else{
+            	    		 button.setVisibility(View.VISIBLE);
+            	    		 button.setOnClickListener(new PrintItemClick(pi));            	    	  
+            	    	 }            	    	
             	    }else{
-            	    	button.setVisibility(View.VISIBLE);
-	            		button.setOnClickListener(new PrintItemClick(pi));
-            	    	  
+            	    	button.setVisibility(View.GONE);            	    	
             	    }
+            	   
            }
 			
            // convertView.setBackgroundColor(0x99ccff|Color.BLACK);

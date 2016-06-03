@@ -2,11 +2,13 @@ package com.jit.cloud_print_cc;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
 
 import com.jit.cloud_print_cc.R;
+import com.jit.config.GlobalConfig;
 import com.jit.config.KEY;
 
 
@@ -28,7 +30,7 @@ public class View_DocumentManagement  extends View_CloudPrintTemplate
 
 	private final static int mLayoutId =R.layout.activity_document_management;
 	
-	private final int[] mFileSelectItem=new int[]{
+	/*private final int[] mFileSelectItem=new int[]{
 			        R.string.dm_file_excel,
 			      	R.string.dm_file_word,				
 					R.string.dm_file_pdf,
@@ -38,6 +40,10 @@ public class View_DocumentManagement  extends View_CloudPrintTemplate
 					R.string.dm_file_my_photo,
 					R.string.dm_file_my_qq
 					};
+	private  int[] mFileSelectItemPart=new int[]{			
+			      	R.string.dm_file_word,				
+					R.string.dm_file_pdf
+					};*/
 	public  TextView   mTextView;
 	public  ImageView  mImageView;
 
@@ -104,14 +110,29 @@ public void DestoryChild()
 private void InitGridView()
 {
 	
-	  //生成动态数组，并且转入数据
+	//生成动态数组，并且转入数据
     ArrayList<HashMap<String, Object>> lstImageItem = new ArrayList<HashMap<String, Object>>();
+   
+    ArrayList<Integer> list_item_t = new ArrayList<Integer>();
+    list_item_t.add(R.string.dm_file_word);
+    list_item_t.add(R.string.dm_file_pdf);  
+	if(LibCui.GetMyQQDirectory()!=null){
+		 list_item_t.add(R.string.dm_file_my_qq);
+	}
+    if(GlobalConfig.TotalFunctions){
+    	  list_item_t.add(R.string.dm_file_excel);
+    	  list_item_t.add(R.string.dm_file_image);
+    	  list_item_t.add(R.string.dm_file_my_net);
+    	  list_item_t.add(R.string.dm_file_my_phone);
+    	  list_item_t.add(R.string.dm_file_my_photo);
+    }
+    //Integer[]  FileSelectItem_t=(Integer[])list_item_t.toArray();
     
-    for(int i=0;i<mFileSelectItem.length;i++)
+    for(int i=0;i<list_item_t.size();i++)
     {
     	HashMap<String, Object> map = new HashMap<String, Object>();
     	map.put("ItemImage", R.drawable.dm_file_select_background);//添加图像资源的ID
-		map.put("ItemText", Res().getString(mFileSelectItem[i]));//按序号做ItemText
+		map.put("ItemText", Res().getString(list_item_t.get(i)));//按序号做ItemText
         	lstImageItem.add(map);
         }
 
