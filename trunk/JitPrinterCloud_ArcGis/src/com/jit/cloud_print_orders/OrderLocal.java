@@ -2,15 +2,35 @@ package com.jit.cloud_print_orders;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileReader;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.jit.cloud_print_cc.LibCui;
+import com.ta.utdid2.android.utils.StringUtils;
 
 public class OrderLocal {
+	public static final String USERNAME_DEFAULT="default";
+	//public static final String DATA_SUFF=".";
+	public static final String ORDER_PREFIX=".O";
+	
+	public FileFilter fileFilter = new FileFilter() {
+		public boolean accept(File file) {
+			String tmp = file.getName();
+			if (tmp.startsWith(ORDER_PREFIX)) {
+				return true;
+			}
+			return false;
+		}
+	};
+	
+
+
 	
 	 /**
      * 读取txt文件的内容
@@ -38,12 +58,17 @@ public class OrderLocal {
 	 */
 	public static void SaveLocalOrder2Disk(String username,String orderid,String json)
 	{
+		
+		if(StringUtils.isEmpty(username)){
+			username=USERNAME_DEFAULT;
+		}
+		
 		File path=new File(LibCui.GetCloudPrintCfgFile()+"/"+username);
 	    if(!path.exists()){
 	  	   path.mkdirs();
 	    }
 	    
-	    File orderidfile=new File(path,orderid);
+	    File orderidfile=new File(path,ORDER_PREFIX+orderid);
 	    
 	    LibCui.SaveString2Fille(orderidfile, json);
 	   
@@ -56,6 +81,10 @@ public class OrderLocal {
 	 */
 	public static String GetLocalOrder4Disk(String username)
 	{
+		if(StringUtils.isEmpty(username)){
+			username=USERNAME_DEFAULT;
+		}
+		
 		File path=new File(LibCui.GetCloudPrintCfgFile()+"/"+username);
 	    if(!path.exists()){
 	  	   path.mkdirs();
@@ -64,9 +93,19 @@ public class OrderLocal {
 	    JSONObject jo_ALL=new JSONObject();
 	    JSONArray ja_ALL=new JSONArray();
 	    
-	    for(File f : path.listFiles()){
+	    
+	    File []files=path.listFiles();
+	    Arrays.sort(files, new Comparator<File>(){
+		    public int compare(File f1, File f2)
+		    {
+		        return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
+		    } });
+	    
+	    for(File f : files){
 	    	
 	    	if(f.isFile()){
+	    		
+	    		
 	    		String order=txt2String(f);
 	    		try {
 					JSONObject jo_t=new JSONObject(order);
@@ -128,4 +167,9 @@ public class OrderLocal {
 	 * 
 	 */
 
+    /**
+	 * 
+	 * 
+	 * 
+	 */
 }
