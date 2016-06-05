@@ -260,6 +260,7 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 		this.MapParentCloudPrint=(FrameLayout) this.findViewById(R.id.id_search_print_map_parent);
 		
 		this.mSharedPrintList.setAdapter(mSharedPrinterAdapter);
+		this.mSharedPrintList.setEmptyView(getEmptyView());
 		mSharedPrintList.setOnItemClickListener(new SharedPrintItemClick());
 		this.mButtonLocation=(Button) this.findViewById(R.id.map_location_request);
 		///////////////
@@ -847,4 +848,17 @@ public class SharedPrinterAdapter extends  BaseAdapter
 			}
 			
 		}
+/**
+ *空白页 
+ */
+public View getEmptyView()
+{
+	TextView v=new TextView(getContext());
+	v.setGravity(Gravity.CENTER);
+	v.setText("请检查WIFI 环境\n然后下拉刷新\n打印机！");
+	v.setTextSize(40);
+	return v;
+	
+}
+
 }
