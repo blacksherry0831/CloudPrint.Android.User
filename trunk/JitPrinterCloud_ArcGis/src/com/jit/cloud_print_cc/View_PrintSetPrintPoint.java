@@ -42,6 +42,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import com.jit.cloud_print_cc.R;
+import com.jit.config.GlobalConfig;
 import com.jit.config.KEY.FileOperationWay;
 import com.jit.config.KEY.OrderGeneratedMode;
 
@@ -125,11 +126,10 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 
 		if(mStartMode!=null){
 			if(mStartMode==FileOperationWay.OPen2SetDefaultPrint){
-				this.mTextVIewFilesDes.setText("设置默认打印机");
-				this.mTextVIewFilesDes.setVisibility(View.VISIBLE);
+				
 				this.InitSetDefaultPrintView();
 			}else if(mStartMode==FileOperationWay.OPen2SetPrint){
-				this.mTextVIewFilesDes.setVisibility(View.VISIBLE);
+			
 				this.InitSetCurrentPrintView();
 			}else{
 				//不支持的模式
@@ -163,19 +163,25 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 				if(mPrintMode==PrintSelectedMode.PrintLocalSharedPrint){
 		            SetOrderGeneratedMode(OrderGeneratedMode.SetLocalOrderList);
 				}else if(mPrintMode==PrintSelectedMode.PrintNetShop){
-					SetOrderGeneratedMode(OrderGeneratedMode.SetNetOrderList);
+					
+					if(GlobalConfig.TotalFunctions){
+						SetOrderGeneratedMode(OrderGeneratedMode.SetNetOrderList);						
+					}else{
+						Toast_make_show_center("功能暂未开放");
+						return;
+					}
+
 				}else{
 					
 				}
+				
 				if(StartViewMulity){
-					StartActivityView_with_Printer(Activity_Print_Order_MultiGenerated.class);
-				}else{
 					StartActivityView_with_Printer(Activity_Print_Order_MultiGenerated.class);
 				}
 			
 			
 			}else{
-				Toast.makeText(v.getContext(),"请选择打印机",Toast.LENGTH_SHORT).show();
+				Toast_make_show_center("请选择打印机");
 			}
 			
 			
@@ -184,9 +190,25 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 	
 	private void InitSetDefaultPrintView()
 	{
+		this.mTextVIewFilesDes.setText("设置默认打印机");
+		this.mTextVIewFilesDes.setVisibility(View.VISIBLE);
+		/*if(!GlobalConfig.TotalFunctions){
+			
+			this.mButtonSetPrint.setVisibility(View.GONE);
+			this.mButtonCanclePrint.setVisibility(View.GONE);
+			return;
+			
+		}*/
+		
 		/*--button事件-*/
 		this.mButtonSetPrint.setText("保存设置");
-		this.mButtonSetPrint.setOnClickListener(new StartNextView());
+		
+		if(GlobalConfig.TotalFunctions){
+				this.mButtonSetPrint.setOnClickListener(new StartNextView());
+		}else{
+			
+		}
+	
 		
 		
 		
@@ -208,6 +230,7 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 	 */ 
 	private void InitSetCurrentPrintView()
 	{
+		this.mTextVIewFilesDes.setVisibility(View.VISIBLE);
 		/*--button事件-*/
 		this.mButtonSetPrint.setOnClickListener(new StartNextView());
 		this.mButtonCanclePrint.setOnClickListener(new View.OnClickListener() {
@@ -267,7 +290,7 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 				 }else if(checkedId==R.id.radio_print_type_sheared){
 					 initShearedView();
 				 }else{
-					 
+					 mTextVIewFilesDes.setText("mRadioGroupPrintType");
 				 }
 			}
 			
@@ -277,8 +300,16 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 		}else if(this.mRadioGroupPrintType.getCheckedRadioButtonId()==R.id.radio_print_type_sheared){
 			 initShearedView();
 		}else{
-			this.mTextVIewFilesDes.setText("mRadioGroupPrintType");
+			
 		}
+		
+		if(GlobalConfig.TotalFunctions){
+			
+		}else{
+				this.mRadioGroupPrintType.check(R.id.radio_print_type_sheared);
+		}
+	
+		
 		if(this.mButtomNext!=null) this.mButtomNext.setOnClickListener(new StartNextView());
 		 this.InitViewByStartMode();
 		 
@@ -469,7 +500,9 @@ public class View_PrintSetPrintPoint extends View_CloudPrintTemplate
 		this.mBaiduMap.setOnMapClickListener(OMC);
 		this.mBaiduMap.setOnMarkerClickListener(OMC);
 		//GetPrintShopStatic
-		this.SetDefaultCloudPrintInfo2Mem(MarkerBaiduView.GetPrintShopStatic().get(0));
+		if(GlobalConfig.TotalFunctions){
+			this.SetDefaultCloudPrintInfo2Mem(MarkerBaiduView.GetPrintShopStatic().get(0));
+		}
 	}
 	 public void InitLocation()
 	    {

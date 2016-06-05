@@ -9,6 +9,11 @@ import org.json.JSONObject;
 
 public class UserInfoOrdersManager 
 {
+	
+	public interface InfoChanged{
+		void LocalOrderStatusChanged();
+	}
+	InfoChanged   _IC;
 	private int _total=0;
 	private String _json_text;
 	private List<UserInfoOrder> _orders=new ArrayList<UserInfoOrder>();
@@ -20,6 +25,14 @@ public class UserInfoOrdersManager
 	{
 		// TODO Auto-generated constructor stub
 	}
+    private void notify_changed()
+    {
+	   if(_IC!=null){_IC.LocalOrderStatusChanged();}
+    }
+    public void SetNotiftyChanged(InfoChanged ic)
+    {
+      _IC=	ic;
+    }
 	public int GetCount()
 	{
 		return this._orders.size();
@@ -56,8 +69,10 @@ public class UserInfoOrdersManager
 	 * 
 	 * 
 	 */
-	public void delete()
+	public void delete(UserInfoOrder uio)
 	{
+		_orders.remove(uio);
+		notify_changed();
 		
 	}
 	
@@ -105,6 +120,7 @@ public class UserInfoOrdersManager
 			for(int i=0;i<jsonStrs.length();i++){
 				
 				UserInfoOrder user=new UserInfoOrder();
+				user.SetNotiftyChanged(_IC);
 				if(user.Parse(jsonStrs.getJSONObject(i))){
 					this.add(user);
 				}
@@ -148,4 +164,6 @@ public class UserInfoOrdersManager
 	   
 	   
    }
+   
+ 
 }

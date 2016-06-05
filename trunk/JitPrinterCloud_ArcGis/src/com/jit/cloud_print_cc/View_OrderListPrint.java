@@ -35,6 +35,7 @@ private  View mListView; /**<订单列表*/
 private  final ShowOrderAdapter madapter=new ShowOrderAdapter();;
 /*this.mSharedPrintList.setAdapter(new  SharedPrinterAdapter());*/
 public OrderListStartMode mMode;
+//private boolean mInitLocalList=false;
 	public  View_OrderListPrint (Context context)
 	  {
 		   super(context,mLayoutId);
@@ -84,18 +85,7 @@ public OrderListStartMode mMode;
 		listview.setMode(Mode.BOTH);  
 		listview.setOnRefreshListener(new RefreshOrder());  
 	}
-	/**
-	 * 
-	 * 
-	 * 
-	 */
-	public void SetAdapterData(String result)
-	{
-		if(this.madapter!=null){
-		/*	this.madapter.SetData(Serlected);*/
-			this.madapter.SetData(result);
-		}
-	}
+
 	/**
 	 * 
 	 * 
@@ -119,12 +109,16 @@ public OrderListStartMode mMode;
 		
 	}
 	public void RequestPrintList()
-	{
+	{	
 		   try{
-				mMsgService.mUIPrintList.RequestPrintList();
+				if(madapter.getCount()==0){
+					mMsgService.mUIPrintList.RequestPrintList();
+				}else{
+					madapter.UpdateOrdersStatus();
+				}
 		   }catch(Exception e){
 			
-		   }
+		   }		   
 	}
 	/**
 	 * 
@@ -136,7 +130,7 @@ public OrderListStartMode mMode;
 	 {
 		super.onServiceConnected(name, service);
 		
-		mMsgService.mUIPrintList.setIRcv(new UpdataData());
+		mMsgService.mUIPrintList.setIRcv(madapter);
 		mMsgService.mUIPrintList.RequestPrintList();
 		
 	 }
@@ -211,11 +205,16 @@ public OrderListStartMode mMode;
 	  * 
 	  * 
 	  */
-	 public class ShowOrderAdapter extends  BaseAdapter
+	 public class ShowOrderAdapter extends  BaseAdapter implements UserInfoOperation_PrintOrderList.WhenRcvOrderList,UserInfoOrdersManager.InfoChanged
 		{	
 		 	private static final int _ChildViewId=R.layout.print_order_list_item;
 		    public UserInfoOrdersManager mOrders=new UserInfoOrdersManager(null);
 			
+		    public ShowOrderAdapter() {
+				// TODO Auto-generated constructor stub
+		    	  mOrders.SetNotiftyChanged(ShowOrderAdapter.this);
+			}
+		  
 		    
 		    public void UpdateOrdersStatus()
 		    {
@@ -227,7 +226,7 @@ public OrderListStartMode mMode;
 						// TODO Auto-generated method stub
 						notifyDataSetChanged();
 					}
-				},1000);
+				},0);
 		    }
 		    
 		    
@@ -259,7 +258,7 @@ public OrderListStartMode mMode;
 
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
+						// TODO Auto-generated method stub						
 						  mOrders.Parse(json_text);
 						  notifyDataSetChanged();
 					}
@@ -316,7 +315,7 @@ public OrderListStartMode mMode;
 							@Override
 							public void onClick(View v) {
 								// TODO Auto-generated method stub--拉取价格//RequestPrintList();
-								UpdateOrdersStatus(); //mOrders.Refash();
+								//UpdateOrdersStatus(); //mOrders.Refash();
 							}
 						});
 						
@@ -331,6 +330,7 @@ public OrderListStartMode mMode;
 								// TODO Auto-generated method stub--付费逻辑
 								AliPay pt=new AliPay(View_OrderListPrint.this);
 								pt.Payit(uio);
+								notifyDataSetChanged();
 								/*pt.payit("亲打印费用Android",
 										cloudPrintAddress.GetTotalBodyOrders(),
 										cloudPrintAddress.GetTotalMoney(),
@@ -351,8 +351,7 @@ public OrderListStartMode mMode;
 						@Override
 						public boolean onLongClick(View v) {
 							// TODO Auto-generated method stub
-							uio.Delete4Disk();
-							RequestPrintList();
+							DeleteItem(uio);
 							return false;
 						}
 						
@@ -362,22 +361,64 @@ public OrderListStartMode mMode;
 				//File file = mFilesList.get(position);
 				return convertView;
 			}
+
+			private void DeleteItem(UserInfoOrder uio){
+					if(uio.Delete4Disk()){
+						mOrders.delete(uio);
+						notifyDataSetChanged();
+						RequestPrintList();
+					}
+					
+			}
+			
+		   /**
+		    *更新本地数据 
+		    */
+			@Override
+			public void OnRecvData(String result) {
+				// TODO Auto-generated method stub
+				SetAdapterData(result);
+			}
+			/**
+			 * 
+			 * 
+			 * 
+			 */
+			public void SetAdapterData(String result)
+			{				
+				/*	this.madapter.SetData(Serlected);*/
+					if(this.getCount()==0){
+						
+						this.SetData(result);
+						
+					}else{
+						//mInitLocalList=true;
+						Toast_make_show("已经更新过数据了");
+					}			
+				
+			}
+
+
+			@Override
+			public void LocalOrderStatusChanged() {
+				// TODO Auto-generated method stub
+				postDelay(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						notifyDataSetChanged();
+					}
+				});
+				
+			}
 			
 		}
 
-     public class UpdataData implements UserInfoOperation_PrintOrderList.WhenRcvOrderList
-     {
-
-		@Override
-		public void OnRecvData(String result) {
-			// TODO Auto-generated method stub
-			SetAdapterData(result);
-		}
-    	 
-     }
+ 
      /**
  	 * 
- 	 * 
+ 	 * 支付宝接口
  	 * 
  	 */	
  	Handler mHandler_MSG = new Handler() {

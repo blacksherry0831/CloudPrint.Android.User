@@ -22,6 +22,7 @@ import com.jit.cloud_print_cc.ServerInfoSendStatus.SendFilePackage;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferDone;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferStart;
 import com.jit.cloud_print_cc.ServerInfoSendStatus.TransferendEndOne;
+import com.jit.config.GlobalConfig;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -311,7 +312,7 @@ import android.app.Dialog;
 
 			}
 		});
-		if(this.mButtonNetMode!=null)
+		if(this.mButtonNetMode!=null&&GlobalConfig.TotalFunctions)
 		this.mButtonNetMode.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -337,25 +338,28 @@ import android.app.Dialog;
 						View_FileTransfer.this.initPcView();
 					}
 				});
-		
-	           this.mButtonPcMode.setOnLongClickListener(new View.OnLongClickListener() {
 				
-				@Override
-				public boolean onLongClick(View v) {
-					// TODO Auto-generated method stub
-					
-					Thread t=new  Thread(new EmbeddedSendFileThread(
-							getContext(),
-							null,
-							mDataFile,
-							NOTIFY_THIS_VIEW,
-							NOTIFY_THIS_VIEW,
-							NOTIFY_THIS_VIEW,
-							NOTIFY_THIS_VIEW));
-                      t.start();
-					return false;
+				if(GlobalConfig.TotalFunctions){
+							 this.mButtonPcMode.setOnLongClickListener(new View.OnLongClickListener() {
+						
+								@Override
+								public boolean onLongClick(View v) {
+									// TODO Auto-generated method stub
+									
+									Thread t=new  Thread(new EmbeddedSendFileThread(
+											getContext(),
+											null,
+											mDataFile,
+											NOTIFY_THIS_VIEW,
+											NOTIFY_THIS_VIEW,
+											NOTIFY_THIS_VIEW,
+											NOTIFY_THIS_VIEW));
+				                      t.start();
+									return false;
+								}
+					  });
 				}
-			  });
+	          
 		
 		}
 		

@@ -79,6 +79,7 @@ public class CircleItemClick implements CircleMenuLayout.OnMenuItemClickListener
 					finish();
 			}else 	if(buttonIdx==R.drawable.search){
 				/*设置默认打印机*/
+				mCloudPrintView.SetWizardViewMode(WizardViewMode.ModeNormal);
 				mCloudPrintView.SetFileOpMode(null, FileOperationWay.OPen2SetDefaultPrint);
 				mCloudPrintView.StartActivityView(Activity_PrintSetPrintPoint.class);
 			   

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.provider.MediaStore.Files;
 import android.view.View;
 
+import com.jit.cloud_print_cc.UserInfoOrdersManager.InfoChanged;
 import com.jit.cloud_print_orders.OrderLocal;
 import com.ta.utdid2.android.utils.StringUtils;
 /**
@@ -22,10 +23,10 @@ import com.ta.utdid2.android.utils.StringUtils;
 public class UserInfoOrder 
 { 
 	/*-----------------------------------*/
-	public static final String STATUS_CHARGING="charging";
-	public static final String STATUS_CHARGED="charged";
-	public static final String STATUS_SUCCESS="success";
-	public static final String STATUS_PRINTED_PENDING="pending";
+	public static final String STATUS_CHARGING="charging";//下单完成，
+	public static final String STATUS_CHARGED="charged";//计费完成
+	public static final String STATUS_SUCCESS="success";//打印完成
+	public static final String STATUS_PRINTED_PENDING="pending";//付款完成
 	public static final String ORDER_TYPE_LOCAL="local";
 	/*-----------------------------------*/
   	JSONObject _Json_o;
@@ -40,11 +41,28 @@ public class UserInfoOrder
 	public	String pages;//打印范围
 	public	String printTime;//下单时间
 	private	String status;//订单状态
-	public String getStatus() {
+	private InfoChanged   _IC;
+	
+	 private void notify_changed()
+    {
+	   if(_IC!=null){_IC.LocalOrderStatusChanged();}
+    }
+    public void SetNotiftyChanged(InfoChanged ic)
+    {
+      _IC=	ic;
+    }
+	public String getStatus() 
+	{
 		return status;
 	}
 
-	public void setStatus(String status_t) {		
+	public  void setStatus(String status_t) {		
+		
+		if(status_t!=null&&status_t.equals(this.status)){
+			//状态没有改变，
+			return;
+		}
+		
 		try {
 			_Json_o.put("Status",status_t);
 			Save2Disk();
@@ -53,10 +71,18 @@ public class UserInfoOrder
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(UserInfoOrder.STATUS_PRINTED_PENDING.equalsIgnoreCase(getStatus())){		 
+		if(STATUS_PRINTED_PENDING.equalsIgnoreCase(getStatus())){		 
+			//挂起，更新状态，读取服务器状态
 			UpdateStatusLocal();
+		}else if(STATUS_CHARGING.equals(getStatus())){
+			//正在计费，拉取计费价格
+			UpdateStatusLocal();
+		}else if(STATUS_CHARGED.equals(getStatus())){
+			//计费完成，提示支付，等待用户操作
+		}else if(STATUS_SUCCESS.equals(getStatus())){
+			//打印成功，没事可做
 		}
-			
+		notify_changed();	
 	}
 	/*----------------------------------*/
 	private String orderType;
@@ -191,7 +217,23 @@ public class UserInfoOrder
 		StringBuffer sb=new StringBuffer();
 		//sb.append("文件：");
 		sb.append(FileName());sb.append("\n");
-		sb.append("状态:"); sb.append(this.status);sb.append("\n");
+		///////////////////////////////////////////////////////
+		sb.append("状态:"); 
+		
+		if(this.status.equals(STATUS_CHARGING)){
+			sb.append("正在计算价格");
+		}else if(this.status.equals(STATUS_CHARGED)){
+			sb.append("计价完成，请支付");
+		}else if(this.status.equals(STATUS_PRINTED_PENDING)){
+			sb.append("文件进入打印队列");
+		}else if(this.status.equals(STATUS_SUCCESS)){
+			sb.append("打印完成");
+		}else{
+			sb.append("文件异常，联系客服");
+		}
+		
+		sb.append("\n");
+		///////////////////////////////////////////////////////		
 		sb.append("份数:"); sb.append(this.copies);sb.append("\n");
 		sb.append("时间:"); sb.append(this.printTime);sb.append("\n");
 		sb.append("打印范围:");sb.append(this.pages);sb.append("\n");
@@ -520,19 +562,22 @@ public class UserInfoOrder
 	/**
 	 * 
 	 */
-	public void Delete4Disk()
+	public boolean Delete4Disk()
 	{		
 		if(!StringUtils.isEmpty(orderType)&&ORDER_TYPE_LOCAL.equals(orderType)){
 			//本地订单
 			
 			if(STATUS_PRINTED_PENDING.equalsIgnoreCase(status)){
 				//挂起不删除，已经付钱了
+				return false;
 			}else{
-				OrderLocal.DeleteLocalOrder4Disk(_Username, ID);	
+			  return OrderLocal.DeleteLocalOrder4Disk(_Username, ID);	
+				
 			}
 			
 						
 		}
+		return true;
 	}
 
 }

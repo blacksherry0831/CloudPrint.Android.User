@@ -113,13 +113,14 @@ public class OrderLocal {
 	 * 
 	 * 
 	 */
-	public static void DeleteLocalOrder4Disk(String username,String orderid)
+	public static boolean DeleteLocalOrder4Disk(String username,String orderid)
 	{
 		File path=new File(LibCui.GetCloudPrintCfgFile()+"/"+username);
 	    File orderidfile=new File(path,orderid);
 	    if(orderidfile.exists()){
-	    	orderidfile.delete();
+	    	return orderidfile.delete();
 	    }
+	    return false;
 	}
 	/**
 	 * 
