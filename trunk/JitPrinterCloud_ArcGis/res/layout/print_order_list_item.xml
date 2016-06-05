@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:orientation="horizontal" >
+    <!--    android:background="@color/blueviolet"  -->
   
          <ImageView
              android:id="@+id/id_po_list_item_image"
              android:layout_width="0dp"
              android:layout_height="match_parent"
-             android:layout_marginBottom="8dp"
+             android:layout_marginBottom="4dp"
              android:layout_marginLeft="8dp"
-             android:layout_marginTop="8dp"
+             android:layout_marginTop="4dp"
              android:layout_weight="150"
              android:scaleType="fitCenter"
              android:src="@drawable/print_order_item_img" />
@@ -38,9 +39,8 @@
       <Button
           android:id="@+id/id_po_list_item_button"
           android:layout_width="100dp"
-          android:layout_height="40dp"
+          android:layout_height="37dp"
           android:layout_gravity="bottom|right"
-          android:layout_marginBottom="10dp"
           android:layout_marginRight="10dp"
           android:text="已完成"
           style="@style/button_body_default_print"

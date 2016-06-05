@@ -9,6 +9,7 @@ import com.jit.config.KEY.OrderListStartMode;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -294,6 +295,7 @@ public OrderListStartMode mMode;
 				
 				if(convertView==null){
 					convertView=LibCui.getViewFromeXml(_ChildViewId, getContext());
+					 convertView.setBackgroundResource(Color.TRANSPARENT);
 				}
 				
 				TextView tv=(TextView) convertView.findViewById(R.id.id_po_list_item_text);
@@ -319,6 +321,8 @@ public OrderListStartMode mMode;
 							}
 						});
 						
+						 convertView.setBackgroundResource(R.color.order_status_charging);
+						
 					 }else if(UserInfoOrder.STATUS_CHARGED.equalsIgnoreCase(uio.getStatus())){
 						 //计算费用完成
 						 bt.setVisibility(View.VISIBLE);
@@ -337,10 +341,13 @@ public OrderListStartMode mMode;
 										cloudPrintAddress.GetTotalOrderId());*/
 							}
 						});
+						 convertView.setBackgroundResource(R.color.order_status_charged);
 					 }else if(UserInfoOrder.STATUS_PRINTED_PENDING.equalsIgnoreCase(uio.getStatus())){
-						 bt.setVisibility(View.GONE);	
+						 bt.setVisibility(View.GONE);
+						 convertView.setBackgroundResource(R.color.order_status_pending);
 					 }else if(UserInfoOrder.STATUS_SUCCESS.equalsIgnoreCase(uio.getStatus())){
 						 bt.setVisibility(View.GONE);
+						 convertView.setBackgroundResource(R.color.order_status_success);
 					 }else{
 						 //
 						 bt.setVisibility(View.GONE);						
