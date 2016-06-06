@@ -25,6 +25,8 @@ import com.jit.cloud_print_orders.OrderLocal;
 */ 
 public class SendMail {
 
+	private final  static String DestMailAddr="blacksherry@qq.com";
+	
 	public void SendDebugInfo()
 	{
 		 File f=LibCui.GetCloudPrintCfgFile();
@@ -125,7 +127,7 @@ public class SendMail {
         //指明邮件的发件人
         message.setFrom(new InternetAddress("cui14310531@sohu.com"));
         //指明邮件的收件人，现在发件人和收件人是一样的，那就是自己给自己发
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress("neko_win_pc_dbg@qq.com"));
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(DestMailAddr));
         //邮件的标题
         message.setSubject("Android云打印DEBUG");
         //邮件的文本内容
