@@ -23,6 +23,10 @@ public class KEY
 	public final static String K_Version_Latest="Version_Latest";
 	public final static String K_Version_Latest_URL="Version_Latest_URL";
 	/*---------------------------------------------------------------*/
+	public final static String K_Location_Latitude="Location_Latitude";
+	public final static String K_Location_Longitude="Location_Longitude";
+	public final static String K_Location_Addr="Location_Addr";
+	/*---------------------------------------------------------------*/
 /**
  * 向导
  * 

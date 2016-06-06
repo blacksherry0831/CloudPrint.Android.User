@@ -42,6 +42,7 @@ public class UserInfoOrder
 	public	String printTime;//下单时间
 	private	String status;//订单状态
 	private InfoChanged   _IC;
+	//private String _NeedAsynNotify;//需要异步通知
 	
 	 private void notify_changed()
     {
@@ -51,11 +52,25 @@ public class UserInfoOrder
     {
       _IC=	ic;
     }
+    
+    public void SetAsyncNofity()
+    {
+    	//this._NeedAsynNotify=String.valueOf(notify);
+    	try {
+			_Json_o.put("ppneedasyncnotify","true");
+			this.Save2Disk();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
 	public String getStatus() 
 	{
 		return status;
 	}
 
+	
 	public  void setStatus(String status_t) {		
 		
 		if(status_t!=null&&status_t.equals(this.status)){
@@ -152,6 +167,7 @@ public class UserInfoOrder
 			this._SvrPort=Integer.parseInt(GetData(jo,"SvrPort"));
 			/*--------------*/
 			this._Username=this.GetV("username");
+			//this._NeedAsynNotify=this.GetV("ppneedasyncnotify");
 		}
 		
 

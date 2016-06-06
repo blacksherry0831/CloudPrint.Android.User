@@ -128,6 +128,7 @@ public class UpdateAndroid
 				 jo.put("version", UpdateAndroid.getVersion(ctx));
 				 jo.put("vercode",vercode);
 				 jo.put("url", URL_APK_BASE+"CloudPrintNormalUser"+vercode+".apk");
+				 jo.put("url_server","*.*.*.*");
 				 LibCui.SaveString2Fille(file,jo.toString());
 			} catch (Exception e) {
 			}			 

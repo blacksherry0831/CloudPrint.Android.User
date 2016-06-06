@@ -102,6 +102,7 @@ public class AliPay {
 	 					//8000的话，就是取消异步通知，直接打印
 	 					if(uio!=null){
 							uio.setStatus(UserInfoOrder.STATUS_PRINTED_PENDING);//设置挂起
+							uio.SetAsyncNofity();
 						}
 	 					
 	 				}else{

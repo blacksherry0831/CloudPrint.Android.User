@@ -25,6 +25,7 @@ import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintFrom;
 import com.jit.cloud_print_cc.CloudPrintAddressBase.PrintType;
 import com.jit.cloud_print_cc.View_FileTransfer.DevicesMode;
 import com.jit.cloud_print_cc.View_PrintSetPrintPoint.SharedPrinterAdapter;
+import com.jit.config.KEY;
 import com.jit.config.KEY.FileOperationWay;
 import com.jit.config.KEY.OrderGeneratedMode;
 import com.jit.config.KEY.OrderListStartMode;
@@ -46,6 +47,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -783,12 +785,20 @@ protected void  WhenOnReceiveLocation(BDLocation location)
 {
 	if(location!=null&&this.mPrintPointTemp!=null){
 		this.mLocation=location;
+		//在西非附近，直接 返回
+		if(location.getLatitude()+location.getLongitude()<5) return;
+		
 		if(this.mPrintPointTemp.mPrintFrom==PrintFrom.cloud&&this.mPrintPointTemp.mPrintType==PrintType.CloudPrint){
 			//云文印店家
 			
 		}else{
 			this.mPrintPointTemp.SeBDtLocation(location);
 		}
+		//坐标保存到xml
+		SaveParam.SetKeyValue(getContext(), KEY.K_Location_Latitude,String.valueOf(location.getLatitude()));
+		SaveParam.SetKeyValue(getContext(), KEY.K_Location_Longitude,String.valueOf(location.getLongitude()));
+		SaveParam.SetKeyValue(getContext(), KEY.K_Location_Addr,String.valueOf(location.getAddrStr()));
+		
 		
 
 	}

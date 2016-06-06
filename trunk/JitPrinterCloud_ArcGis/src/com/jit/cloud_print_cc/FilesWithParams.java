@@ -246,6 +246,7 @@ public String ToJsonStr(){
 		jo.put("Status", UserInfoOrder.STATUS_CHARGING);
 		jo.put("PrintTime", LibCui.GetTimeStr());
 		/*----*/
+		jo.put("ppneedasyncnotify","false");
 		jo.put("ppcopies", this.GetPrinterCopies());
 		jo.put("ppcolor", this.IsColor());
 		jo.put("pppapersize", this.mPaperSize.toString());
