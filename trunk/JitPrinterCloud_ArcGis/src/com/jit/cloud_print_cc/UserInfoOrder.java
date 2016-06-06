@@ -338,6 +338,9 @@ public class UserInfoOrder
 		jo.put("cmd", cmd);
 		jo.put("orderid_suffix", orderid);
 		
+		String key_asyncnotify="ppneedasyncnotify";
+		jo.put(key_asyncnotify,_Json_o.getString(key_asyncnotify));
+		
 		Socket s=new Socket();
 		try {				
 			 FilesWithParams fwp=new FilesWithParams(doc,null);
