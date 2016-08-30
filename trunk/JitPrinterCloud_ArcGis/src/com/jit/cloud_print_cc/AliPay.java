@@ -118,8 +118,9 @@ public class AliPay {
 		};
 
 		// 必须异步调用
-		Thread payThread = new Thread(payRunnable);
-		payThread.start();
+		//Thread payThread = new Thread(payRunnable);
+		//payThread.start();
+		uio.setStatus(UserInfoOrder.STATUS_PRINTED_PENDING);//设置挂起
 	}
 
 
